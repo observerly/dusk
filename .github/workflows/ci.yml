@@ -1,0 +1,33 @@
+name: dusk/ci
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: CI/CD Build
+    strategy:
+      matrix:
+        go: [ '1.17.x', ]
+        os: [ ubuntu-latest ]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Go Setup
+        uses: actions/setup-go@v2
+        with:
+          go-version: ${{ matrix.go }}
+
+      - name: Go Test
+        run: go test ./... -race -coverprofile=coverage.txt -covermode=atomic
