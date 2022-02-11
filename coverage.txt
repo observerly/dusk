@@ -1,4 +1,5 @@
 mode: atomic
+github.com/observerly/dusk/pkg/dusk/epoch.go:5.48,11.2 3 1
 github.com/observerly/dusk/pkg/dusk/trigonometry.go:10.30,12.2 1 1
 github.com/observerly/dusk/pkg/dusk/trigonometry.go:14.30,16.2 1 1
 github.com/observerly/dusk/pkg/dusk/trigonometry.go:18.30,20.2 1 1
@@ -6,3 +7,4 @@ github.com/observerly/dusk/pkg/dusk/trigonometry.go:22.31,24.2 1 1
 github.com/observerly/dusk/pkg/dusk/trigonometry.go:26.31,28.2 1 1
 github.com/observerly/dusk/pkg/dusk/trigonometry.go:30.31,32.2 1 1
 github.com/observerly/dusk/pkg/dusk/trigonometry.go:34.36,36.2 1 1
+github.com/observerly/dusk/pkg/dusk/twilight.go:3.33,3.34 0 0
