@@ -13,3 +13,14 @@ func GetSolarMeanAnomaly(J float64) float64 {
 	// applies modulo correction to the angle, and ensures always positive:
 	return math.Mod(357.5291092+(0.98560028*J), 360) + 360
 }
+
+/*
+	GetSolarEquationOfCenter()
+
+	@param M - the Mean Solar Anomaly for the Ephemeris Time or the number of centuries since J2000 epoch
+	@returns the equation of center for the Sun
+	@see p.164 of Meeus, Jean. 1991. Astronomical algorithms. Richmond, Va: Willmann-Bell.
+*/
+func GetSolarEquationOfCenter(M float64) float64 {
+	return 1.9148*sinx(M) + 0.0200*sinx(2*M) + 0.0003*sinx(3*M)
+}
