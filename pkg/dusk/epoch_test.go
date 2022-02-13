@@ -17,3 +17,13 @@ func TestGetJulianDate(t *testing.T) {
 		t.Errorf("got %f, wanted %f", got, want)
 	}
 }
+
+func TestGetCurrentJulianDay(t *testing.T) {
+	var got int = GetCurrentJulianDayRelativeToJ2000(datetime)
+
+	var want int = 7804
+
+	if got != want {
+		t.Errorf("got %d, wanted %d", got, want)
+	}
+}
