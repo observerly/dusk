@@ -25,3 +25,15 @@ func GetSolarEquationOfCenter(M float64) float64 {
 	// applies modulo correction to the angle, and ensures always positive:
 	return 1.9148*sinx(M) + 0.0200*sinx(2*M) + 0.0003*sinx(3*M)
 }
+
+/*
+	GetSolarEclipticLongitude()
+
+	@param M - the mean solar anomaly for the Ephemeris time or the number of centuries since J2000 epoch
+	@param C - the equation of center for the Sun
+	@returns the apparent Solar ecliptic longitude (in degrees)
+*/
+func GetSolarEclipticLongitude(M float64, C float64) float64 {
+	// applies modulo correction to the angle, and ensures always positive:
+	return math.Mod(M+C+180+102.9372, 360) + 360
+}
