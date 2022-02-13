@@ -1,0 +1,25 @@
+package dusk
+
+import (
+	"math"
+	"testing"
+	"time"
+)
+
+// For testing we need to specify a date because most calculations are
+// differential w.r.t a time component. We set it to the date provided
+// on p.342 of Meeus, Jean. 1991. Astronomical algorithms.Richmond,
+// Va: Willmann - Bell.:
+var d time.Time = time.Date(1992, 4, 12, 0, 0, 0, 0, time.UTC)
+
+func TestGetSolarMeanAnomaly(t *testing.T) {
+	var J float64 = GetMeanSolarTime(d, longitude)
+
+	var got float64 = GetSolarMeanAnomaly(J)
+
+	var want float64 = 98.561957
+
+	if math.Abs(got-want) > 0.00001 {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+}
