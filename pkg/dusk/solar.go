@@ -1,6 +1,15 @@
 package dusk
 
-import "math"
+import (
+	"math"
+	"time"
+)
+
+type Sun struct {
+	rise time.Time
+	noon time.Time
+	set  time.Time
+}
 
 /*
 	GetSolarMeanAnomaly()
@@ -82,4 +91,43 @@ func GetSolarHourAngle(δ float64, latitude float64, elevation float64) float64 
 	var corr = -2.076 * math.Sqrt(elevation) * 1 / 60
 
 	return acosx((sinx(-0.83-corr) - (sinx(latitude) * sinx(δ))) / cosx(latitude) * cosx(δ))
+}
+
+/*
+	GetSunriseSunsetTimesInUTC()
+
+	@param datetime - the datetime of the observer (in UTC)
+	@param longitude - is the longitude (west is negative, east is positive) in degrees of some observer on Earth
+	@param latitude - is the latitude (south is negative, north is positive) in degrees of some observer on Earth
+	@param elevation - is the elevation (above sea level) in meters of some observer on Earth
+	@returns the rise, noon and set for the Sun, in UTC (*not local time)
+*/
+func GetSunriseSunsetTimesInUTC(datetime time.Time, longitude float64, latitude float64, elevation float64) Sun {
+	var J float64 = GetMeanSolarTime(datetime, longitude)
+
+	var M float64 = GetSolarMeanAnomaly(J)
+
+	var C float64 = GetSolarEquationOfCenter(M)
+
+	var λ float64 = GetSolarEclipticLongitude(M, C)
+
+	var δ float64 = GetSolarDeclination(λ)
+
+	var ω float64 = GetSolarHourAngle(δ, latitude, elevation)
+
+	var h float64 = ω / 360
+
+	var J_transit float64 = GetSolarTransitJulianDate(J, M, λ)
+
+	var J_rise = J_transit - h
+
+	var J_set = J_transit + h
+
+	sun := Sun{
+		rise: GetUniversalTime(J_rise),
+		noon: GetUniversalTime(J_transit),
+		set:  GetUniversalTime(J_set),
+	}
+
+	return sun
 }
