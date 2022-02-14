@@ -49,3 +49,16 @@ func GetSolarEclipticLongitude(M float64, C float64) float64 {
 func GetSolarTransitJulianDate(J float64, M float64, λ float64) float64 {
 	return 2451545.0 + J + 0.0053*sinx(M) - 0.0069*sinx(2*λ)
 }
+
+/*
+	GetSolarDeclination()
+
+	The declination of the Sun, δ☉, is the angle between the rays of the Sun and the plane of the Earth's equator.
+
+	@param λ - the ecliptic longitude of the Sun (in degrees)
+	@returns the declination of the Sun (in degrees)
+	@see https://gml.noaa.gov/grad/solcalc/glossary.html#solardeclination
+*/
+func GetSolarDeclination(λ float64) float64 {
+	return asinx(sinx(λ) * sinx(23.44))
+}
