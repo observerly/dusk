@@ -43,7 +43,7 @@ func GetSolarEclipticLongitude(M float64, C float64) float64 {
 
 	@param J - the Ephemeris time or the number of centuries since J2000 epoch
 	@param M - the mean solar anomaly for the Ephemeris time or the number of centuries since J2000 epoch
-	@param C - the equation of center for the Sun
+	@param λ - the ecliptic longitude of the Sun (in degrees)
 	@returns the Julian date for the local true solar transit (or solar noon).
 */
 func GetSolarTransitJulianDate(J float64, M float64, λ float64) float64 {
