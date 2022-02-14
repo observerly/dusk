@@ -20,6 +20,16 @@ func TestGetJulianDate(t *testing.T) {
 	}
 }
 
+func TestGetUniversalTime(t *testing.T) {
+	var got time.Time = GetUniversalTime(2459348.5)
+
+	var want time.Time = time.Date(2021, 5, 14, 0, 0, 0, 0, time.UTC)
+
+	if got != want {
+		t.Errorf("got %q, wanted %q", got, want)
+	}
+}
+
 func TestGetCurrentJulianDay(t *testing.T) {
 	var got int = GetCurrentJulianDayRelativeToJ2000(datetime)
 
