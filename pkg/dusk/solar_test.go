@@ -12,6 +12,10 @@ import (
 // Va: Willmann - Bell.:
 var d time.Time = time.Date(1992, 4, 12, 0, 0, 0, 0, time.UTC)
 
+var latitude float64 = 19.798484
+
+var elevation float64 = 0
+
 func TestGetSolarMeanAnomaly(t *testing.T) {
 	var J float64 = GetMeanSolarTime(d, longitude)
 
@@ -84,6 +88,26 @@ func TestGetSolarDeclination(t *testing.T) {
 	var got float64 = GetSolarDeclination(λ)
 
 	var want float64 = 9.084711
+
+	if math.Abs(got-want) > 0.00001 {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+}
+
+func TestGetSolarHourAngle(t *testing.T) {
+	var J float64 = GetMeanSolarTime(d, longitude)
+
+	var M float64 = GetSolarMeanAnomaly(J)
+
+	var C float64 = GetSolarEquationOfCenter(M)
+
+	var λ float64 = GetSolarEclipticLongitude(M, C)
+
+	var δ float64 = GetSolarDeclination(λ)
+
+	var got float64 = GetSolarHourAngle(δ, latitude, elevation)
+
+	var want float64 = 94.090408
 
 	if math.Abs(got-want) > 0.00001 {
 		t.Errorf("got %f, wanted %f", got, want)

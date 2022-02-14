@@ -62,3 +62,24 @@ func GetSolarTransitJulianDate(J float64, M float64, λ float64) float64 {
 func GetSolarDeclination(λ float64) float64 {
 	return asinx(sinx(λ) * sinx(23.44))
 }
+
+/*
+	GetSolarHourAngle()
+
+	Observing the Sun from Earth, the solar hour angle is an expression of time, expressed in angular measurement,
+	usually degrees, from solar noon. At solar noon the hour angle is zero degrees, with the time before solar noon
+	expressed as negative degrees, and the local time after solar noon expressed as positive degrees.
+
+	@param δ - the ecliptic longitude of the Sun (in degrees)
+	@param latitude - is the latitude (south is negative, north is positive) in degrees of some observer on Earth
+	@param elevation - is the elevation (above sea level) in meters of some observer on Earth
+	@returns the solar hour angle for a given solar declination, of some observer on Earth
+	@see https://gml.noaa.gov/grad/solcalc/glossary.html#solardeclination
+*/
+func GetSolarHourAngle(δ float64, latitude float64, elevation float64) float64 {
+	// observations on a sea horizon needing an elevation-of-observer correction
+	// (corrects for both apparent dip and terrestrial refraction):
+	var corr = -2.076 * math.Sqrt(elevation) * 1 / 60
+
+	return acosx((sinx(-0.83-corr) - (sinx(latitude) * sinx(δ))) / cosx(latitude) * cosx(δ))
+}
