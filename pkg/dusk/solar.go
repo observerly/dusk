@@ -85,10 +85,10 @@ func GetSolarDeclination(λ float64) float64 {
 	@returns the solar hour angle for a given solar declination, of some observer on Earth
 	@see https://gml.noaa.gov/grad/solcalc/glossary.html#solardeclination
 */
-func GetSolarHourAngle(δ float64, latitude float64, elevation float64) float64 {
+func GetSolarHourAngle(δ float64, degreesBelowHorizon float64, latitude float64, elevation float64) float64 {
 	// observations on a sea horizon needing an elevation-of-observer correction
 	// (corrects for both apparent dip and terrestrial refraction):
-	var corr = -2.076 * math.Sqrt(elevation) * 1 / 60
+	var corr = -degreesBelowHorizon + -2.076*math.Sqrt(elevation)*1/60
 
 	return acosx((sinx(-0.83-corr) - (sinx(latitude) * sinx(δ))) / cosx(latitude) * cosx(δ))
 }
@@ -102,7 +102,7 @@ func GetSolarHourAngle(δ float64, latitude float64, elevation float64) float64 
 	@param elevation - is the elevation (above sea level) in meters of some observer on Earth
 	@returns the rise, noon and set for the Sun, in UTC (*not local time)
 */
-func GetSunriseSunsetTimesInUTC(datetime time.Time, longitude float64, latitude float64, elevation float64) Sun {
+func GetSunriseSunsetTimesInUTC(datetime time.Time, degreesBelowHorizon float64, longitude float64, latitude float64, elevation float64) Sun {
 	var J float64 = GetMeanSolarTime(datetime, longitude)
 
 	var M float64 = GetSolarMeanAnomaly(J)
@@ -113,7 +113,7 @@ func GetSunriseSunsetTimesInUTC(datetime time.Time, longitude float64, latitude 
 
 	var δ float64 = GetSolarDeclination(λ)
 
-	var ω float64 = GetSolarHourAngle(δ, latitude, elevation)
+	var ω float64 = GetSolarHourAngle(δ, degreesBelowHorizon, latitude, elevation)
 
 	var h float64 = ω / 360
 
