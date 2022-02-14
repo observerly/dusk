@@ -71,3 +71,21 @@ func TestGetSolarTransit(t *testing.T) {
 		t.Errorf("got %f, wanted %f", got, want)
 	}
 }
+
+func TestGetSolarDeclination(t *testing.T) {
+	var J float64 = GetMeanSolarTime(d, longitude)
+
+	var M float64 = GetSolarMeanAnomaly(J)
+
+	var C float64 = GetSolarEquationOfCenter(M)
+
+	var λ float64 = GetSolarEclipticLongitude(M, C)
+
+	var got float64 = GetSolarDeclination(λ)
+
+	var want float64 = 9.084711
+
+	if math.Abs(got-want) > 0.00001 {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+}
