@@ -37,3 +37,15 @@ func GetSolarEclipticLongitude(M float64, C float64) float64 {
 	// applies modulo correction to the angle, and ensures always positive:
 	return math.Mod(M+C+180+102.9372, 360) + 360
 }
+
+/*
+	GetSolarTransitJulianDate()
+
+	@param J - the Ephemeris time or the number of centuries since J2000 epoch
+	@param M - the mean solar anomaly for the Ephemeris time or the number of centuries since J2000 epoch
+	@param C - the equation of center for the Sun
+	@returns the Julian date for the local true solar transit (or solar noon).
+*/
+func GetSolarTransitJulianDate(J float64, M float64, λ float64) float64 {
+	return 2451545.0 + J + 0.0053*sinx(M) - 0.0069*sinx(2*λ)
+}
