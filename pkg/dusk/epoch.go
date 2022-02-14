@@ -25,6 +25,15 @@ func GetJulianDate(datetime time.Time) float64 {
 }
 
 /*
+	GetUniversalTime()
+
+	@returns the universal time (UTC) for a given Julian date
+*/
+func GetUniversalTime(JD float64) time.Time {
+	return time.Unix(0, int64((JD-J1970)*86400000.0*1e6)).UTC()
+}
+
+/*
 	GetCurrentJulianDayRelativeToJ2000()
 
 	@returns the number of Julian days between J2000 (i.e., 1 January 2000 00:00:00 UTC) and the the datetime, rounded up the the nearest integer
