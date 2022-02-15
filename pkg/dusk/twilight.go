@@ -70,3 +70,19 @@ func GetLocalCivilTwilight(datetime time.Time, longitude float64, latitude float
 
 	return GetLocalTwilight(datetime, longitude, latitude, elevation, degreesBelowHorizon)
 }
+
+/*
+	GetLocalNauticalTwilight()
+
+	@param datetime - the datetime of the observer (in UTC)
+	@param longitude - is the longitude (west is negative, east is positive) in degrees of some observer on Earth
+	@param latitude - is the latitude (south is negative, north is positive) in degrees of some observer on Earth
+	@param elevation - is the elevation (above sea level) in meters of some observer on Earth
+	@returns the start and end times of Nautical Twilight, as designated by when the Sun is -12 degrees below the horizon.
+*/
+func GetLocalNauticalTwilight(datetime time.Time, longitude float64, latitude float64, elevation float64) (*Twilight, *time.Location, error) {
+	// nautical twilight is designated as being 6 degrees below horizon:
+	var degreesBelowHorizon float64 = -12
+
+	return GetLocalTwilight(datetime, longitude, latitude, elevation, degreesBelowHorizon)
+}
