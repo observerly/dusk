@@ -25,18 +25,16 @@ type Twilight struct {
 // @see https://pkg.go.dev/time#LoadLocation
 
 /*
-	GetLocalCivilTwilight()
+	GetLocalTwilight()
 
 	@param datetime - the datetime of the observer (in UTC)
 	@param longitude - is the longitude (west is negative, east is positive) in degrees of some observer on Earth
 	@param latitude - is the latitude (south is negative, north is positive) in degrees of some observer on Earth
 	@param elevation - is the elevation (above sea level) in meters of some observer on Earth
+	@param degreesBelowHorizon - is the degrees below horizon for the designated "twilight period", with 0° being "night" e.g., as soon as the sun is below the horizon.
 	@returns the start and end times of Civil Twilight, as designated by when the Sun is -6 degrees below the horizon.
 */
-func GetLocalCivilTwilight(datetime time.Time, longitude float64, latitude float64, elevation float64) (*Twilight, *time.Location, error) {
-	// civil twilight is designated as being 6 degrees below horizon:
-	var degreesBelowHorizon float64 = -6
-
+func GetLocalTwilight(datetime time.Time, longitude float64, latitude float64, elevation float64, degreesBelowHorizon float64) (*Twilight, *time.Location, error) {
 	// get the corresponding timezone for the longitude and latitude provided:
 	timezone := tzm.LatLngToTimezoneString(latitude, longitude)
 
@@ -55,4 +53,20 @@ func GetLocalCivilTwilight(datetime time.Time, longitude float64, latitude float
 		from:  s.set.In(location),
 		until: r.rise.In(location),
 	}, location, nil
+}
+
+/*
+	GetLocalCivilTwilight()
+
+	@param datetime - the datetime of the observer (in UTC)
+	@param longitude - is the longitude (west is negative, east is positive) in degrees of some observer on Earth
+	@param latitude - is the latitude (south is negative, north is positive) in degrees of some observer on Earth
+	@param elevation - is the elevation (above sea level) in meters of some observer on Earth
+	@returns the start and end times of Civil Twilight, as designated by when the Sun is -6 degrees below the horizon.
+*/
+func GetLocalCivilTwilight(datetime time.Time, longitude float64, latitude float64, elevation float64) (*Twilight, *time.Location, error) {
+	// civil twilight is designated as being 6 degrees below horizon:
+	var degreesBelowHorizon float64 = -6
+
+	return GetLocalTwilight(datetime, longitude, latitude, elevation, degreesBelowHorizon)
 }
