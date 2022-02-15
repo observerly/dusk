@@ -86,3 +86,19 @@ func GetLocalNauticalTwilight(datetime time.Time, longitude float64, latitude fl
 
 	return GetLocalTwilight(datetime, longitude, latitude, elevation, degreesBelowHorizon)
 }
+
+/*
+	GetLocalAstronomicalTwilight()
+
+	@param datetime - the datetime of the observer (in UTC)
+	@param longitude - is the longitude (west is negative, east is positive) in degrees of some observer on Earth
+	@param latitude - is the latitude (south is negative, north is positive) in degrees of some observer on Earth
+	@param elevation - is the elevation (above sea level) in meters of some observer on Earth
+	@returns the start and end times of Astronomical Twilight, as designated by when the Sun is -18 degrees below the horizon.
+*/
+func GetLocalAstronomicalTwilight(datetime time.Time, longitude float64, latitude float64, elevation float64) (*Twilight, *time.Location, error) {
+	// astronomical twilight is designated as being 18 degrees below horizon:
+	var degreesBelowHorizon float64 = -18
+
+	return GetLocalTwilight(datetime, longitude, latitude, elevation, degreesBelowHorizon)
+}
