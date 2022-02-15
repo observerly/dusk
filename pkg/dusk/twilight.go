@@ -1,5 +1,11 @@
 package dusk
 
+import (
+	"time"
+
+	tzm "github.com/zsefvlol/timezonemapper"
+)
+
 type SunriseStatus int
 
 const (
@@ -7,3 +13,46 @@ const (
 	AtHorizon    = SunriseStatus(0)
 	BelowHorizon = SunriseStatus(-1)
 )
+
+type Twilight struct {
+	from  time.Time
+	until time.Time
+}
+
+// For all twilight funcs, please reference for information on timezones and their respective locations:
+// @see https://en.wikipedia.org/wiki/list_of_tz_database_time_zones
+// @see https://www.iana.org/time-zones
+// @see https://pkg.go.dev/time#LoadLocation
+
+/*
+	GetLocalCivilTwilight()
+
+	@param datetime - the datetime of the observer (in UTC)
+	@param longitude - is the longitude (west is negative, east is positive) in degrees of some observer on Earth
+	@param latitude - is the latitude (south is negative, north is positive) in degrees of some observer on Earth
+	@param elevation - is the elevation (above sea level) in meters of some observer on Earth
+	@returns the start and end times of Civil Twilight, as designated by when the Sun is -6 degrees below the horizon.
+*/
+func GetLocalCivilTwilight(datetime time.Time, longitude float64, latitude float64, elevation float64) (*Twilight, *time.Location, error) {
+	// civil twilight is designated as being 6 degrees below horizon:
+	var degreesBelowHorizon float64 = -6
+
+	// get the corresponding timezone for the longitude and latitude provided:
+	timezone := tzm.LatLngToTimezoneString(latitude, longitude)
+
+	var s Sun = GetSunriseSunsetTimesInUTC(datetime, degreesBelowHorizon, longitude, latitude, elevation)
+
+	var r Sun = GetSunriseSunsetTimesInUTC(datetime.Add(time.Hour*24), degreesBelowHorizon, longitude, latitude, elevation)
+
+	// the corresponding local timezone for the observer, e..g, the location name corresponding to a file in the IANA Time Zone database, such as "Pacific/Honolulu":
+	location, err := time.LoadLocation(timezone)
+
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return &Twilight{
+		from:  s.set.In(location),
+		until: r.rise.In(location),
+	}, location, nil
+}
