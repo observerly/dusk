@@ -15,8 +15,9 @@ const (
 )
 
 type Twilight struct {
-	from  time.Time
-	until time.Time
+	from     time.Time
+	until    time.Time
+	duration time.Duration
 }
 
 // For all twilight funcs, please reference for information on timezones and their respective locations:
@@ -50,8 +51,9 @@ func GetLocalTwilight(datetime time.Time, longitude float64, latitude float64, e
 	}
 
 	return &Twilight{
-		from:  s.set.In(location),
-		until: r.rise.In(location),
+		from:     s.set.In(location),
+		until:    r.rise.In(location),
+		duration: r.set.Sub(r.rise),
 	}, location, nil
 }
 

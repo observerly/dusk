@@ -77,6 +77,34 @@ func TestGetLocalCivilTwilightUntil(t *testing.T) {
 	}
 }
 
+func TestGetLocalCivilTwilightDuration(t *testing.T) {
+	timezone, err := time.LoadLocation("Pacific/Honolulu")
+
+	if err != nil {
+		t.Errorf("got %q", err)
+		return
+	}
+
+	twilight, location, err := GetLocalCivilTwilight(d, longitude, latitude, elevation)
+
+	if err != nil {
+		t.Errorf("got %q", err)
+		return
+	}
+
+	if timezone.String() != location.String() {
+		t.Errorf("got %q, wanted %q", location, timezone)
+	}
+
+	var got time.Duration = twilight.duration
+
+	var want time.Duration = 48260273900544
+
+	if got.Nanoseconds() != want.Nanoseconds() {
+		t.Errorf("got %d, wanted %d", got.Nanoseconds(), want.Nanoseconds())
+	}
+}
+
 func TestGetLocalNauticalTwilightFrom(t *testing.T) {
 	timezone, err := time.LoadLocation("Pacific/Honolulu")
 
@@ -149,6 +177,34 @@ func TestGetLocalNauticalTwilightUntil(t *testing.T) {
 	}
 }
 
+func TestGetLocalNauticalTwilightDuration(t *testing.T) {
+	timezone, err := time.LoadLocation("Pacific/Honolulu")
+
+	if err != nil {
+		t.Errorf("got %q", err)
+		return
+	}
+
+	twilight, location, err := GetLocalNauticalTwilight(d, longitude, latitude, elevation)
+
+	if err != nil {
+		t.Errorf("got %q", err)
+		return
+	}
+
+	if timezone.String() != location.String() {
+		t.Errorf("got %q, wanted %q", location, timezone)
+	}
+
+	var got time.Duration = twilight.duration
+
+	var want time.Duration = 51323107498880
+
+	if got.Nanoseconds() != want.Nanoseconds() {
+		t.Errorf("got %d, wanted %d", got.Nanoseconds(), want.Nanoseconds())
+	}
+}
+
 func TestGetLocalAstronomicalTwilightFrom(t *testing.T) {
 	timezone, err := time.LoadLocation("Pacific/Honolulu")
 
@@ -218,5 +274,33 @@ func TestGetLocalAstronomicalTwilightUntil(t *testing.T) {
 
 	if !got.Equal(want) {
 		t.Errorf("got %q, wanted %q", got, want)
+	}
+}
+
+func TestGetLocalAstronomicalTwilightDuration(t *testing.T) {
+	timezone, err := time.LoadLocation("Pacific/Honolulu")
+
+	if err != nil {
+		t.Errorf("got %q", err)
+		return
+	}
+
+	twilight, location, err := GetLocalAstronomicalTwilight(d, longitude, latitude, elevation)
+
+	if err != nil {
+		t.Errorf("got %q", err)
+		return
+	}
+
+	if timezone.String() != location.String() {
+		t.Errorf("got %q, wanted %q", location, timezone)
+	}
+
+	var got time.Duration = twilight.duration
+
+	var want time.Duration = 54417566835968
+
+	if got.Nanoseconds() != want.Nanoseconds() {
+		t.Errorf("got %d, wanted %d", got.Nanoseconds(), want.Nanoseconds())
 	}
 }
