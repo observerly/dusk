@@ -3,6 +3,25 @@ package dusk
 import "math"
 
 /*
+	GetLunarMeanLongitude()
+
+	@param J - the Ephemeris time or the number of centuries since J2000 epoch
+	@returns the ecliptic longitude at which the Moon could be found if its orbit were circular and free of perturbations.
+	@see EQ.47.1 p.338 of Meeus, Jean. 1991. Astronomical algorithms. Richmond, Va: Willmann-Bell.
+*/
+func GetLunarMeanLongitude(J float64) float64 {
+	// correct for large angles (+ive or -ive), i.e., applies modulo correction to the angle, and ensures always positive:
+	var L = math.Mod((218.3164477 + 481267.88123421*J - 0.0015786*math.Pow(J, 2) + math.Pow(J, 3)/538841 - math.Pow(J, 4)/65194000), 360)
+
+	// correct for negative angles
+	if L < 0 {
+		L += 360
+	}
+
+	return L
+}
+
+/*
 	GetLunarMeanAnomaly()
 
 	@param J - the Ephemeris time or the number of centuries since J2000 epoch
