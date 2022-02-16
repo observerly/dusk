@@ -58,3 +58,22 @@ func GetLunarArgumentOfLatitude(J float64) float64 {
 
 	return F
 }
+
+/*
+  GetLunarHorizontalLongitude()
+
+  @param J - the Ephemeris time or the number of centuries since J2000 epoch
+  @returns the Lunar argument of latitude
+	@see EQ.47.5 p.338 of Meeus, Jean. 1991. Astronomical algorithms. Richmond, Va: Willmann-Bell.
+*/
+func GetLunarHorizontalLongitude(L float64, M float64) float64 {
+	// correct for large angles (+ive or -ive), i.e., applies modulo correction to the angle, and ensures always positive:
+	var l = math.Mod(L+6.289*sinx(M), 360)
+
+	// correct for negative angles
+	if l < 0 {
+		l += 360
+	}
+
+	return l
+}

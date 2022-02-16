@@ -39,3 +39,19 @@ func TestGetLunarArgumentOfLatitude(t *testing.T) {
 		t.Errorf("got %f, wanted %f", got, want)
 	}
 }
+
+func TestGetLunarHorizontalLongitude(t *testing.T) {
+	var J float64 = GetCurrentJulianCenturyRelativeToJ2000(d)
+
+	var M float64 = GetLunarMeanAnomaly(J)
+
+	var L float64 = GetLunarMeanLongitude(J)
+
+	var got float64 = GetLunarHorizontalLongitude(L, M)
+
+	var want float64 = 134.854795
+
+	if math.Abs(got-want) > 0.00001 {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+}
