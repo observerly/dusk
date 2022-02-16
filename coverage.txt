@@ -19,6 +19,7 @@ github.com/observerly/dusk/pkg/dusk/twilight.go:49.16,51.3 1 0
 github.com/observerly/dusk/pkg/dusk/twilight.go:69.139,74.2 2 3
 github.com/observerly/dusk/pkg/dusk/twilight.go:85.142,90.2 2 3
 github.com/observerly/dusk/pkg/dusk/twilight.go:101.146,106.2 2 3
+github.com/observerly/dusk/pkg/dusk/utils.go:13.34,15.2 1 1
 github.com/observerly/dusk/pkg/dusk/epoch.go:20.48,25.2 2 38
 github.com/observerly/dusk/pkg/dusk/epoch.go:32.45,34.2 1 70
 github.com/observerly/dusk/pkg/dusk/epoch.go:42.65,53.2 4 31
