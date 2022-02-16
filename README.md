@@ -2,7 +2,7 @@
 
 Dusk is a Go library for calculating astronomical twilight, the lunar phase and the rise and set times of the moon and sun.
 
-## Installation ⚙️
+## Installation
 
 Make sure you have Go installed ([download](https://golang.org/dl/)). Version `1.17` or higher is required for this package.
 
