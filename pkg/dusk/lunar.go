@@ -64,8 +64,7 @@ func GetLunarArgumentOfLatitude(J float64) float64 {
 
  	@param M - the mean lunar anomaly for the Ephemeris time or the number of centuries since J2000 epoch
 	@param L - the ecliptic longitude at which the Moon could be found if its orbit were circular and free of perturbations.
-  @returns the Lunar argument of latitude
-	@see EQ.47.5 p.338 of Meeus, Jean. 1991. Astronomical algorithms. Richmond, Va: Willmann-Bell.
+  @returns the Lunar horizontal longitude
 */
 func GetLunarHorizontalLongitude(M float64, L float64) float64 {
 	// correct for large angles (+ive or -ive), i.e., applies modulo correction to the angle, and ensures always positive:
