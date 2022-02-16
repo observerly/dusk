@@ -53,6 +53,22 @@ func GetCurrentJulianDayRelativeToJ2000(datetime time.Time) int {
 }
 
 /*
+	GetCurrentJulianCenturyRelativeToJ2000()
+
+	@returns the number of Julian centuries between J2000 (i.e., 1 January 2000 00:00:00 UTC) and the the datetime, rounded up the the nearest integer
+	@see http://astro.vaporia.com/start/jd.html
+*/
+func GetCurrentJulianCenturyRelativeToJ2000(datetime time.Time) float64 {
+	// get the Julian date:
+	var JD float64 = GetJulianDate(datetime)
+
+	// calculate the current Julian century as fractions of centuries:
+	var n float64 = (JD - 2451545.0) / 36525
+
+	return n
+}
+
+/*
 	GetMeanSolarTime()
 
 	@param datetime - the datetime of the observer (in UTC)
