@@ -41,7 +41,7 @@ func GetLunarMeanAnomaly(J float64) float64 {
 }
 
 /*
-  getLunarArgumentOfLatitude()
+  GetLunarArgumentOfLatitude()
 
   @param J - the Ephemeris time or the number of centuries since J2000 epoch
   @returns the Lunar argument of latitude
