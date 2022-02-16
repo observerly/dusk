@@ -11,3 +11,13 @@ Initialize your project by creating a folder and then running `go mod init githu
 ```bash
 go get -u github.com/observerly/dusk
 ```
+
+## License
+
+Dusk is free software licensed under the GNU General Public License v3.0 (GPL-3.0). See [LICENSE](./LICENSE).
+
+The binary version of this program uses several open source libraries and components, which come with their own licensing terms. See below for an overview, and [LICENSE](./LICENSE) for details.
+
+| Library attribution | License type |
+|---------------------|--------------|
+| [zsefvlol/timezonemapper](https://github.com/zsefvlol/timezonemapper) | MIT License |
