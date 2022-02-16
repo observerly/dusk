@@ -47,7 +47,7 @@ func TestGetLunarHorizontalLongitude(t *testing.T) {
 
 	var L float64 = GetLunarMeanLongitude(J)
 
-	var got float64 = GetLunarHorizontalLongitude(L, M)
+	var got float64 = GetLunarHorizontalLongitude(M, L)
 
 	var want float64 = 134.854795
 
