@@ -77,3 +77,21 @@ func GetLunarHorizontalLongitude(M float64, L float64) float64 {
 
 	return l
 }
+
+/*
+  GetLunarHorizontalLatitude()
+
+ 	@param F - the Lunar argument of latitude
+  @returns the Lunar horizontal latitude
+*/
+func GetLunarHorizontalLatitude(F float64) float64 {
+	// correct for large angles (+ive or -ive), i.e., applies modulo correction to the angle, and ensures always positive:
+	var b = math.Mod(5.128*sinx(F), 360)
+
+	// correct for negative angles
+	if b < 0 {
+		b += 360
+	}
+
+	return b
+}
