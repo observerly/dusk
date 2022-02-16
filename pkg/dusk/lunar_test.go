@@ -27,3 +27,15 @@ func TestGetLunarMeanAnomaly(t *testing.T) {
 		t.Errorf("got %f, wanted %f", got, want)
 	}
 }
+
+func TestGetLunarArgumentOfLatitude(t *testing.T) {
+	var J float64 = GetCurrentJulianCenturyRelativeToJ2000(d)
+
+	var got float64 = GetLunarArgumentOfLatitude(J)
+
+	var want float64 = 219.889721
+
+	if math.Abs(got-want) > 0.00001 {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+}
