@@ -39,3 +39,22 @@ func GetLunarMeanAnomaly(J float64) float64 {
 
 	return M
 }
+
+/*
+  getLunarArgumentOfLatitude()
+
+  @param J - the Ephemeris time or the number of centuries since J2000 epoch
+  @returns the Lunar argument of latitude
+	@see EQ.47.5 p.338 of Meeus, Jean. 1991. Astronomical algorithms. Richmond, Va: Willmann-Bell.
+*/
+func GetLunarArgumentOfLatitude(J float64) float64 {
+	// correct for large angles (+ive or -ive), i.e., applies modulo correction to the angle, and ensures always positive:
+	var F float64 = math.Mod((93.272095 + 483202.0175233*J - 0.0036539*math.Pow(J, 2) + math.Pow(J, 3)/3526000 - math.Pow(J, 4)/863310000), 360)
+
+	// correct for negative angles
+	if F < 0 {
+		F += 360
+	}
+
+	return F
+}
