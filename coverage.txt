@@ -1,4 +1,14 @@
 mode: atomic
+github.com/observerly/dusk/pkg/dusk/twilight.go:38.163,49.16 5 9
+github.com/observerly/dusk/pkg/dusk/twilight.go:53.2,57.18 1 9
+github.com/observerly/dusk/pkg/dusk/twilight.go:49.16,51.3 1 0
+github.com/observerly/dusk/pkg/dusk/twilight.go:69.139,74.2 2 3
+github.com/observerly/dusk/pkg/dusk/twilight.go:85.142,90.2 2 3
+github.com/observerly/dusk/pkg/dusk/twilight.go:101.146,106.2 2 3
+github.com/observerly/dusk/pkg/dusk/epoch.go:20.48,25.2 2 32
+github.com/observerly/dusk/pkg/dusk/epoch.go:32.45,34.2 1 70
+github.com/observerly/dusk/pkg/dusk/epoch.go:42.65,53.2 4 31
+github.com/observerly/dusk/pkg/dusk/epoch.go:62.70,67.2 2 30
 github.com/observerly/dusk/pkg/dusk/solar.go:21.45,24.2 1 29
 github.com/observerly/dusk/pkg/dusk/solar.go:33.50,36.2 1 28
 github.com/observerly/dusk/pkg/dusk/solar.go:45.62,48.2 1 27
@@ -13,13 +23,3 @@ github.com/observerly/dusk/pkg/dusk/trigonometry.go:22.31,24.2 1 26
 github.com/observerly/dusk/pkg/dusk/trigonometry.go:26.31,28.2 1 25
 github.com/observerly/dusk/pkg/dusk/trigonometry.go:30.31,32.2 1 1
 github.com/observerly/dusk/pkg/dusk/trigonometry.go:34.36,36.2 1 1
-github.com/observerly/dusk/pkg/dusk/twilight.go:38.163,49.16 5 9
-github.com/observerly/dusk/pkg/dusk/twilight.go:53.2,57.18 1 9
-github.com/observerly/dusk/pkg/dusk/twilight.go:49.16,51.3 1 0
-github.com/observerly/dusk/pkg/dusk/twilight.go:69.139,74.2 2 3
-github.com/observerly/dusk/pkg/dusk/twilight.go:85.142,90.2 2 3
-github.com/observerly/dusk/pkg/dusk/twilight.go:101.146,106.2 2 3
-github.com/observerly/dusk/pkg/dusk/epoch.go:20.48,25.2 2 32
-github.com/observerly/dusk/pkg/dusk/epoch.go:32.45,34.2 1 70
-github.com/observerly/dusk/pkg/dusk/epoch.go:42.65,53.2 4 31
-github.com/observerly/dusk/pkg/dusk/epoch.go:62.70,67.2 2 30
