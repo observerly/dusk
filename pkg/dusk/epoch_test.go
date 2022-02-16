@@ -40,6 +40,16 @@ func TestGetCurrentJulianDay(t *testing.T) {
 	}
 }
 
+func TestGetCurrentJulianCentury(t *testing.T) {
+	var got float64 = GetCurrentJulianCenturyRelativeToJ2000(datetime)
+
+	var want float64 = 0.21364818617385353
+
+	if got != want {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+}
+
 func TestGetMeanSolarTime(t *testing.T) {
 	var got float64 = GetMeanSolarTime(datetime, longitude)
 
