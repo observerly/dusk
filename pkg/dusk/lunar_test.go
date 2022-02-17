@@ -93,3 +93,15 @@ func TestGetLunarEquatorialPositionDeclination(t *testing.T) {
 		t.Errorf("got %f, wanted %f", got, want)
 	}
 }
+
+func TestGetLunarHourAngle(t *testing.T) {
+	var eq EquatorialCoordinate = GetLunarEquatorialPosition(datetime)
+
+	var got float64 = GetLunarHourAngle(eq.dec, latitude, 0)
+
+	var want float64 = 97.466043
+
+	if math.Abs(got-want) > 0.00001 {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+}

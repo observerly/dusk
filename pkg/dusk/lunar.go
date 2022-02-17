@@ -131,3 +131,23 @@ func GetLunarEquatorialPosition(datetime time.Time) EquatorialCoordinate {
 		dec: dec,
 	}
 }
+
+/*
+	GetLunarHourAngle()
+
+	Observing the Moon from Earth, the lunar hour angle is an expression of time, expressed in angular measurement,
+	usually degrees, from lunar noon. At lunar noon the hour angle is zero degrees, with the time before lunar noon
+	expressed as negative degrees, and the local time after lunar noon expressed as positive degrees.
+
+	@param δ - the ecliptic longitude of the Moon (in degrees)
+	@param latitude - is the latitude (south is negative, north is positive) in degrees of some observer on Earth
+	@param elevation - is the elevation (above sea level) in meters of some observer on Earth
+	@returns the lunar hour angle for a given lunar declination, of some observer on Earth
+*/
+func GetLunarHourAngle(δ float64, latitude float64, elevation float64) float64 {
+	// observations on a sea horizon needing an elevation-of-observer correction
+	// (corrects for both apparent dip and terrestrial refraction):
+	var corr = -2.076 * math.Sqrt(elevation) * 1 / 60
+
+	return acosx((sinx(0.125-corr) - (sinx(latitude) * sinx(δ))) / cosx(latitude) * cosx(δ))
+}
