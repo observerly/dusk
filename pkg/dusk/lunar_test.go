@@ -69,3 +69,27 @@ func TestGetLunarHorizontalLatitude(t *testing.T) {
 		t.Errorf("got %f, wanted %f", got, want)
 	}
 }
+
+func TestGetLunarEquatorialPositionRightAscension(t *testing.T) {
+	var eq EquatorialCoordinate = GetLunarEquatorialPosition(datetime)
+
+	var got float64 = eq.ra
+
+	var want float64 = 76.239624
+
+	if math.Abs(got-want) > 0.00001 {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+}
+
+func TestGetLunarEquatorialPositionDeclination(t *testing.T) {
+	var eq EquatorialCoordinate = GetLunarEquatorialPosition(datetime)
+
+	var got float64 = eq.dec
+
+	var want float64 = 23.598793
+
+	if math.Abs(got-want) > 0.00001 {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+}

@@ -1,6 +1,9 @@
 package dusk
 
-import "math"
+import (
+	"math"
+	"time"
+)
 
 /*
 	GetLunarMeanLongitude()
@@ -94,4 +97,37 @@ func GetLunarHorizontalLatitude(F float64) float64 {
 	}
 
 	return b
+}
+
+/*
+  GetLunarEquatorialPosition()
+
+ 	@param datetime - the datetime in UTC of the observer
+  @returns the Lunar equatorial position (right ascension & declination) in degrees:
+*/
+func GetLunarEquatorialPosition(datetime time.Time) EquatorialCoordinate {
+	var J float64 = GetCurrentJulianCenturyRelativeToJ2000(datetime)
+
+	var M float64 = GetLunarMeanAnomaly(J)
+
+	var L float64 = GetLunarMeanLongitude(J)
+
+	var F float64 = GetLunarArgumentOfLatitude(J)
+
+	var l float64 = GetLunarHorizontalLongitude(M, L)
+
+	var b float64 = GetLunarHorizontalLatitude(F)
+
+	var O float64 = GetEarthObliquity()
+
+	// trigoneometric functions handle the correct degrees and radians conversions:
+	var ra float64 = atan2yx(sinx(l)*cosx(O)-tanx(b)*sinx(O), cosx(l))
+
+	// trigoneometric functions handle the correct degrees and radians conversions:
+	var dec float64 = asinx(sinx(b)*cosx(O) + cosx(b)*sinx(O)*sinx(l))
+
+	return EquatorialCoordinate{
+		ra:  ra,
+		dec: dec,
+	}
 }
