@@ -19,21 +19,31 @@ go get -u github.com/observerly/dusk
 The basic usage of this package is to use the `GetLocalTwilight()` func, this provides the Sun rise and Sun set times (in datetime format, as local time), it also provides the "duration" between these two datetimes. The local time is calculated from a UTC date for the speicif latitude and longitude coordiantes provided.
 
 ```go
-var datetime time.Time = time.Date(2022, 2, 17, 0, 0, 0, 0, time.UTC)
+package main
 
-// observer's longitude, in degrees (*west of the Greenwhich meridian is negative, east is positive):
-var longitude float64 = -155.8246
+import (
+	"time"
 
-// observer's latitude, in degrees  (*south of the equator is negative, north is positive):
-var latitude float64 = 20.0046
+	"github.com/observerly/dusk"
+)
 
-// observaer's elevation above mean sea level, in meteres:
-var elevation float64 = 4207
+func main() {
+	var datetime time.Time = time.Date(2022, 2, 17, 0, 0, 0, 0, time.UTC)
 
-// specify the twilight to be defined as a set number of degrees *below* the horizon (e.g, civil twilight is designated as being 6 degrees below horizon):
-var degreesBelowHorizon float64 = -6
+	// observer's longitude, in degrees (*west of the Greenwhich meridian is negative, east is positive):
+	var longitude float64 = -155.8246
 
-twilight, location, err := GetLocalTwilight(datetime, longitude, latitude, elevation, degreesBelowHorizon)
+	// observer's latitude, in degrees  (*south of the equator is negative, north is positive):
+	var latitude float64 = 20.0046
+
+	// observaer's elevation above mean sea level, in meteres:
+	var elevation float64 = 4207
+
+	// specify the twilight to be defined as a set number of degrees *below* the horizon (e.g, civil twilight is designated as being 6 degrees below horizon):
+	var degreesBelowHorizon float64 = -6
+
+	twilight, location, err := dusk.GetLocalTwilight(datetime, longitude, latitude, elevation, degreesBelowHorizon)
+}
 ```
 
 There are three wrapper functions which allow for an easy calculation of civil, nautical and astronomical twilight.
@@ -43,7 +53,7 @@ There are three wrapper functions which allow for an easy calculation of civil, 
 For civil twilight, the degreesBelowHorizon for the Sun needs to be -6°.
 
 ```go
-twilight, location, err := GetLocalCivilTwilight(datetime, longitude, latitude, elevationn)
+twilight, location, err := dusk.GetLocalCivilTwilight(datetime, longitude, latitude, elevationn)
 ```
 
 ### Get Nautical Twilight
@@ -51,7 +61,7 @@ twilight, location, err := GetLocalCivilTwilight(datetime, longitude, latitude, 
 For nautical twilight, the degreesBelowHorizon for the Sun needs to be -12°.
 
 ```go
-twilight, location, err := GetLocalNauticalTwilight(datetime, longitude, latitude, elevationn)
+twilight, location, err := dusk.GetLocalNauticalTwilight(datetime, longitude, latitude, elevationn)
 ```
 
 ### Get Astronomical Twilight
@@ -59,7 +69,7 @@ twilight, location, err := GetLocalNauticalTwilight(datetime, longitude, latitud
 For astronomical twilight, the degreesBelowHorizon for the Sun needs to be -18°.
 
 ```go
-twilight, location, err := GetLocalAstronomicalTwilight(datetime, longitude, latitude, elevationn)
+twilight, location, err := dusk.GetLocalAstronomicalTwilight(datetime, longitude, latitude, elevationn)
 ```
 
 ## License
