@@ -14,6 +14,8 @@ go get -u github.com/observerly/dusk
 
 ## Usage
 
+### Get Twilight
+
 The basic usage of this package is to use the `GetLocalTwilight()` func, this provides the Sun rise and Sun set times (in datetime format, as local time), it also provides the "duration" between these two datetimes. The local time is calculated from a UTC date for the speicif latitude and longitude coordiantes provided.
 
 ```go
@@ -36,19 +38,25 @@ twilight, location, err := GetLocalTwilight(datetime, longitude, latitude, eleva
 
 There are three wrapper functions which allow for an easy calculation of civil, nautical and astronomical twilight.
 
+### Get Civil Twilight
+
 For civil twilight, the degreesBelowHorizon for the Sun needs to be -6°.
 
 ```go
 twilight, location, err := GetLocalCivilTwilight(datetime, longitude, latitude, elevationn)
 ```
 
-For civil twilight, the degreesBelowHorizon for the Sun needs to be -12°.
+### Get Nautical Twilight
+
+For nautical twilight, the degreesBelowHorizon for the Sun needs to be -12°.
 
 ```go
 twilight, location, err := GetLocalNauticalTwilight(datetime, longitude, latitude, elevationn)
 ```
 
-For civil twilight, the degreesBelowHorizon for the Sun needs to be -18°.
+### Get Astronomical Twilight
+
+For astronomical twilight, the degreesBelowHorizon for the Sun needs to be -18°.
 
 ```go
 twilight, location, err := GetLocalAstronomicalTwilight(datetime, longitude, latitude, elevationn)
