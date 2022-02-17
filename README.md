@@ -28,6 +28,7 @@ import (
 )
 
 func main() {
+        // datetime of observation:
 	var datetime time.Time = time.Date(2022, 2, 17, 0, 0, 0, 0, time.UTC)
 
 	// observer's longitude, in degrees (*west of the Greenwhich meridian is negative, east is positive):
@@ -71,6 +72,34 @@ For astronomical twilight, the degreesBelowHorizon for the Sun needs to be -18°
 ```go
 twilight, location, err := dusk.GetLocalAstronomicalTwilight(datetime, longitude, latitude, elevationn)
 ```
+
+### Get Moon Position
+
+To calculate the rise and set of the moon, it is neccessary to calculate the equatorial position of the moon at zero HH:mm:ss, e.g., midnight, for the +/-1 day for the day you want to calculate for, e.g., d-1, d and d+1. This library supplie the function to calculate the equatorial position of the moon (in degrees):
+
+```go
+package main
+
+import (
+        "fmt"
+	"time"
+
+	"github.com/observerly/dusk"
+)
+
+func main() {
+        // datetime of observation:
+	var datetime time.Time = time.Date(2022, 2, 17, 14, 55, 0, 0, time.UTC)
+
+	eq EquatorialCoordinate := dusk.GetLunarEquatorialPosition(datetime)
+	
+	fmt.Printf("The Moon is at the following equatorial coordinate:\n")
+	fmt.Printf("Right Ascension: %e°\n", eq.ra)
+	fmt.Printf("Declination: %e°\n", eq.dec)
+}
+```
+
+**N.B.** The equatorial coordinate system is a celestial coordinate system widely used to specify the positions of celestial objects. It may be implemented in spherical or rectangular coordinates, both defined by an origin at the centre of Earth, a fundamental plane consisting of the projection of Earth's equator onto the celestial sphere (forming the celestial equator), a primary direction towards the vernal equinox, and a right-handed convention.
 
 ## License
 
