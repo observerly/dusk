@@ -11,6 +11,17 @@ var J1970 float64 = 2440587.5
 // the epoch of Unix time start i.e., 1 January 2000 00:00:00 UTC:
 var J2000 float64 = 2451545.0
 
+type JulianPeriod struct {
+	/*
+		The current Julian Date expressed as fractions of days
+	*/
+	JD float64
+	/*
+		The current Julian Date expressed as fractions of centuries
+	*/
+	T float64
+}
+
 /*
 	GetJulianDate()
 
@@ -66,6 +77,26 @@ func GetCurrentJulianCenturyRelativeToJ2000(datetime time.Time) float64 {
 	var n float64 = (JD - 2451545.0) / 36525
 
 	return n
+}
+
+/*
+	GetCurrentJulianPeriod()
+
+	@returns both the Julian date i.e., the continuous count of days and fractions of day since the beginning of the Julian period and the number of
+	Julian centuries between J2000 (i.e., 1 January 2000 00:00:00 UTC) and the the datetime, rounded up the the nearest integer
+	@see http://astro.vaporia.com/start/jd.html
+*/
+func GetCurrentJulianPeriod(datetime time.Time) JulianPeriod {
+	// get the Julian date:
+	var JD float64 = GetJulianDate(datetime)
+
+	// calculate the current Julian date as fractions of centuries:
+	var T float64 = (JD - 2451545.0) / 36525
+
+	return JulianPeriod{
+		JD: JD,
+		T:  T,
+	}
 }
 
 /*
