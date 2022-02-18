@@ -1,15 +1,14 @@
 mode: atomic
 github.com/observerly/dusk/pkg/dusk/utils.go:13.34,15.2 1 4
-github.com/observerly/dusk/pkg/dusk/epoch.go:31.48,36.2 2 44
+github.com/observerly/dusk/pkg/dusk/epoch.go:31.48,36.2 2 45
 github.com/observerly/dusk/pkg/dusk/epoch.go:43.45,45.2 1 70
 github.com/observerly/dusk/pkg/dusk/epoch.go:53.65,64.2 4 31
-github.com/observerly/dusk/pkg/dusk/epoch.go:72.73,80.2 3 9
+github.com/observerly/dusk/pkg/dusk/epoch.go:72.73,80.2 3 10
 github.com/observerly/dusk/pkg/dusk/epoch.go:89.62,100.2 3 3
-github.com/observerly/dusk/pkg/dusk/epoch.go:102.73,115.12 5 1
-github.com/observerly/dusk/pkg/dusk/epoch.go:119.2,119.11 1 1
-github.com/observerly/dusk/pkg/dusk/epoch.go:115.12,117.3 1 1
-github.com/observerly/dusk/pkg/dusk/epoch.go:122.69,124.2 1 0
-github.com/observerly/dusk/pkg/dusk/epoch.go:133.70,138.2 2 30
+github.com/observerly/dusk/pkg/dusk/epoch.go:108.73,121.12 5 1
+github.com/observerly/dusk/pkg/dusk/epoch.go:125.2,125.11 1 1
+github.com/observerly/dusk/pkg/dusk/epoch.go:121.12,123.3 1 1
+github.com/observerly/dusk/pkg/dusk/epoch.go:135.70,140.2 2 30
 github.com/observerly/dusk/pkg/dusk/lunar.go:15.47,20.11 2 5
 github.com/observerly/dusk/pkg/dusk/lunar.go:24.2,24.10 1 5
 github.com/observerly/dusk/pkg/dusk/lunar.go:20.11,22.3 1 2
@@ -32,8 +31,11 @@ github.com/observerly/dusk/pkg/dusk/solar.go:33.50,36.2 1 28
 github.com/observerly/dusk/pkg/dusk/solar.go:45.62,48.2 1 27
 github.com/observerly/dusk/pkg/dusk/solar.go:58.74,60.2 1 24
 github.com/observerly/dusk/pkg/dusk/solar.go:71.46,73.2 1 25
-github.com/observerly/dusk/pkg/dusk/solar.go:88.110,94.2 2 24
-github.com/observerly/dusk/pkg/dusk/solar.go:105.142,133.2 12 23
+github.com/observerly/dusk/pkg/dusk/solar.go:81.47,86.11 2 1
+github.com/observerly/dusk/pkg/dusk/solar.go:90.2,90.10 1 1
+github.com/observerly/dusk/pkg/dusk/solar.go:86.11,88.3 1 1
+github.com/observerly/dusk/pkg/dusk/solar.go:106.110,112.2 2 24
+github.com/observerly/dusk/pkg/dusk/solar.go:123.142,151.2 12 23
 github.com/observerly/dusk/pkg/dusk/trigonometry.go:10.30,12.2 1 281
 github.com/observerly/dusk/pkg/dusk/trigonometry.go:14.30,16.2 1 63
 github.com/observerly/dusk/pkg/dusk/trigonometry.go:18.30,20.2 1 4
