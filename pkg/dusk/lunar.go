@@ -128,7 +128,7 @@ func GetLunarLongitudeOfTheAscendingNode(J float64) float64 {
 	@see p.144 of Meeus, Jean. 1991. Astronomical algorithms. Richmond, Va: Willmann-Bell.
 */
 func GetLunarLongitudeOfNutation(L float64, l float64, Ω float64) float64 {
-	return -17.20*sinx(Ω) + 1.32*sinx(L) - 0.23*sinx(2*l) + 0.21*sinx(2*Ω)
+	return -17.20*sinx(Ω) + 1.32*sinx(2*L) - 0.23*sinx(2*l) + 0.21*sinx(2*Ω)
 }
 
 /*

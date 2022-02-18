@@ -106,7 +106,7 @@ func TestGetLunarLongitudeOfNutation(t *testing.T) {
 
 	var got float64 = GetLunarLongitudeOfNutation(L, l, Ω)
 
-	var want float64 = -2.696846
+	var want float64 = -2.333532
 
 	if math.Abs(got-want) > 0.00001 {
 		t.Errorf("got %f, wanted %f", got, want)

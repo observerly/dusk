@@ -1,4 +1,14 @@
 mode: atomic
+github.com/observerly/dusk/pkg/dusk/solar.go:21.45,24.2 1 29
+github.com/observerly/dusk/pkg/dusk/solar.go:33.50,36.2 1 28
+github.com/observerly/dusk/pkg/dusk/solar.go:45.62,48.2 1 27
+github.com/observerly/dusk/pkg/dusk/solar.go:58.74,60.2 1 24
+github.com/observerly/dusk/pkg/dusk/solar.go:71.46,73.2 1 25
+github.com/observerly/dusk/pkg/dusk/solar.go:81.47,86.11 2 2
+github.com/observerly/dusk/pkg/dusk/solar.go:90.2,90.10 1 2
+github.com/observerly/dusk/pkg/dusk/solar.go:86.11,88.3 1 2
+github.com/observerly/dusk/pkg/dusk/solar.go:106.110,112.2 2 24
+github.com/observerly/dusk/pkg/dusk/solar.go:123.142,151.2 12 23
 github.com/observerly/dusk/pkg/dusk/trigonometry.go:10.30,12.2 1 285
 github.com/observerly/dusk/pkg/dusk/trigonometry.go:14.30,16.2 1 63
 github.com/observerly/dusk/pkg/dusk/trigonometry.go:18.30,20.2 1 4
@@ -40,16 +50,6 @@ github.com/observerly/dusk/pkg/dusk/lunar.go:95.11,97.3 1 1
 github.com/observerly/dusk/pkg/dusk/lunar.go:109.61,114.12 2 2
 github.com/observerly/dusk/pkg/dusk/lunar.go:118.2,118.11 1 2
 github.com/observerly/dusk/pkg/dusk/lunar.go:114.12,116.3 1 0
-github.com/observerly/dusk/pkg/dusk/lunar.go:121.76,123.2 1 1
-github.com/observerly/dusk/pkg/dusk/lunar.go:131.74,156.2 10 3
-github.com/observerly/dusk/pkg/dusk/lunar.go:170.81,176.2 2 1
-github.com/observerly/dusk/pkg/dusk/solar.go:21.45,24.2 1 29
-github.com/observerly/dusk/pkg/dusk/solar.go:33.50,36.2 1 28
-github.com/observerly/dusk/pkg/dusk/solar.go:45.62,48.2 1 27
-github.com/observerly/dusk/pkg/dusk/solar.go:58.74,60.2 1 24
-github.com/observerly/dusk/pkg/dusk/solar.go:71.46,73.2 1 25
-github.com/observerly/dusk/pkg/dusk/solar.go:81.47,86.11 2 2
-github.com/observerly/dusk/pkg/dusk/solar.go:90.2,90.10 1 2
-github.com/observerly/dusk/pkg/dusk/solar.go:86.11,88.3 1 2
-github.com/observerly/dusk/pkg/dusk/solar.go:106.110,112.2 2 24
-github.com/observerly/dusk/pkg/dusk/solar.go:123.142,151.2 12 23
+github.com/observerly/dusk/pkg/dusk/lunar.go:130.76,132.2 1 1
+github.com/observerly/dusk/pkg/dusk/lunar.go:140.74,165.2 10 3
+github.com/observerly/dusk/pkg/dusk/lunar.go:179.81,185.2 2 1
