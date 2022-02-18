@@ -3,6 +3,7 @@ package dusk
 import (
 	"math"
 	"testing"
+	"time"
 )
 
 func TestGetLunarMeanLongitude(t *testing.T) {
@@ -64,6 +65,24 @@ func TestGetLunarHorizontalLatitude(t *testing.T) {
 	var got float64 = GetLunarHorizontalLatitude(F)
 
 	var want float64 = 356.711352
+
+	if math.Abs(got-want) > 0.00001 {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+}
+
+func TestGetLunarLongitudeOfTheAscendingNode(t *testing.T) {
+	// For testing we need to specify a date because most calculations are
+	// differential w.r.t a time component. We set it to the date provided
+	// on p.148 of Meeus, Jean. 1991. Astronomical algorithms.Richmond,
+	// Va: Willmann - Bell.:
+	var d time.Time = time.Date(1987, 4, 10, 0, 0, 0, 0, time.UTC)
+
+	var J float64 = GetCurrentJulianCenturyRelativeToJ2000(d)
+
+	var got float64 = GetLunarLongitudeOfTheAscendingNode(J)
+
+	var want float64 = 11.253083
 
 	if math.Abs(got-want) > 0.00001 {
 		t.Errorf("got %f, wanted %f", got, want)

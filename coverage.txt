@@ -1,9 +1,8 @@
 mode: atomic
-github.com/observerly/dusk/pkg/dusk/utils.go:13.34,15.2 1 4
-github.com/observerly/dusk/pkg/dusk/epoch.go:31.48,36.2 2 45
+github.com/observerly/dusk/pkg/dusk/epoch.go:31.48,36.2 2 46
 github.com/observerly/dusk/pkg/dusk/epoch.go:43.45,45.2 1 70
 github.com/observerly/dusk/pkg/dusk/epoch.go:53.65,64.2 4 31
-github.com/observerly/dusk/pkg/dusk/epoch.go:72.73,80.2 3 10
+github.com/observerly/dusk/pkg/dusk/epoch.go:72.73,80.2 3 11
 github.com/observerly/dusk/pkg/dusk/epoch.go:89.62,100.2 3 3
 github.com/observerly/dusk/pkg/dusk/epoch.go:108.73,121.12 5 1
 github.com/observerly/dusk/pkg/dusk/epoch.go:125.2,125.11 1 1
@@ -24,8 +23,11 @@ github.com/observerly/dusk/pkg/dusk/lunar.go:77.11,79.3 1 0
 github.com/observerly/dusk/pkg/dusk/lunar.go:90.52,95.11 2 4
 github.com/observerly/dusk/pkg/dusk/lunar.go:99.2,99.10 1 4
 github.com/observerly/dusk/pkg/dusk/lunar.go:95.11,97.3 1 1
-github.com/observerly/dusk/pkg/dusk/lunar.go:108.74,133.2 10 3
-github.com/observerly/dusk/pkg/dusk/lunar.go:147.81,153.2 2 1
+github.com/observerly/dusk/pkg/dusk/lunar.go:102.61,107.12 2 1
+github.com/observerly/dusk/pkg/dusk/lunar.go:111.2,111.11 1 1
+github.com/observerly/dusk/pkg/dusk/lunar.go:107.12,109.3 1 0
+github.com/observerly/dusk/pkg/dusk/lunar.go:120.74,145.2 10 3
+github.com/observerly/dusk/pkg/dusk/lunar.go:159.81,165.2 2 1
 github.com/observerly/dusk/pkg/dusk/solar.go:21.45,24.2 1 29
 github.com/observerly/dusk/pkg/dusk/solar.go:33.50,36.2 1 28
 github.com/observerly/dusk/pkg/dusk/solar.go:45.62,48.2 1 27
@@ -49,3 +51,4 @@ github.com/observerly/dusk/pkg/dusk/twilight.go:49.16,51.3 1 0
 github.com/observerly/dusk/pkg/dusk/twilight.go:69.139,74.2 2 3
 github.com/observerly/dusk/pkg/dusk/twilight.go:85.142,90.2 2 3
 github.com/observerly/dusk/pkg/dusk/twilight.go:101.146,106.2 2 3
+github.com/observerly/dusk/pkg/dusk/utils.go:13.34,15.2 1 4
