@@ -47,3 +47,16 @@ func GetMeanObliquityOfTheEcliptic(J float64) float64 {
 func GetNutationInLongitudeOfTheEcliptic(L float64, l float64, Ω float64) float64 {
 	return (-17.20*sinx(Ω) + 1.32*sinx(2*L) - 0.23*sinx(2*l) + 0.21*sinx(2*Ω)) / 3600
 }
+
+/*
+	GetNutationInObliquityOfTheEcliptic()
+
+	@param L - the ecliptic longitude at which the Sun could be found if its orbit were circular and free of perturbations.
+	@param l - the ecliptic longitude at which the Moon could be found if its orbit were circular and free of perturbations.
+	@param Ω - the longitude of the ascending node of the Moon's mean orbit on the ecliptic, measured from the mean equinox of date
+	@returns the longitude of the ascending node of the Moon's mean orbit on the ecliptic, measured from the mean equinox of date (in degrees)
+	@see p.144 of Meeus, Jean. 1991. Astronomical algorithms. Richmond, Va: Willmann-Bell.
+*/
+func GetNutationInObliquityOfTheEcliptic(L float64, l float64, Ω float64) float64 {
+	return (9.20*cosx(Ω) + 0.57*cosx(2*L) + 0.1*cosx(2*l) - 0.09*cosx(2*Ω)) / 3600
+}
