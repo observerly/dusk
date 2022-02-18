@@ -73,6 +73,24 @@ func GetSolarDeclination(λ float64) float64 {
 }
 
 /*
+	GetSolarMeanLongitude()
+
+	@param J - the Ephemeris time or the number of centuries since J2000 epoch
+	@returns the mean longitude of the Sun
+*/
+func GetSolarMeanLongitude(J float64) float64 {
+	// applies modulo correction to the angle, and ensures always positive:
+	var L = math.Mod(280.4665+36000.7698*J, 360)
+
+	// correct for negative angles
+	if L < 0 {
+		L += 360
+	}
+
+	return L
+}
+
+/*
 	GetSolarHourAngle()
 
 	Observing the Sun from Earth, the solar hour angle is an expression of time, expressed in angular measurement,
