@@ -100,6 +100,32 @@ func GetCurrentJulianPeriod(datetime time.Time) JulianPeriod {
 }
 
 /*
+	GetMeanGreenwhichSiderealTimeInDegrees()
+
+	@returns the mean sidereal time at Greenwhich for the desired datetime (in degrees)
+	@see eq.12.4 p.88 of Meeus, Jean. 1991. Astronomical algorithms. Richmond, Va: Willmann - Bell.
+*/
+func GetMeanGreenwhichSiderealTimeInDegrees(datetime time.Time) float64 {
+	var julianPeriod JulianPeriod = GetCurrentJulianPeriod(datetime)
+
+	// get the Julian date:
+	var JD float64 = julianPeriod.JD
+
+	// the number of Julian centuries between J2000 (i.e., 1 January 2000 00:00:00 UTC) and the the datetime:
+	var T float64 = julianPeriod.T
+
+	// applies modulo correction to the angle, and ensures always positive:
+	var θ = math.Mod(280.46061837+(360.98564736629*(JD-2451545.0))+(0.000387933*math.Pow(T, 2))-(math.Pow(T, 3)/38710000), 360)
+
+	// correct for negative angles
+	if θ < 0 {
+		θ += 360
+	}
+
+	return θ
+}
+
+/*
 	GetMeanSolarTime()
 
 	@param datetime - the datetime of the observer (in UTC)
