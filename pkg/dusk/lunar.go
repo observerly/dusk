@@ -100,6 +100,25 @@ func GetLunarHorizontalLatitude(F float64) float64 {
 }
 
 /*
+	GetLunarLongitudeOfTheAscendingNode()
+
+	@param J - the Ephemeris time or the number of centuries since J2000 epoch
+	@returns the longitude of the ascending node of the Moon's mean orbit on the ecliptic, measured from the mean equinox of date
+	@see p.144 of Meeus, Jean. 1991. Astronomical algorithms. Richmond, Va: Willmann-Bell.
+*/
+func GetLunarLongitudeOfTheAscendingNode(J float64) float64 {
+	// correct for large angles (+ive or -ive), i.e., applies modulo correction to the angle, and ensures always positive:
+	var Ω = math.Mod(125.04452-1934.136261*J+0.0020708*math.Pow(J, 2)+math.Pow(J, 3)/450000, 360)
+
+	// correct for negative angles
+	if Ω < 0 {
+		Ω += 360
+	}
+
+	return Ω
+}
+
+/*
   GetLunarEquatorialPosition()
 
  	@param datetime - the datetime in UTC of the observer
