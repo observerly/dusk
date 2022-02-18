@@ -50,6 +50,30 @@ func TestGetCurrentJulianCentury(t *testing.T) {
 	}
 }
 
+func TestGetCurrentJulianPeriodJulianDate(t *testing.T) {
+	var period JulianPeriod = GetCurrentJulianPeriod(datetime)
+
+	var got float64 = period.JD
+
+	var want float64 = 2459348.5
+
+	if math.Abs(got-want) > 0.00001 {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+}
+
+func TestGetCurrentJulianPeriodJulianCenturies(t *testing.T) {
+	var period JulianPeriod = GetCurrentJulianPeriod(datetime)
+
+	var got float64 = period.T
+
+	var want float64 = 0.21364818617385353
+
+	if math.Abs(got-want) > 0.00001 {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+}
+
 func TestGetMeanSolarTime(t *testing.T) {
 	var got float64 = GetMeanSolarTime(datetime, longitude)
 
