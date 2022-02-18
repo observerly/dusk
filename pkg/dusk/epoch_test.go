@@ -90,6 +90,38 @@ func TestGetMeanGreenwhichSiderealTimeInDegrees(t *testing.T) {
 	}
 }
 
+func TestGetApparentGreenwhichSiderealTimeInDegrees(t *testing.T) {
+	// For testing we need to specify a date because most calculations are
+	// differential w.r.t a time component. We set it to the date provided
+	// on p.88 of Meeus, Jean. 1991. Astronomical algorithms. Richmond,
+	// Va: Willmann - Bell.:
+	var datetime time.Time = time.Date(1987, 4, 10, 0, 0, 0, 0, time.UTC)
+
+	var got float64 = GetApparentGreenwhichSiderealTimeInDegrees(datetime)
+
+	var want float64 = 197.692600
+
+	if math.Abs(got-want) > 0.00001 {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+}
+
+func TestGetApparentGreenwhichSiderealTimeInDegreesBonus(t *testing.T) {
+	// For testing we need to specify a date because most calculations are
+	// differential w.r.t a time component. We set it to the date provided
+	// on p.103 of Meeus, Jean. 1991. Astronomical algorithms. Richmond,
+	// Va: Willmann - Bell.:
+	var datetime time.Time = time.Date(1988, 3, 20, 0, 0, 0, 0, time.UTC)
+
+	var got float64 = GetApparentGreenwhichSiderealTimeInDegrees(datetime)
+
+	var want float64 = 177.741993
+
+	if math.Abs(got-want) > 0.00001 {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+}
+
 func TestGetMeanSolarTime(t *testing.T) {
 	var got float64 = GetMeanSolarTime(datetime, longitude)
 

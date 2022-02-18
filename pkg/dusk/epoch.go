@@ -125,6 +125,35 @@ func GetMeanGreenwhichSiderealTimeInDegrees(datetime time.Time) float64 {
 	return θ
 }
 
+func GetApparentGreenwhichSiderealTimeInDegrees(datetime time.Time) float64 {
+	var θ float64 = GetMeanGreenwhichSiderealTimeInDegrees(datetime)
+
+	var J float64 = GetCurrentJulianCenturyRelativeToJ2000(datetime)
+
+	var L float64 = GetSolarMeanLongitude(J)
+
+	var l float64 = GetLunarMeanLongitude(J)
+
+	var Ω float64 = GetLunarLongitudeOfTheAscendingNode(J)
+
+	var ε float64 = GetMeanObliquityOfTheEcliptic(J) + GetNutationInObliquityOfTheEcliptic(L, l, Ω)
+
+	var Δψ = GetNutationInLongitudeOfTheEcliptic(L, l, Ω)
+
+	// applies a correction for the true vernal equinox:
+	var corr = Δψ * cosx(ε)
+
+	// applies modulo correction to the angle, and ensures always positive:
+	var ϑ = math.Mod(θ+corr, 360)
+
+	// correct for negative angles
+	if ϑ < 0 {
+		ϑ += 360
+	}
+
+	return ϑ
+}
+
 /*
 	GetMeanSolarTime()
 
