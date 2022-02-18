@@ -119,6 +119,19 @@ func GetLunarLongitudeOfTheAscendingNode(J float64) float64 {
 }
 
 /*
+	GetLunarLongitudeOfNutation()
+
+	@param L - the ecliptic longitude at which the Sun could be found if its orbit were circular and free of perturbations.
+	@param l - the ecliptic longitude at which the Moon could be found if its orbit were circular and free of perturbations.
+	@param Ω - the longitude of the ascending node of the Moon's mean orbit on the ecliptic, measured from the mean equinox of date
+	@returns the longitude of the ascending node of the Moon's mean orbit on the ecliptic, measured from the mean equinox of date (in arcseconds)
+	@see p.144 of Meeus, Jean. 1991. Astronomical algorithms. Richmond, Va: Willmann-Bell.
+*/
+func GetLunarLongitudeOfNutation(L float64, l float64, Ω float64) float64 {
+	return -17.20*sinx(Ω) + 1.32*sinx(L) - 0.23*sinx(2*l) + 0.21*sinx(2*Ω)
+}
+
+/*
   GetLunarEquatorialPosition()
 
  	@param datetime - the datetime in UTC of the observer
