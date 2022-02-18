@@ -74,6 +74,22 @@ func TestGetCurrentJulianPeriodJulianCenturies(t *testing.T) {
 	}
 }
 
+func TestGetMeanGreenwhichSiderealTimeInDegrees(t *testing.T) {
+	// For testing we need to specify a date because most calculations are
+	// differential w.r.t a time component. We set it to the date provided
+	// on p.89 of Meeus, Jean. 1991. Astronomical algorithms. Richmond,
+	// Va: Willmann - Bell.:
+	var datetime time.Time = time.Date(1987, 4, 10, 19, 21, 0, 0, time.UTC)
+
+	var got float64 = GetMeanGreenwhichSiderealTimeInDegrees(datetime)
+
+	var want float64 = 128.7378734
+
+	if math.Abs(got-want) > 0.00001 {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+}
+
 func TestGetMeanSolarTime(t *testing.T) {
 	var got float64 = GetMeanSolarTime(datetime, longitude)
 
