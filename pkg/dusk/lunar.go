@@ -196,3 +196,30 @@ func GetLunarHourAngle(δ float64, latitude float64, elevation float64) float64 
 
 	return acosx((sinx(0.125-corr) - (sinx(latitude) * sinx(δ))) / cosx(latitude) * cosx(δ))
 }
+
+/*
+	GetLunarTransitJulianDate()
+
+	@param datetime - the datetime in UTC of the observer
+	@param α - the right ascension position of the Moon (in degrees)
+	@param longitude - is the longitude (west is negative, east is positive) in degrees of some observer on Earth
+	@param θ - the apparent sidereal time at Greenwhich for the desired datetime (in degrees)
+	@returns the lunar transit time in Julian date format
+	@see eq.15.2 p.102 of Meeus, Jean. 1991. Astronomical algorithms. Richmond, Va: Willmann - Bell.
+*/
+func GetLunarTransitJulianDate(datetime time.Time, α float64, longitude float64, θ float64) float64 {
+	var d = time.Date(datetime.Year(), datetime.Month(), datetime.Day(), 0, 0, 0, 0, time.UTC)
+
+	var J float64 = GetJulianDate(d)
+
+	// correct for fractions of a day less than 0, and greater than 1.
+	var m = (α + longitude - θ) / 360
+
+	// correct for negative fractions of day.
+	if m < 0 {
+		m += 1
+	}
+
+	// add the days fraction to the Julian date at 0h:
+	return J + m
+}

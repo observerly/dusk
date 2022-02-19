@@ -172,3 +172,17 @@ func TestGetLunarHourAngle(t *testing.T) {
 		t.Errorf("got %f, wanted %f", got, want)
 	}
 }
+
+func TestGetLunarTransitJulianDate(t *testing.T) {
+	var eq EquatorialCoordinate = GetLunarEquatorialPosition(d)
+
+	var ϑ float64 = GetApparentGreenwhichSiderealTimeInDegrees(d)
+
+	var got float64 = GetLunarTransitJulianDate(datetime, eq.ra, longitude, ϑ)
+
+	var want float64 = 2459348.890048
+
+	if math.Abs(got-want) > 0.00001 {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+}
