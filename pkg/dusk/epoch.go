@@ -125,6 +125,12 @@ func GetMeanGreenwhichSiderealTimeInDegrees(datetime time.Time) float64 {
 	return θ
 }
 
+/*
+	GetApparentGreenwhichSiderealTimeInDegrees()
+
+	@returns the apparent sidereal time at Greenwhich for the desired datetime (in degrees)
+	@see eq.12.4 p.88 of Meeus, Jean. 1991. Astronomical algorithms. Richmond, Va: Willmann - Bell.
+*/
 func GetApparentGreenwhichSiderealTimeInDegrees(datetime time.Time) float64 {
 	var θ float64 = GetMeanGreenwhichSiderealTimeInDegrees(datetime)
 
