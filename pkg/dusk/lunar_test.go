@@ -17,6 +17,18 @@ func TestGetLunarMeanLongitude(t *testing.T) {
 		t.Errorf("got %f, wanted %f", got, want)
 	}
 }
+
+func TestGetLunarMeanElongation(t *testing.T) {
+	var J float64 = GetCurrentJulianCenturyRelativeToJ2000(d)
+
+	var got float64 = GetLunarMeanElongation(J)
+
+	var want float64 = 113.842304
+
+	if math.Abs(got-want) > 0.00001 {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+}
 func TestGetLunarMeanAnomaly(t *testing.T) {
 	var J float64 = GetCurrentJulianCenturyRelativeToJ2000(d)
 

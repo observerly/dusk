@@ -25,6 +25,25 @@ func GetLunarMeanLongitude(J float64) float64 {
 }
 
 /*
+	GetLunarMeanElongation()
+
+	@param J - the Ephemeris time or the number of centuries since J2000 epoch
+	@returns the ecliptic elongation at which the Moon could be found if its orbit were circular and free of perturbations.
+	@see EQ.47.2 p.338 of Meeus, Jean. 1991. Astronomical algorithms. Richmond, Va: Willmann-Bell.
+*/
+func GetLunarMeanElongation(J float64) float64 {
+	// correct for large angles (+ive or -ive), i.e., applies modulo correction to the angle, and ensures always positive:
+	var D = math.Mod((297.8501921 + 445267.1114034*J - 0.0018819*math.Pow(J, 2) + math.Pow(J, 3)/545868 - math.Pow(J, 4)/113065000), 360)
+
+	// correct for negative angles
+	if D < 0 {
+		D += 360
+	}
+
+	return D
+}
+
+/*
 	GetLunarMeanAnomaly()
 
 	@param J - the Ephemeris time or the number of centuries since J2000 epoch
