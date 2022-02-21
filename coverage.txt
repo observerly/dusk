@@ -48,11 +48,12 @@ github.com/observerly/dusk/pkg/dusk/solar.go:106.110,112.2 2 24
 github.com/observerly/dusk/pkg/dusk/solar.go:123.142,151.2 12 23
 github.com/observerly/dusk/pkg/dusk/trigonometry.go:10.30,12.2 1 308
 github.com/observerly/dusk/pkg/dusk/trigonometry.go:14.30,16.2 1 90
-github.com/observerly/dusk/pkg/dusk/trigonometry.go:18.30,20.2 1 5
-github.com/observerly/dusk/pkg/dusk/trigonometry.go:22.31,24.2 1 30
-github.com/observerly/dusk/pkg/dusk/trigonometry.go:26.31,28.2 1 26
-github.com/observerly/dusk/pkg/dusk/trigonometry.go:30.31,32.2 1 1
-github.com/observerly/dusk/pkg/dusk/trigonometry.go:34.36,36.2 1 5
+github.com/observerly/dusk/pkg/dusk/trigonometry.go:18.44,20.2 1 1
+github.com/observerly/dusk/pkg/dusk/trigonometry.go:22.30,24.2 1 5
+github.com/observerly/dusk/pkg/dusk/trigonometry.go:26.31,28.2 1 30
+github.com/observerly/dusk/pkg/dusk/trigonometry.go:30.31,32.2 1 26
+github.com/observerly/dusk/pkg/dusk/trigonometry.go:34.31,36.2 1 1
+github.com/observerly/dusk/pkg/dusk/trigonometry.go:38.36,40.2 1 5
 github.com/observerly/dusk/pkg/dusk/twilight.go:38.163,49.16 5 9
 github.com/observerly/dusk/pkg/dusk/twilight.go:53.2,57.18 1 9
 github.com/observerly/dusk/pkg/dusk/twilight.go:49.16,51.3 1 0
