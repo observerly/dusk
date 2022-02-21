@@ -25,6 +25,22 @@ func TestCosX(t *testing.T) {
 	}
 }
 
+func TestSinCosX(t *testing.T) {
+	var sinGot, cosGot = sincosx(45)
+
+	var sinWant = 0.70710678118
+
+	var cosWant = 0.70710678118
+
+	if math.Abs(sinGot-sinWant) > 0.00001 {
+		t.Errorf("got %f, wanted %f", sinGot, sinWant)
+	}
+
+	if math.Abs(cosGot-cosWant) > 0.00001 {
+		t.Errorf("got %f, wanted %f", cosWant, cosWant)
+	}
+}
+
 func TestTanX(t *testing.T) {
 	var got float64 = tanx(45)
 

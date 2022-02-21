@@ -15,6 +15,10 @@ func cosx(x float64) float64 {
 	return math.Cos(x * degToRad)
 }
 
+func sincosx(x float64) (sin, cos float64) {
+	return math.Sincos(x * degToRad)
+}
+
 func tanx(x float64) float64 {
 	return math.Tan(x * degToRad)
 }
