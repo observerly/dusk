@@ -15,6 +15,17 @@ type EclipticCoordinate struct {
 	Δ float64
 }
 
+type HorizontalCoordinate struct {
+	/*
+		altitude (a) or elevation
+	*/
+	a float64
+	/*
+		azimuth (A) or elevation
+	*/
+	A float64
+}
+
 /*
 	ConvertEclipticCoordinateToEquatorial()
 
