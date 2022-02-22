@@ -249,3 +249,15 @@ func TestGetLunarTransitJulianDate(t *testing.T) {
 		t.Errorf("got %f, wanted %f", got, want)
 	}
 }
+
+func TestGetLunarHorizontalCoordinatesForDay(t *testing.T) {
+	horizontalCoordinates, err := GetLunarHorizontalCoordinatesForDay(datetime, longitude, latitude)
+
+	if err != nil {
+		t.Errorf("got %q", err)
+	}
+
+	if len(horizontalCoordinates) != 1440 {
+		t.Errorf("there is not enough horizontal coordinates for the day, expected 1440")
+	}
+}
