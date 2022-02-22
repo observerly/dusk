@@ -433,6 +433,20 @@ var tb = [...]tbs{
 }
 
 /*
+	GetLunarHorizontalParallax()
+
+	For the Moon, the problem of finding an accurate measurement of its standard altitude, h_0, is a little more
+	complicated because h_0 is not constant over time. This equation takes into account the variations in
+	 semidiamater and parallax.
+
+	@param
+	@returns the horizontal parallax of the Moon for a given distance measurement
+*/
+func GetLunarHorizontalParallax(Δ float64) float64 {
+	return asinx(6378.14 / Δ)
+}
+
+/*
 	GetLunarHourAngle()
 
 	Observing the Moon from Earth, the lunar hour angle is an expression of time, expressed in angular measurement,
@@ -442,14 +456,19 @@ var tb = [...]tbs{
 	@param δ - the ecliptic longitude of the Moon (in degrees)
 	@param latitude - is the latitude (south is negative, north is positive) in degrees of some observer on Earth
 	@param elevation - is the elevation (above sea level) in meters of some observer on Earth
+	@param π - is the Lunar horizontal parallax
 	@returns the lunar hour angle for a given lunar declination, of some observer on Earth
 */
-func GetLunarHourAngle(δ float64, latitude float64, elevation float64) float64 {
+func GetLunarHourAngle(δ float64, latitude float64, elevation float64, π float64) float64 {
 	// observations on a sea horizon needing an elevation-of-observer correction
 	// (corrects for both apparent dip and terrestrial refraction):
 	var corr = -2.076 * math.Sqrt(elevation) * 1 / 60
 
-	return acosx((sinx(0.125-corr) - (sinx(latitude) * sinx(δ))) / cosx(latitude) * cosx(δ))
+	var h = 0.7275*π - 0.566667
+
+	var H_0 = acosx((sinx(h-corr) - (sinx(latitude) * sinx(δ))) / cosx(latitude) * cosx(δ))
+
+	return H_0
 }
 
 /*
@@ -470,9 +489,14 @@ func GetLunarTransitJulianDate(datetime time.Time, α float64, longitude float64
 	// correct for fractions of a day less than 0, and greater than 1.
 	var m = (α + longitude - θ) / 360
 
-	// correct for negative fractions of day.
+	// correct for negative fractions of day less than 0.
 	if m < 0 {
 		m += 1
+	}
+
+	// correct for fractions of day greater than 1.
+	if m > 1 {
+		m -= 1
 	}
 
 	// add the days fraction to the Julian date at 0h:
