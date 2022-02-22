@@ -30,6 +30,16 @@ func TestGetUniversalTime(t *testing.T) {
 	}
 }
 
+func TestGetGreenwhichSiderealTime(t *testing.T) {
+	var got float64 = GetGreenwhichSiderealTime(datetime)
+
+	var want float64 = 15.463990399019053
+
+	if math.Abs(got-want) > 0.00001 {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+}
+
 func TestGetCurrentJulianDay(t *testing.T) {
 	var got int = GetCurrentJulianDayRelativeToJ2000(datetime)
 
