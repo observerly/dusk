@@ -26,6 +26,21 @@ type HorizontalCoordinate struct {
 	A float64
 }
 
+type TemporalHorizontalCoordinate struct {
+	/*
+		datetime of horizontal observation
+	*/
+	datetime time.Time
+	/*
+		altitude (a) or elevation
+	*/
+	a float64
+	/*
+		azimuth (A) or elevation
+	*/
+	A float64
+}
+
 /*
 	ConvertEclipticCoordinateToEquatorial()
 
