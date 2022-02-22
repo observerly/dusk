@@ -86,6 +86,27 @@ func GetGreenwhichSiderealTime(datetime time.Time) float64 {
 }
 
 /*
+	GetLocalSiderealTime()
+
+	@param datetime
+	@returns returns the local sidereal time, relative to some location's longitude
+*/
+func GetLocalSiderealTime(datetime time.Time, longitude float64) float64 {
+	var GST = GetGreenwhichSiderealTime(datetime)
+
+	var d = (GST + longitude/15.0) / 24.0
+
+	d = d - math.Floor(d)
+
+	// correct for negative hour angles (24 hours is equivalent to 360°)
+	if d < 0 {
+		d += 1
+	}
+
+	return 24.0 * d
+}
+
+/*
 	GetCurrentJulianDayRelativeToJ2000()
 
 	@returns the number of Julian days between J2000 (i.e., 1 January 2000 00:00:00 UTC) and the the datetime, rounded up the the nearest integer
