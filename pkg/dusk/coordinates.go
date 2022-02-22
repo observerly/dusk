@@ -62,3 +62,30 @@ func ConvertEclipticCoordinateToEquatorial(datetime time.Time, ec EclipticCoordi
 		dec: δ,
 	}
 }
+
+/*
+	ConvertEquatorialCoordinateToHorizontal()
+
+	@param datetime - the datetime of the observer (in UTC)
+	@param longitude - is the longitude (west is negative, east is positive) in degrees of some observer on Earth
+	@param latitude - is the latitude (south is negative, north is positive) in degrees of some observer on Earth
+	@param equatorial coordinate of type EquatorialCoordiate { ra, dec }
+	@returns the equivalent horizontal coordinate for the given observers position
+	@see eq13.5 and eq.6 p.93 of Meeus, Jean. 1991. Astronomical algorithms. Richmond, Va: Willmann-Bell.
+*/
+func ConvertEquatorialCoordinateToHorizontal(datetime time.Time, longitude float64, latitude float64, eq EquatorialCoordinate) HorizontalCoordinate {
+	var LST float64 = GetLocalSiderealTime(datetime, longitude)
+
+	var ra float64 = GetHourAngle(eq.ra, LST)
+
+	var dec float64 = eq.dec
+
+	var alt = asinx(sinx(dec)*sinx(latitude) + cosx(dec)*cosx(latitude)*cosx(ra))
+
+	var az = acosx((sinx(dec) - sinx(alt)*sinx(latitude)) / (cosx(alt) * cosx(latitude)))
+
+	return HorizontalCoordinate{
+		a: alt,
+		A: az,
+	}
+}
