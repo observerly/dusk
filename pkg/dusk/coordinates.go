@@ -30,15 +30,15 @@ type TemporalHorizontalCoordinate struct {
 	/*
 		datetime of horizontal observation
 	*/
-	datetime time.Time
+	Datetime time.Time
 	/*
 		altitude (a) or elevation
 	*/
-	a float64
+	Altitude float64
 	/*
 		azimuth (A) or elevation
 	*/
-	A float64
+	Azimuth float64
 }
 
 /*
