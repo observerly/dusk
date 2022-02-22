@@ -536,9 +536,11 @@ func GetLunarHorizontalCoordinatesForDay(datetime time.Time, longitude float64, 
 
 		var hz HorizontalCoordinate = ConvertEquatorialCoordinateToHorizontal(d, longitude, latitude, eq)
 
-		horizontalCoordinates[i].datetime = d
-		horizontalCoordinates[i].a = hz.a
-		horizontalCoordinates[i].A = hz.A
+		horizontalCoordinates[i] = *&TemporalHorizontalCoordinate{
+			Datetime: d,
+			Altitude: hz.a,
+			Azimuth:  hz.A,
+		}
 
 		d = d.Add(time.Minute * 1)
 	}
