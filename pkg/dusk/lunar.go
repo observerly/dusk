@@ -3,6 +3,8 @@ package dusk
 import (
 	"math"
 	"time"
+
+	tzm "github.com/zsefvlol/timezonemapper"
 )
 
 /*
@@ -501,4 +503,45 @@ func GetLunarTransitJulianDate(datetime time.Time, α float64, longitude float64
 
 	// add the days fraction to the Julian date at 0h:
 	return J + m
+}
+
+/*
+	GetLunarHorizontalCoordinatesForDay()
+
+	@param datetime - the datetime of the observer (in UTC)
+	@param longitude - is the longitude (west is negative, east is positive) in degrees of some observer on Earth
+	@param latitude - is the latitude (south is negative, north is positive) in degrees of some observer on Earth
+	@returns the horizontal coordinates of the Moon for every minute of a given day.
+*/
+func GetLunarHorizontalCoordinatesForDay(datetime time.Time, longitude float64, latitude float64) ([]TemporalHorizontalCoordinate, error) {
+	// create an empty list of horizontalCoordinate structs:
+	horizontalCoordinates := make([]TemporalHorizontalCoordinate, 1440)
+
+	// get the corresponding timezone for the longitude and latitude provided:
+	timezone := tzm.LatLngToTimezoneString(latitude, longitude)
+
+	location, err := time.LoadLocation(timezone)
+
+	if err != nil {
+		return horizontalCoordinates, err
+	}
+
+	var d = time.Date(datetime.Year(), datetime.Month(), datetime.Day(), 0, 0, 0, 0, location)
+
+	for i := range horizontalCoordinates {
+		// Get the current equatorial position of the moon:
+		var ec EclipticCoordinate = GetLunarEclipticPosition(d)
+
+		var eq EquatorialCoordinate = ConvertEclipticCoordinateToEquatorial(d, ec)
+
+		var hz HorizontalCoordinate = ConvertEquatorialCoordinateToHorizontal(d, longitude, latitude, eq)
+
+		horizontalCoordinates[i].datetime = d
+		horizontalCoordinates[i].a = hz.a
+		horizontalCoordinates[i].A = hz.A
+
+		d = d.Add(time.Minute * 1)
+	}
+
+	return horizontalCoordinates, nil
 }
