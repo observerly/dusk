@@ -83,7 +83,7 @@ func TestGetMeanGreenwhichSiderealTimeInDegrees(t *testing.T) {
 
 	var got float64 = GetMeanGreenwhichSiderealTimeInDegrees(datetime)
 
-	var want float64 = 128.7378734
+	var want float64 = 197.693195
 
 	if math.Abs(got-want) > 0.00001 {
 		t.Errorf("got %f, wanted %f", got, want)

@@ -106,7 +106,9 @@ func GetCurrentJulianPeriod(datetime time.Time) JulianPeriod {
 	@see eq.12.4 p.88 of Meeus, Jean. 1991. Astronomical algorithms. Richmond, Va: Willmann - Bell.
 */
 func GetMeanGreenwhichSiderealTimeInDegrees(datetime time.Time) float64 {
-	var julianPeriod JulianPeriod = GetCurrentJulianPeriod(datetime)
+	var d time.Time = time.Date(datetime.Year(), datetime.Month(), datetime.Day(), 0, 0, 0, 0, time.UTC)
+
+	var julianPeriod JulianPeriod = GetCurrentJulianPeriod(d)
 
 	// get the Julian date:
 	var JD float64 = julianPeriod.JD
