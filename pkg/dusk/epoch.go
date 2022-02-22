@@ -45,6 +45,47 @@ func GetUniversalTime(JD float64) time.Time {
 }
 
 /*
+	GetLocalGreenwhichSiderealTime
+
+	@param datetime - the datetime of the observer
+	@returns the local sidereal time relative to Greenwhich, UK
+*/
+func GetGreenwhichSiderealTime(datetime time.Time) float64 {
+	var JD = GetJulianDate(datetime)
+
+	var JD_0 = math.Floor(JD-0.5) + 0.5
+
+	var S = JD_0 - J2000
+
+	var T = S / 36525.0
+
+	var T_0 = math.Mod((6.697374558 + 2400.051336*T + 0.000025862*math.Pow(T, 2)), 360)
+
+	// correct for negative hour angles (24 hours is equivalent to 360°)
+	if T_0 < 0 {
+		T_0 += 24
+	}
+
+	var UTC = ((datetime.UTC().Nanosecond()+datetime.UTC().Second())/60 +
+		datetime.UTC().Minute()/
+			60 +
+		datetime.UTC().Hour())
+
+	var A = float64(UTC) * 1.002737909
+
+	T_0 += A
+
+	var GST = math.Mod(T_0, 24)
+
+	// correct for negative hour angles (24 hours is equivalent to 360°)
+	if GST < 0 {
+		GST += 24
+	}
+
+	return GST
+}
+
+/*
 	GetCurrentJulianDayRelativeToJ2000()
 
 	@returns the number of Julian days between J2000 (i.e., 1 January 2000 00:00:00 UTC) and the the datetime, rounded up the the nearest integer
