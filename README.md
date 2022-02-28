@@ -1,3 +1,6 @@
+[![PkgGoDev](https://pkg.go.dev/badge/github.com/observerly/dusk)](https://pkg.go.dev/github.com/observerly/dusk)
+[![Go Report Card](https://goreportcard.com/badge/github.com/observerly/dusk)](https://goreportcard.com/report/github.com/observerly/dusk)
+
 # Dusk 🌑
 
 Dusk is a minimal dependency Go library for calculating astronomical twilight, the lunar phase and the rise and set times of the moon and sun.
