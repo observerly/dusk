@@ -1,3 +1,4 @@
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/observerly/dusk?label=go)
 [![PkgGoDev](https://pkg.go.dev/badge/github.com/observerly/dusk)](https://pkg.go.dev/github.com/observerly/dusk)
 [![Go Report Card](https://goreportcard.com/badge/github.com/observerly/dusk)](https://goreportcard.com/report/github.com/observerly/dusk)
 
