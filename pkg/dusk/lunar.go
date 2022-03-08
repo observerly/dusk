@@ -46,6 +46,30 @@ func GetLunarMeanEclipticLongitude(datetime time.Time) float64 {
 }
 
 /*
+  GetLunarMeanEclipticLongitudeOfTheAscendingNode()
+
+  @returns the mean lunar ecliptic longitude of the ascending node
+  @see p.165 of Lawrence, J.L. 2015. Celestial Calculations - A Gentle Introduction To Computational Astronomy. Cambridge, Ma: The MIT Press
+*/
+func GetLunarMeanEclipticLongitudeOfTheAscendingNode(datetime time.Time) float64 {
+	// the number of days since the standard epoch J2000:
+	var De = GetFractionalJulianDaysSinceStandardEpoch(datetime)
+
+	// the Moon's ecliptic longitude of the ascending node at the epoch J2000:
+	var Ω0 = 125.044522
+
+	// eq. 7.3.2 p.165 of Lawrence, J.L. 2015. Celestial Calculations. Cambridge, Ma: The MIT Press
+	var Ω = math.Mod(Ω0-(0.0529539*De), 360)
+
+	// correct for negative angles
+	if Ω < 0 {
+		Ω += 360
+	}
+
+	return Ω
+}
+
+/*
 	GetLunarMeanElongation()
 
 	@param J - the Ephemeris time or the number of centuries since J2000 epoch
