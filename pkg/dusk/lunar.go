@@ -27,6 +27,25 @@ func GetLunarMeanLongitude(J float64) float64 {
 }
 
 /*
+  GetLunarMeanEclipticLongitude()
+
+  @returns the mean lunar ecliptic longitude as measured from the moment of perigee
+  @see p.165 of Lawrence, J.L. 2015. Celestial Calculations - A Gentle Introduction To Computational Astronomy. Cambridge, Ma: The MIT Press
+*/
+func GetLunarMeanEclipticLongitude(datetime time.Time) float64 {
+	// the number of days since the standard epoch J2000:
+	var De = GetFractionalJulianDaysSinceStandardEpoch(datetime)
+
+	// the Moon's ecliptic longitude at tge epoch J2OOO:
+	var λ0 = 218.316433
+
+	// eq. 7.3.1 p.165 of Lawrence, J.L. 2015. Celestial Calculations. Cambridge, Ma: The MIT Press
+	var λ = math.Mod((13.176339686*De)+λ0, 360)
+
+	return λ
+}
+
+/*
 	GetLunarMeanElongation()
 
 	@param J - the Ephemeris time or the number of centuries since J2000 epoch
