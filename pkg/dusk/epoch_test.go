@@ -50,6 +50,30 @@ func TestGetLocalSiderealTime(t *testing.T) {
 	}
 }
 
+func TestGetCurrentJulianDayJLLawrence(t *testing.T) {
+	var datetime time.Time = time.Date(2015, 2, 5, 12, 0, 0, 0, time.UTC)
+
+	var got int = GetCurrentJulianDayRelativeToJ2000(datetime)
+
+	var want int = 5514
+
+	if got != want {
+		t.Errorf("got %d, wanted %d", got, want)
+	}
+}
+
+func TestGetFractionalJulianDayStandardEpoch(t *testing.T) {
+	var datetime time.Time = time.Date(2015, 2, 5, 17, 0, 0, 0, time.UTC)
+
+	var got float64 = GetFractionalJulianDaysSinceStandardEpoch(datetime)
+
+	var want float64 = 5514.208333
+
+	if math.Abs(got-want) > 0.00001 {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+}
+
 func TestGetCurrentJulianDay(t *testing.T) {
 	var got int = GetCurrentJulianDayRelativeToJ2000(datetime)
 

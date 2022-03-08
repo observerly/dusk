@@ -126,6 +126,22 @@ func GetCurrentJulianDayRelativeToJ2000(datetime time.Time) int {
 }
 
 /*
+	GetFractionalJulianDayStandardEpoch()
+
+	@returns the total number of fractional dates elapsed since the standard epoch J2000.
+	@see p.136 of Lawrence, J.L. 2015. Celestial Calculations - A Gentle Introduction Yo Computational Astronomy. Cambridge, Ma: The MIT Press
+*/
+func GetFractionalJulianDaysSinceStandardEpoch(datetime time.Time) float64 {
+	// get the Julian date:
+	var JD float64 = GetJulianDate(datetime)
+
+	// calculate the current Julian day:
+	var n float64 = JD - 2451545.0
+
+	return n
+}
+
+/*
 	GetCurrentJulianCenturyRelativeToJ2000()
 
 	@returns the number of Julian centuries between J2000 (i.e., 1 January 2000 00:00:00 UTC) and the the datetime, rounded up the the nearest integer
