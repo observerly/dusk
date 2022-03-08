@@ -237,6 +237,22 @@ func GetLunarEvectionCorrection(M float64, λ float64, λsol float64) float64 {
 }
 
 /*
+  GetLunarMeanAnomalyCorrection()
+
+  @param M - the lunar mean anomaly
+  @param Msol - the solar mean anomaly
+  @param Ae - the annual equation of correction for the Moon
+  @param Eν - the evection correction for the Moon
+  @returns the mean anomaly correction for the Moon
+*/
+func GetLunarMeanAnomalyCorrection(M float64, Msol float64, Ae float64, Eν float64) float64 {
+	// eq. 7.3.6 p.165 of Lawrence, J.L. 2015. Celestial Calculations. Cambridge, Ma: The MIT Press
+	var Ca = M - 0.37*sinx(Msol) + Eν - Ae
+
+	return Ca
+}
+
+/*
   GetLunarEquatorialPosition()
 
  	@param datetime - the datetime in UTC of the observer
