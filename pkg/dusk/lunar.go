@@ -46,6 +46,42 @@ func GetLunarMeanEclipticLongitude(datetime time.Time) float64 {
 }
 
 /*
+  GetLunarTrueEclipticLongitude()
+
+  @returns the true corrected lunar ecliptic longitude as measured from the moment of perigee
+  @see p.165 of Lawrence, J.L. 2015. Celestial Calculations - A Gentle Introduction To Computational Astronomy. Cambridge, Ma: The MIT Press
+*/
+func GetLunarTrueEclipticLongitude(datetime time.Time) float64 {
+	var M float64 = GetLunarMeanAnomalyLawrence(datetime)
+
+	var λ float64 = GetLunarMeanEclipticLongitude(datetime)
+
+	var Msol = GetSolarMeanAnomalyLawrence(datetime)
+
+	var Csol = GetSolarEquationOfCenterLawrence(Msol)
+
+	var λsol float64 = GetSolarEclipticLongitudeLawrence(Msol, Csol)
+
+	var Ae float64 = GetLunarAnnualEquationCorrection(M)
+
+	var Eν float64 = GetLunarEvectionCorrection(M, λ, λsol)
+
+	var Ca float64 = GetLunarMeanAnomalyCorrection(M, Msol, Ae, Eν)
+
+	// TO-DO: Refactor GetLunarTrueAnomaly() to accept Ca
+	// eq. 7.3.7 p.165 of Lawrence, J.L. 2015. Celestial Calculations. Cambridge, Ma: The MIT Press
+	var ν float64 = 6.2886*sinx(Ca) + 0.214*sinx(2*Ca)
+
+	// eq 7.3.9 p.165 of Lawrence, J.L. 2015. Celestial Calculations. Cambridge, Ma: The MIT Press
+	var λcorr float64 = math.Mod(λ+Eν+ν-Ae, 360)
+
+	// eq 7.3.8 p.165 of Lawrence, J.L. 2015. Celestial Calculations. Cambridge, Ma: The MIT Press
+	var V = 0.6583 * sinx(2*(λcorr-λsol))
+
+	return λcorr + V
+}
+
+/*
   GetLunarMeanEclipticLongitudeOfTheAscendingNode()
 
   @returns the mean lunar ecliptic longitude of the ascending node
