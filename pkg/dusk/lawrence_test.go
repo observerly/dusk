@@ -6,6 +6,19 @@ import (
 	"time"
 )
 
+func TestGetLunarMeanEclipticLongitude(t *testing.T) {
+	// Date of observation:
+	var datetime time.Time = time.Date(2015, 1, 2, 3, 0, 0, 0, time.UTC)
+
+	var got = GetLunarMeanEclipticLongitude(datetime)
+
+	var want = 59.716785
+
+	if math.Abs(got-want) > 0.00001 {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+}
+
 func TestGetSolarMeanAnomalyLawrence(t *testing.T) {
 	// Date of observation:
 	var datetime time.Time = time.Date(2015, 2, 5, 17, 0, 0, 0, time.UTC)
