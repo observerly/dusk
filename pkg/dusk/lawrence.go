@@ -6,6 +6,32 @@ import (
 )
 
 /*
+  GetLunarMeanAnomalyLawrence()
+
+  @returns the mean lunar anomaly as measured from the moment of perigee
+  @see p.165 of Lawrence, J.L. 2015. Celestial Calculations - A Gentle Introduction To Computational Astronomy. Cambridge, Ma: The MIT Press
+*/
+func GetLunarMeanAnomalyLawrence(datetime time.Time) float64 {
+	// the number of days since the standard epoch J2000:
+	var De = GetFractionalJulianDaysSinceStandardEpoch(datetime)
+
+	var λ = GetLunarMeanEclipticLongitude(datetime)
+
+	// the Moon's ecliptic longitude at perigee of the epoch J2000 (given by the The Astronomical Almanac, 2000):
+	var ϖ0 = 83.353451
+
+	// eq. 7.3.3 p.165 of Lawrence, J.L. 2015. Celestial Calculations. Cambridge, Ma: The MIT Press
+	var M = math.Mod(λ-(0.1114041*De)-ϖ0, 360)
+
+	// correct for negative angles
+	if M < 0 {
+		M += 360
+	}
+
+	return M
+}
+
+/*
   GetSolarMeanAnomalyLawrence()
 
   @returns the mean solar anomaly as measured from the moment of perigee
