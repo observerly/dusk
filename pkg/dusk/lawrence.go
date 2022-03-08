@@ -26,3 +26,19 @@ func GetSolarMeanAnomalyLawrence(datetime time.Time) float64 {
 
 	return M
 }
+
+/*
+  GetSolarEquationOfCenterLawrence()
+
+  @returns the approximate equation of center for the Sun
+  @see p.136 of Lawrence, J.L. 2015. Celestial Calculations - A Gentle Introduction To Computational Astronomy. Cambridge, Ma: The MIT Press
+*/
+func GetSolarEquationOfCenterLawrence(M float64) float64 {
+	// the eccentricity of the Earth-Sun orbit at the epoch J2000 (given by the The Astronomical Almanac, 2000):
+	var e = 0.016708
+
+	// eq. 6.2.4 p.135 of Lawrence, J.L. 2015. Celestial Calculations. Cambridge, Ma: The MIT Press
+	var Ec = (360 / math.Pi) * e * sinx(M)
+
+	return Ec
+}
