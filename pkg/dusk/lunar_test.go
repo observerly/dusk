@@ -31,6 +31,19 @@ func TestGetLunarMeanEclipticLongitude(t *testing.T) {
 	}
 }
 
+func TestGetLunarTrueEclipticLongitude(t *testing.T) {
+	// Date of observation:
+	var datetime time.Time = time.Date(2015, 1, 2, 3, 0, 0, 0, time.UTC)
+
+	var got = GetLunarTrueEclipticLongitude(datetime)
+
+	var want = 64.972240
+
+	if math.Abs(got-want) > 0.00001 {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+}
+
 func TestGetLunarMeanEclipticLongitudeOfTheAscendingNode(t *testing.T) {
 	// Date of observation:
 	var datetime time.Time = time.Date(2015, 1, 2, 3, 0, 0, 0, time.UTC)
