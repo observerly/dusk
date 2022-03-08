@@ -144,6 +144,35 @@ func GetLunarMeanAnomaly(J float64) float64 {
 }
 
 /*
+  GetLunarTrueAnomaly()
+
+  @param datetime - the datetime of the observation
+  @returns the Moon's true anomaly
+*/
+func GetLunarTrueAnomaly(datetime time.Time) float64 {
+	var M float64 = GetLunarMeanAnomalyLawrence(datetime)
+
+	var λ float64 = GetLunarMeanEclipticLongitude(datetime)
+
+	var Msol = GetSolarMeanAnomalyLawrence(datetime)
+
+	var Csol = GetSolarEquationOfCenterLawrence(Msol)
+
+	var λsol float64 = GetSolarEclipticLongitudeLawrence(Msol, Csol)
+
+	var Ae float64 = GetLunarAnnualEquationCorrection(M)
+
+	var Eν float64 = GetLunarEvectionCorrection(M, λ, λsol)
+
+	var Ca float64 = GetLunarMeanAnomalyCorrection(M, Msol, Ae, Eν)
+
+	// eq. 7.3.7 p.165 of Lawrence, J.L. 2015. Celestial Calculations. Cambridge, Ma: The MIT Press
+	var ν float64 = 6.2886*sinx(Ca) + 0.214*sinx(2*Ca)
+
+	return ν
+}
+
+/*
   GetLunarArgumentOfLatitude()
 
   @param J - the Ephemeris time or the number of centuries since J2000 epoch
