@@ -222,6 +222,21 @@ func GetLunarAnnualEquationCorrection(Msol float64) float64 {
 }
 
 /*
+  GetLunarEvectionCorrection()
+
+  @param λ - the mean lunar ecliptic longitude as measured from the moment of perigee
+  @param M - the Lunar mean anomaly
+  @param λsol - the mean solar anomaly as measured from the moment of perigee
+  @returns the evection correction for the Moon
+*/
+func GetLunarEvectionCorrection(M float64, λ float64, λsol float64) float64 {
+	// eq. 7.3.5 p.165 of Lawrence, J.L. 2015. Celestial Calculations. Cambridge, Ma: The MIT Press
+	var Eν = 1.2739 * sinx(2*(λ-λsol)-M)
+
+	return Eν
+}
+
+/*
   GetLunarEquatorialPosition()
 
  	@param datetime - the datetime in UTC of the observer
