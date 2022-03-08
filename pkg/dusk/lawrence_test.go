@@ -19,6 +19,19 @@ func TestGetSolarMeanAnomalyLawrence(t *testing.T) {
 	}
 }
 
+func TestGetSolarMeanAnomalyLawrenceAlt(t *testing.T) {
+	// Date of observation:
+	var datetime time.Time = time.Date(2015, 1, 2, 3, 0, 0, 0, time.UTC)
+
+	var got = GetSolarMeanAnomalyLawrence(datetime)
+
+	var want = 358.505618
+
+	if math.Abs(got-want) > 0.00001 {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+}
+
 func TestGetSolarEquationOfCenterLawrence(t *testing.T) {
 	// Date of observation:
 	var datetime time.Time = time.Date(2015, 2, 5, 17, 0, 0, 0, time.UTC)
