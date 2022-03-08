@@ -209,6 +209,19 @@ func GetLunarObliquityOfNutation(L float64, l float64, Ω float64) float64 {
 }
 
 /*
+  GetLunarAnnualEquationCorrection()
+
+  @param Msol - the Solar mean anomaly
+  @returns the annual equation of correction for the Moon
+*/
+func GetLunarAnnualEquationCorrection(Msol float64) float64 {
+	// eq. 7.3.4 p.165 of Lawrence, J.L. 2015. Celestial Calculations. Cambridge, Ma: The MIT Press
+	var Ae = 0.1858 * sinx(Msol)
+
+	return Ae
+}
+
+/*
   GetLunarEquatorialPosition()
 
  	@param datetime - the datetime in UTC of the observer

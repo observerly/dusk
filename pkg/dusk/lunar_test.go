@@ -175,6 +175,21 @@ func TestGetLunarObliquityOfNutation(t *testing.T) {
 	}
 }
 
+func TestGetLunarAnnualEquationCorrection(t *testing.T) {
+	// Date of observation:
+	var datetime time.Time = time.Date(2015, 1, 2, 3, 0, 0, 0, time.UTC)
+
+	var M float64 = GetSolarMeanAnomalyLawrence(datetime)
+
+	var got float64 = GetLunarAnnualEquationCorrection(M)
+
+	var want float64 = -0.004845
+
+	if math.Abs(got-want) > 0.00001 {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+}
+
 func TestGetLunarEquatorialPositionRightAscension(t *testing.T) {
 	var eq EquatorialCoordinate = GetLunarEquatorialPosition(datetime)
 
