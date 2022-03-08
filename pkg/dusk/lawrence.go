@@ -42,3 +42,26 @@ func GetSolarEquationOfCenterLawrence(M float64) float64 {
 
 	return Ec
 }
+
+/*
+  GetSolarEclipticLongitudeLawrence()
+
+  @param M - the mean solar anomaly as measured from the moment of perigee
+  @param C - the approximate equation of center for the Sun
+  @returns the ecliptic longitude of the Sun
+  @see p.136 of Lawrence, J.L. 2015. Celestial Calculations - A Gentle Introduction To Computational Astronomy. Cambridge, Ma: The MIT Press
+*/
+func GetSolarEclipticLongitudeLawrence(M float64, C float64) float64 {
+	// the Sun's ecliptic lonitude at perigee of the epoch J2000 (given by the The Astronomical Almanac, 2000):
+	var ϖg = 282.938346
+
+	// eq. 6.2.5 & 6.2.6 p.134 of Lawrence, J.L. 2015. Celestial Calculations. Cambridge, Ma: The MIT Press
+	var λ = math.Mod(M+C+ϖg, 360)
+
+	// adjust for angles larger than 360°:
+	if λ > 360 {
+		λ -= 360
+	}
+
+	return λ
+}
