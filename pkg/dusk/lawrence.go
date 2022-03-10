@@ -32,6 +32,44 @@ func GetLunarMeanAnomalyLawrence(datetime time.Time) float64 {
 }
 
 /*
+  GetMoonEclipticPositionLawrence()
+
+  @param datetime - the datetime in UTC of the observer
+  @returns the geocentric ecliptic coodinate (λ - geocentric longitude, β - geocentric latidude) of the Moon.
+  @see ch.7 p.163-169 of Lawrence, J.L. 2015. Celestial Calculations - A Gentle Introduction To Computational Astronomy. Cambridge, Ma: The MIT Press
+*/
+func GetLunarEclipticPositionLawrence(datetime time.Time) EclipticCoordinate {
+	var Ωprime float64 = GetLunarCorrectedEclipticLongitudeOfTheAscendingNode(datetime)
+
+	var λt float64 = GetLunarTrueEclipticLongitude(datetime)
+
+	// the inclination of the Moon's orbit with respect to the ecliptic
+	var ι float64 = 5.1453964
+
+	var x float64 = cosx(λt - Ωprime)
+
+	var y float64 = sinx(λt-Ωprime) * cosx(ι)
+
+	// utilise atan2yx to determine a quadrant adjustment for arctan
+	var T float64 = math.Mod(atan2yx(y, x), 360)
+
+	// correct for negative angles
+	if T < 0 {
+		T += 360
+	}
+
+	// ensure values for ecliptic longitude are corrected to between [0°, 360°]
+	var λm float64 = math.Mod(Ωprime+T, 360)
+
+	var βm float64 = asinx(sinx(λt-Ωprime) * sinx(ι))
+
+	return EclipticCoordinate{
+		λ: λm,
+		β: βm,
+	}
+}
+
+/*
   GetSolarMeanAnomalyLawrence()
 
   @returns the mean solar anomaly as measured from the moment of perigee
