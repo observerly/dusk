@@ -75,7 +75,7 @@ func GetLunarTrueEclipticLongitude(datetime time.Time) float64 {
 	// eq 7.3.9 p.165 of Lawrence, J.L. 2015. Celestial Calculations. Cambridge, Ma: The MIT Press
 	var λcorr float64 = math.Mod(λ+Eν+ν-Ae, 360)
 
-	// eq 7.3.8 p.165 of Lawrence, J.L. 2015. Celestial Calculations. Cambridge, Ma: The MIT Press
+	// eq 7.3.8 p.166 of Lawrence, J.L. 2015. Celestial Calculations. Cambridge, Ma: The MIT Press
 	var V = 0.6583 * sinx(2*(λcorr-λsol))
 
 	return λcorr + V
