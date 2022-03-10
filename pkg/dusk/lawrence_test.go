@@ -19,6 +19,103 @@ func TestGetLunarMeanAnomalyLawrence(t *testing.T) {
 	}
 }
 
+func TestGetLunarEclipticPositionLawrenceX(t *testing.T) {
+	// Date of observation:
+	var datetime time.Time = time.Date(2015, 1, 2, 3, 0, 0, 0, time.UTC)
+
+	var Ωprime float64 = GetLunarCorrectedEclipticLongitudeOfTheAscendingNode(datetime)
+
+	var λt float64 = GetLunarTrueEclipticLongitude(datetime)
+
+	var got float64 = cosx(λt - Ωprime)
+
+	var want float64 = -0.638869
+
+	if math.Abs(got-want) > 0.1 {
+		t.Errorf("quad %f, wanted %f and difference %f", got, want, math.Abs(got-want))
+	}
+}
+
+func TestGetLunarEclipticPositionLawrenceY(t *testing.T) {
+	// Date of observation:
+	var datetime time.Time = time.Date(2015, 1, 2, 3, 0, 0, 0, time.UTC)
+
+	var Ωprime float64 = GetLunarCorrectedEclipticLongitudeOfTheAscendingNode(datetime)
+
+	var λt float64 = GetLunarTrueEclipticLongitude(datetime)
+
+	// the inclination of the Moon's orbit with respect to the ecliptic
+	var ι float64 = 5.1453964
+
+	var got float64 = sinx(λt-Ωprime) * cosx(ι)
+
+	var want float64 = -0.766215
+
+	if math.Abs(got-want) > 0.1 {
+		t.Errorf("quad %f, wanted %f and difference %f", got, want, math.Abs(got-want))
+	}
+}
+
+func TestGetLunarEclipticPositionLawrenceLongitudeQuadrant(t *testing.T) {
+	// Date of observation:
+	var datetime time.Time = time.Date(2015, 1, 2, 3, 0, 0, 0, time.UTC)
+
+	var Ωprime float64 = GetLunarCorrectedEclipticLongitudeOfTheAscendingNode(datetime)
+
+	var λt float64 = GetLunarTrueEclipticLongitude(datetime)
+
+	// the inclination of the Moon's orbit with respect to the ecliptic
+	var ι float64 = 5.1453964
+
+	var x float64 = cosx(λt - Ωprime)
+
+	var y float64 = sinx(λt-Ωprime) * cosx(ι)
+
+	// utilise atan2yx to determine a quadrant adjustment for arctan
+	var got float64 = math.Mod(atan2yx(y, x), 360)
+
+	// correct for negative angles
+	if got < 0 {
+		got += 360
+	}
+
+	var want = 230.178711
+
+	if math.Abs(got-want) > 0.25 {
+		t.Errorf("quad %f, wanted %f and difference %f", got, want, math.Abs(got-want))
+	}
+}
+
+func TestGetLunarEclipticPositionLawrenceLongitude(t *testing.T) {
+	// Date of observation:
+	var datetime time.Time = time.Date(2015, 1, 2, 3, 0, 0, 0, time.UTC)
+
+	var ec EclipticCoordinate = GetLunarEclipticPositionLawrence(datetime)
+
+	var got float64 = ec.λ
+
+	var want float64 = 65.059853
+
+	if math.Abs(got-want) > 0.25 {
+		t.Errorf("quad %f, wanted %f and difference %f", got, want, math.Abs(got-want))
+	}
+}
+
+func TestGetLunarEclipticPositionLawrenceLatitude(t *testing.T) {
+	// Date of observation:
+	var datetime time.Time = time.Date(2015, 1, 2, 3, 0, 0, 0, time.UTC)
+
+	var ec EclipticCoordinate = GetLunarEclipticPositionLawrence(datetime)
+
+	var got float64 = ec.β
+
+	var want float64 = -3.956258
+
+	if math.Abs(got-want) > 0.1 {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+}
+
 func TestGetSolarMeanAnomalyLawrence(t *testing.T) {
 	// Date of observation:
 	var datetime time.Time = time.Date(2015, 2, 5, 17, 0, 0, 0, time.UTC)
