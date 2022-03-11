@@ -282,7 +282,7 @@ func TestGetLunarMeanAnomalyCorrection(t *testing.T) {
 func TestGetLunarEquatorialPositionRightAscension(t *testing.T) {
 	var eq EquatorialCoordinate = GetLunarEquatorialPosition(datetime)
 
-	var got float64 = eq.ra
+	var got float64 = eq.α
 
 	var want float64 = 76.239624
 
@@ -294,7 +294,7 @@ func TestGetLunarEquatorialPositionRightAscension(t *testing.T) {
 func TestGetLunarEquatorialPositionDeclination(t *testing.T) {
 	var eq EquatorialCoordinate = GetLunarEquatorialPosition(datetime)
 
-	var got float64 = eq.dec
+	var got float64 = eq.δ
 
 	var want float64 = 23.598793
 
@@ -357,7 +357,7 @@ func TestGetLunarHourAngle(t *testing.T) {
 
 	var π float64 = GetLunarHorizontalParallax(ec.Δ)
 
-	var got float64 = GetLunarHourAngle(eq.dec, latitude, 0, π)
+	var got float64 = GetLunarHourAngle(eq.δ, latitude, 0, π)
 
 	var want float64 = 97.500858
 
@@ -371,7 +371,7 @@ func TestGetLunarTransitJulianDate(t *testing.T) {
 
 	var ϑ float64 = GetApparentGreenwhichSiderealTimeInDegrees(d)
 
-	var got float64 = GetLunarTransitJulianDate(datetime, eq.ra, longitude, ϑ)
+	var got float64 = GetLunarTransitJulianDate(datetime, eq.α, longitude, ϑ)
 
 	var want float64 = 2459348.890048
 

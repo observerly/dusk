@@ -131,6 +131,36 @@ func TestGetLunarEclipticPositionLawrenceLatitude(t *testing.T) {
 	}
 }
 
+func TestGetLunarEquatorialPositionLawrenceRightAscension(t *testing.T) {
+	// Date of observation:
+	var datetime time.Time = time.Date(2015, 1, 2, 3, 0, 0, 0, time.UTC)
+
+	var eq EquatorialCoordinate = GetLunarEquatorialPosition(datetime)
+
+	var got float64 = eq.α
+
+	var want float64 = 63.86571
+
+	if math.Abs(got-want) > 2 {
+		t.Errorf("quad %f, wanted %f and difference %f", got, want, math.Abs(got-want))
+	}
+}
+
+func TestGetLunarEquatorialPositionLawrenceDeclination(t *testing.T) {
+	// Date of observation:
+	var datetime time.Time = time.Date(2015, 1, 2, 3, 0, 0, 0, time.UTC)
+
+	var eq EquatorialCoordinate = GetLunarEquatorialPosition(datetime)
+
+	var got float64 = eq.δ
+
+	var want float64 = 17.248880
+
+	if math.Abs(got-want) > 1 {
+		t.Errorf("quad %f, wanted %f and difference %f", got, want, math.Abs(got-want))
+	}
+}
+
 func TestGetSolarMeanAnomalyLawrence(t *testing.T) {
 	// Date of observation:
 	var datetime time.Time = time.Date(2015, 2, 5, 17, 0, 0, 0, time.UTC)

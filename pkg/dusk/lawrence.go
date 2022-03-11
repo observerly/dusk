@@ -93,6 +93,35 @@ func GetLunarEclipticPositionLawrence(datetime time.Time) EclipticCoordinate {
 }
 
 /*
+  GetLunarEquatorialPositionLawrence()
+
+  @param datetime - the datetime in UTC of the observer
+  @returns the equatorial coodinate (λ - geocentric longitude, β - geocentric latidude) of the Moon.
+*/
+func GetLunarEquatorialPositionLawrence(datetime time.Time) EquatorialCoordinate {
+	var J = GetCurrentJulianCenturyRelativeToJ2000(datetime)
+
+	var ε float64 = GetObliquityOfTheEclipticLawrence(J)
+
+	var ec EclipticCoordinate = GetLunarEclipticPositionLawrence(datetime)
+
+	// trigoneometric functions handle the correct degrees and radians conversions:
+	var α float64 = atan2yx(sinx(ec.λ)*cosx(ε)-tanx(ec.β)*sinx(ε), cosx(ec.λ))
+
+	if α < 0 {
+		α += 360
+	}
+
+	// trigoneometric functions handle the correct degrees and radians conversions:
+	var δ float64 = asinx(sinx(ec.β)*cosx(ε) + cosx(ec.β)*sinx(ε)*sinx(ec.λ))
+
+	return EquatorialCoordinate{
+		α: α,
+		δ: δ,
+	}
+}
+
+/*
   GetSolarMeanAnomalyLawrence()
 
   @returns the mean solar anomaly as measured from the moment of perigee
