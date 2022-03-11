@@ -9,7 +9,7 @@ func TestConvertEclipticCoordinateToEquatorialRA(t *testing.T) {
 	// utilising the ecliptic position of the moon on the datetime provided:
 	var ec EquatorialCoordinate = ConvertEclipticCoordinateToEquatorial(d, EclipticCoordinate{λ: 133.162655, β: -3.229126, Δ: 0})
 
-	var got float64 = ec.ra
+	var got float64 = ec.α
 
 	var want float64 = 134.688470
 
@@ -22,7 +22,7 @@ func TestConvertEclipticCoordinateToEquatorialDec(t *testing.T) {
 	// utilising the ecliptic position of the moon on the datetime provided:
 	var ec EquatorialCoordinate = ConvertEclipticCoordinateToEquatorial(d, EclipticCoordinate{λ: 133.162655, β: -3.229126, Δ: 0})
 
-	var got float64 = ec.dec
+	var got float64 = ec.δ
 
 	var want float64 = 13.768368
 
@@ -32,7 +32,7 @@ func TestConvertEclipticCoordinateToEquatorialDec(t *testing.T) {
 }
 
 func TestConvertEquatorialCoordinateTHorizontalAltitude(t *testing.T) {
-	var hz HorizontalCoordinate = ConvertEquatorialCoordinateToHorizontal(datetime, longitude, latitude, EquatorialCoordinate{ra: 88.7929583, dec: 7.4070639})
+	var hz HorizontalCoordinate = ConvertEquatorialCoordinateToHorizontal(datetime, longitude, latitude, EquatorialCoordinate{α: 88.7929583, δ: 7.4070639})
 
 	var got float64 = hz.a
 
@@ -44,7 +44,7 @@ func TestConvertEquatorialCoordinateTHorizontalAltitude(t *testing.T) {
 }
 
 func TestConvertEquatorialCoordinateTHorizontalAzimuth(t *testing.T) {
-	var hz HorizontalCoordinate = ConvertEquatorialCoordinateToHorizontal(datetime, longitude, latitude, EquatorialCoordinate{ra: 88.7929583, dec: 7.4070639})
+	var hz HorizontalCoordinate = ConvertEquatorialCoordinateToHorizontal(datetime, longitude, latitude, EquatorialCoordinate{α: 88.7929583, δ: 7.4070639})
 
 	var got float64 = hz.A
 

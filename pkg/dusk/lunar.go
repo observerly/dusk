@@ -360,8 +360,8 @@ func GetLunarEquatorialPosition(datetime time.Time) EquatorialCoordinate {
 	var dec float64 = asinx(sinx(b)*cosx(O) + cosx(b)*sinx(O)*sinx(l))
 
 	return EquatorialCoordinate{
-		ra:  ra,
-		dec: dec,
+		α: ra,
+		δ: dec,
 	}
 }
 
