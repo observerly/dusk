@@ -6,6 +6,29 @@ import (
 )
 
 /*
+	GetObliquityOfTheEclipticLawrence()
+
+	@param J - the Ephemeris time or the number of centuries since J2000 epoch
+	@returns the mean obliquity of the ecliptic (in degrees), as adopted by the Jet Propulsion Laboratory, NASA
+	@see p.93 of Lawrence, J.L. 2015. Celestial Calculations - A Gentle Introduction To Computational Astronomy. Cambridge, Ma: The MIT Press
+*/
+func GetObliquityOfTheEclipticLawrence(J float64) float64 {
+	// the obliquity of the ecliptic at the standard epoch J2000:
+	var ε0 = 23.439292
+
+	// eq. 4.8.2 p.93 of Lawrence, J.L. 2015. Celestial Calculations. Cambridge, Ma: The MIT Press
+	// correct for large angles (+ive or -ive), i.e., applies modulo correction to the angle, and ensures always positive:
+	var ε float64 = math.Mod(ε0-((46.815*J+0.0006*math.Pow(J, 2)-0.00181*math.Pow(J, 3))/3600), 360)
+
+	// correct for negative angles
+	if ε < 0 {
+		ε += 360
+	}
+
+	return ε
+}
+
+/*
   GetLunarMeanAnomalyLawrence()
 
   @returns the mean lunar anomaly as measured from the moment of perigee

@@ -6,6 +6,21 @@ import (
 	"time"
 )
 
+func TestGetObliquityOfTheEclipticLawrence(t *testing.T) {
+	// Date of observation:
+	var datetime time.Time = time.Date(2010, 1, 1, 0, 0, 0, 0, time.UTC)
+
+	var T = GetCurrentJulianCenturyRelativeToJ2000(datetime)
+
+	var got = GetObliquityOfTheEclipticLawrence(T)
+
+	var want = 23.437992
+
+	if math.Abs(got-want) > 0.0001 {
+		t.Errorf("quad %f, wanted %f and difference %f", got, want, math.Abs(got-want))
+	}
+}
+
 func TestGetLunarMeanAnomalyLawrence(t *testing.T) {
 	// Date of observation:
 	var datetime time.Time = time.Date(2015, 1, 2, 3, 0, 0, 0, time.UTC)
