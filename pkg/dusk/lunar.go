@@ -641,6 +641,23 @@ func GetLunarHourAngle(δ float64, latitude float64, elevation float64, π float
 }
 
 /*
+	GetLunarEclipticLatitudeInXHours()
+
+	@param β1 - the ecliptic latitude we are starting from (in degrees)
+	@param Ωprime1 - the lunar corrected ecliptic longitude of the ascending node (in degrees)
+	@param λt1 - the lunar true ecliptic longitude (in degrees)
+	@param hours - the number of hours in the future
+	@returns the ecliptic latitude of the Moon 't' hours later.
+	@see ch.7 p.169 eq7.4.1  of Lawrence, J.L. 2015. Celestial Calculations - A Gentle Introduction To Computational Astronomy. Cambridge, Ma: The MIT Press
+*/
+func GetLunarEclipticLatitudeInXHours(β1 float64, Ωprime1 float64, λt1 float64, hours int) float64 {
+	// eq. 7.4.1 p.169 of Lawrence, J.L. 2015. Celestial Calculations. Cambridge, Ma: The MIT Press
+	var β2 = β1 + (0.05 * cosx(λt1-Ωprime1) * float64(hours))
+
+	return β2
+}
+
+/*
 	GetLunarEclipticLongitudeInXHours()
 
 	@param λ1 - the ecliptic longitude we are starting from (in degrees)

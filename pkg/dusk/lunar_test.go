@@ -427,6 +427,25 @@ func TestGetEclipticLongitudeInXHours(t *testing.T) {
 	}
 }
 
+func TestGetEclipticLatitudeInXHours(t *testing.T) {
+	// Date of observation:
+	var datetime time.Time = time.Date(2015, 1, 1, 0, 0, 0, 0, time.UTC)
+
+	var ec EclipticCoordinate = GetLunarEclipticPosition(datetime)
+
+	var Ωprime1 float64 = GetLunarCorrectedEclipticLongitudeOfTheAscendingNode(datetime)
+
+	var λt1 float64 = GetLunarTrueEclipticLongitude(datetime)
+
+	var got float64 = GetLunarEclipticLatitudeInXHours(ec.β, Ωprime1, λt1, 12)
+
+	var want float64 = -3.470089
+
+	if math.Abs(got-want) > 0.1 {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+}
+
 func TestGetLunarTransitJulianDate(t *testing.T) {
 	var eq EquatorialCoordinate = GetLunarEquatorialPosition(d)
 
