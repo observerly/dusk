@@ -641,6 +641,28 @@ func GetLunarHourAngle(δ float64, latitude float64, elevation float64, π float
 }
 
 /*
+	ConvertEclipticCoordinateToEquatorial()
+
+	@param λ1 - the ecliptic longitude we are starting from (in degrees)
+	@param Ca1 - the lunar mean anomaly correction (in degrees)
+	@param hours - the number of hours in the future
+	@returns the ecliptic longitude of the Moon 't' hours later.
+	@see ch.7 p.169 eq7.4.2  of Lawrence, J.L. 2015. Celestial Calculations - A Gentle Introduction To Computational Astronomy. Cambridge, Ma: The MIT Press
+*/
+func GetLunarEclipticLongitudeInXHours(λ1 float64, Ca1 float64, hours int) float64 {
+	// eq. 7.4.2 p.169 of Lawrence, J.L. 2015. Celestial Calculations. Cambridge, Ma: The MIT Press
+	// correct for large angles (+ive or -ive), i.e., applies modulo correction to the angle, and ensures always positive:
+	var λ2 = math.Mod(λ1+((0.55+0.06*cosx(Ca1))*float64(hours)), 360)
+
+	// correct for negative angles
+	if λ2 < 0 {
+		λ2 += 360
+	}
+
+	return λ2
+}
+
+/*
 	GetLunarTransitJulianDate()
 
 	@param datetime - the datetime in UTC of the observer
