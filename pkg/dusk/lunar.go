@@ -641,7 +641,7 @@ func GetLunarHourAngle(δ float64, latitude float64, elevation float64, π float
 }
 
 /*
-	ConvertEclipticCoordinateToEquatorial()
+	GetLunarEclipticLongitudeInXHours()
 
 	@param λ1 - the ecliptic longitude we are starting from (in degrees)
 	@param Ca1 - the lunar mean anomaly correction (in degrees)
