@@ -60,3 +60,15 @@ func GetNutationInLongitudeOfTheEcliptic(L float64, l float64, Ω float64) float
 func GetNutationInObliquityOfTheEcliptic(L float64, l float64, Ω float64) float64 {
 	return (9.20*cosx(Ω) + 0.57*cosx(2*L) + 0.1*cosx(2*l) - 0.09*cosx(2*Ω)) / 3600
 }
+
+/*
+	GetArgumentOfLocalSiderealTimeForTransit()
+
+	@param latitude - is the latitude (south is negative, north is positive) in degrees of some observer on Earth
+	@param δ - equatorial declination of the observed object
+	@returns the argument of local sidereal time (LST) observed in degrees
+	@see ch.5 p.115 eq 5.2.1 & 5.2.2 of Lawrence, J.L. 2015. Celestial Calculations - A Gentle Introduction To Computational Astronomy. Cambridge, Ma: The MIT Press
+*/
+func GetArgumentOfLocalSiderealTimeForTransit(latitude float64, δ float64) float64 {
+	return acosx(-tanx(latitude) * tanx(δ))
+}
