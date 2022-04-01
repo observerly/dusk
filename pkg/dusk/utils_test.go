@@ -81,3 +81,17 @@ func TestGetNutationInObliquityOfTheEcliptic(t *testing.T) {
 		t.Errorf("got %f, wanted %f", got, want)
 	}
 }
+
+func TestGetArgumentOfLocalSiderealTime(t *testing.T) {
+	var got float64 = GetArgumentOfLocalSiderealTimeForTransit(latitude, 7.4070639)
+
+	var want float64 = 92.682420
+
+	if math.Abs(got-want) > 0.00001 {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+
+	if got < 0 || got > 360 {
+		t.Errorf("The argument of LST must be an angle between 0° and 360°")
+	}
+}
