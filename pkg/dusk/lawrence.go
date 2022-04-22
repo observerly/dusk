@@ -116,8 +116,8 @@ func GetLunarEquatorialPositionLawrence(datetime time.Time) EquatorialCoordinate
 	var δ float64 = asinx(sinx(ec.β)*cosx(ε) + cosx(ec.β)*sinx(ε)*sinx(ec.λ))
 
 	return EquatorialCoordinate{
-		α: α,
-		δ: δ,
+		RightAscension: α,
+		Declination:    δ,
 	}
 }
 

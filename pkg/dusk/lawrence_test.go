@@ -137,7 +137,7 @@ func TestGetLunarEquatorialPositionLawrenceRightAscension(t *testing.T) {
 
 	var eq EquatorialCoordinate = GetLunarEquatorialPosition(datetime)
 
-	var got float64 = eq.α
+	var got float64 = eq.RightAscension
 
 	var want float64 = 63.86571
 
@@ -152,7 +152,7 @@ func TestGetLunarEquatorialPositionLawrenceDeclination(t *testing.T) {
 
 	var eq EquatorialCoordinate = GetLunarEquatorialPosition(datetime)
 
-	var got float64 = eq.δ
+	var got float64 = eq.Declination
 
 	var want float64 = 17.248880
 

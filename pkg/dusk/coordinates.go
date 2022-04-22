@@ -5,8 +5,8 @@ import (
 )
 
 type EquatorialCoordinate struct {
-	α float64
-	δ float64
+	RightAscension float64
+	Declination    float64
 }
 
 type EclipticCoordinate struct {
@@ -73,8 +73,8 @@ func ConvertEclipticCoordinateToEquatorial(datetime time.Time, ec EclipticCoordi
 	}
 
 	return EquatorialCoordinate{
-		α: α,
-		δ: δ,
+		RightAscension: α,
+		Declination:    δ,
 	}
 }
 
@@ -91,9 +91,9 @@ func ConvertEclipticCoordinateToEquatorial(datetime time.Time, ec EclipticCoordi
 func ConvertEquatorialCoordinateToHorizontal(datetime time.Time, longitude float64, latitude float64, eq EquatorialCoordinate) HorizontalCoordinate {
 	var LST float64 = GetLocalSiderealTime(datetime, longitude)
 
-	var ra float64 = GetHourAngle(eq.α, LST)
+	var ra float64 = GetHourAngle(eq.RightAscension, LST)
 
-	var dec float64 = eq.δ
+	var dec float64 = eq.Declination
 
 	var alt = asinx(sinx(dec)*sinx(latitude) + cosx(dec)*cosx(latitude)*cosx(ra))
 
