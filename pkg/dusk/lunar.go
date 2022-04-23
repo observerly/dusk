@@ -7,6 +7,16 @@ import (
 	tzm "github.com/zsefvlol/timezonemapper"
 )
 
+type LunarPhase struct {
+	Age          float64
+	Angle        float64
+	Days         float64
+	Fraction     float64
+	Illumination float64
+}
+
+var LUNAR_MONTH_IN_DAYS = 29.53059
+
 /*
 	GetLunarMeanLongitude()
 
@@ -752,4 +762,44 @@ func GetLunarHorizontalCoordinatesForDay(datetime time.Time, longitude float64, 
 	}
 
 	return horizontalCoordinates, nil
+}
+
+/*
+  GetLunarPhase
+
+	@param datetime - the datetime of the observer (in UTC)
+	@param longitude - is the longitude (west is negative, east is positive) in degrees of some observer on Earth
+	@param geocentric ecliptic coordinate of type EclipticCoordinate { λ, β, Λ }
+
+  @returns the lunar phase parameters, age (in degrees), the phase angle, the age (in days), the fraction and the illuminated percentage.
+  @see p.179 of Lawrence, J.L. 2015. Celestial Calculations - A Gentle Introduction To Computational Astronomy. Cambridge, Ma: The MIT Press
+*/
+func GetLunarPhase(datetime time.Time, longitude float64, ec EclipticCoordinate) LunarPhase {
+	var J float64 = GetMeanSolarTime(datetime, longitude)
+
+	var Msol float64 = GetSolarMeanAnomaly(J)
+
+	var C float64 = GetSolarEquationOfCenter(Msol)
+
+	var λ float64 = GetSolarEclipticLongitude(Msol, C)
+
+	var M float64 = GetLunarMeanAnomalyLawrence(datetime)
+
+	var d float64 = acosx(cosx(ec.λ-λ) * cosx(ec.β))
+
+	var PA float64 = 180 - d - 0.1468*((1-0.0549*sinx(M))/(1-0.0167*sinx(M)))*sinx(d)
+
+	var K float64 = 100 * ((1 + cosx(PA)) / 2)
+
+	var F float64 = (1 - cosx(d)) / 2
+
+	var days float64 = (F * LUNAR_MONTH_IN_DAYS)
+
+	return LunarPhase{
+		Age:          d,
+		Angle:        PA,
+		Days:         days,
+		Fraction:     F,
+		Illumination: K,
+	}
 }
