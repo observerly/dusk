@@ -744,8 +744,8 @@ func GetLunarHorizontalCoordinatesForDay(datetime time.Time, longitude float64, 
 
 		horizontalCoordinates[i] = TemporalHorizontalCoordinate{
 			Datetime: d,
-			Altitude: hz.a,
-			Azimuth:  hz.A,
+			Altitude: hz.Altitude,
+			Azimuth:  hz.Azimuth,
 		}
 
 		d = d.Add(time.Minute * 1)

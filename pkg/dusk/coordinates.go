@@ -19,11 +19,11 @@ type HorizontalCoordinate struct {
 	/*
 		altitude (a) or elevation
 	*/
-	a float64
+	Altitude float64
 	/*
 		azimuth (A) or elevation
 	*/
-	A float64
+	Azimuth float64
 }
 
 type TemporalHorizontalCoordinate struct {
@@ -100,7 +100,7 @@ func ConvertEquatorialCoordinateToHorizontal(datetime time.Time, longitude float
 	var az = acosx((sinx(dec) - sinx(alt)*sinx(latitude)) / (cosx(alt) * cosx(latitude)))
 
 	return HorizontalCoordinate{
-		a: alt,
-		A: az,
+		Altitude: alt,
+		Azimuth:  az,
 	}
 }
