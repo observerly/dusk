@@ -471,3 +471,60 @@ func TestGetLunarHorizontalCoordinatesForDay(t *testing.T) {
 		t.Errorf("there is not enough horizontal coordinates for the day, expected 1440")
 	}
 }
+
+func TestGetLunarPhase(t *testing.T) {
+	// Date of observation:
+	var datetime time.Time = time.Date(2015, 1, 1, 0, 0, 0, 0, time.UTC)
+
+	got := GetLunarPhase(datetime, 78, EclipticCoordinate{λ: 50.279952, β: -2.981288, Δ: 0})
+
+	var age float64 = 129.966690
+
+	var angle float64 = 49.924934
+
+	var days float64 = 24.24562692920683
+
+	var fraction float64 = 0.82
+
+	var illumination float64 = 82
+
+	if math.Abs(got.Age-age) > 0.1 {
+		t.Errorf("got %f, wanted %f", got.Age, age)
+	}
+
+	if got.Age < 0 || got.Age > 360 {
+		t.Errorf("got %f, wanted a Lunar age (in degrees) to be between 0° and 360°", got.Age)
+	}
+
+	if math.Abs(got.Angle-angle) > 0.1 {
+		t.Errorf("got %f, wanted %f", got.Angle, angle)
+	}
+
+	if got.Angle < 0 || got.Angle > 360 {
+		t.Errorf("got %f, wanted a Lunar phase angle to be between 0° and 360°", got.Angle)
+	}
+
+	if math.Abs(got.Days-days) > 0.1 {
+		t.Errorf("got %f, wanted %f", got.Days, days)
+	}
+
+	if got.Days < 0 || got.Days > LUNAR_MONTH_IN_DAYS {
+		t.Errorf("got %f, wanted a Lunar age (in days) to be between 0 and 29.5 days", got.Angle)
+	}
+
+	if math.Abs(got.Fraction-fraction) > 0.1 {
+		t.Errorf("got %f, wanted %f", got.Fraction, fraction)
+	}
+
+	if got.Fraction < 0 || got.Fraction > 1 {
+		t.Errorf("got %f, but wanted an phase fraction value to be between 0 and 1", got.Fraction)
+	}
+
+	if math.Abs(got.Illumination-illumination) > 0.2 {
+		t.Errorf("got %f, wanted %f", got.Illumination, illumination)
+	}
+
+	if got.Illumination < 0 || got.Illumination > 100 {
+		t.Errorf("got %f, but wanted an illumination value to be between 0 and 100%%", got.Illumination)
+	}
+}
