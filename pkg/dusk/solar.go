@@ -168,3 +168,33 @@ func GetSolarEclipticPosition(datetime time.Time) EclipticCoordinate {
 		Latitude:  0,
 	}
 }
+
+/*
+	GetSolarEquatorialCoordinate()
+
+	@param datetime - the datetime of the observer (in UTC)
+	@returns the Solar equatorial position (right ascension & declination) in degrees:
+*/
+func GetSolarEquatorialCoordinate(datetime time.Time) EquatorialCoordinate {
+	var T = GetCurrentJulianCenturyRelativeToJ2000(datetime)
+
+	var ε = GetObliquityOfTheEclipticLawrence(T)
+
+	var ec = GetSolarEclipticPosition(datetime)
+
+	// trigoneometric functions handle the correct degrees and radians conversions:
+	var ra float64 = atan2yx(sinx(ec.Longitude)*cosx(ε)-tanx(ec.Latitude)*sinx(ε), cosx(ec.Longitude))
+
+	// trigoneometric functions handle the correct degrees and radians conversions:
+	var dec float64 = asinx(sinx(ec.Latitude)*cosx(ε) + cosx(ec.Latitude)*sinx(ε)*sinx(ec.Longitude))
+
+	// correct for negative angles
+	if ra < 0 {
+		ra += 360
+	}
+
+	return EquatorialCoordinate{
+		RightAscension: ra,
+		Declination:    dec,
+	}
+}
