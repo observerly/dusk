@@ -255,7 +255,7 @@ func TestGetSolarEquatorialPositionRightAscension(t *testing.T) {
 	// Date of observation:
 	var datetime time.Time = time.Date(2015, 2, 5, 17, 0, 0, 0, time.UTC)
 
-	var eq = GetSolarEquatorialCoordinate(datetime)
+	var eq = GetSolarEquatorialPosition(datetime)
 
 	var got = eq.RightAscension
 
@@ -270,7 +270,7 @@ func TestGetSolarEquatorialPositionDeclination(t *testing.T) {
 	// Date of observation:
 	var datetime time.Time = time.Date(2015, 2, 5, 17, 0, 0, 0, time.UTC)
 
-	var eq = GetSolarEquatorialCoordinate(datetime)
+	var eq = GetSolarEquatorialPosition(datetime)
 
 	var got = eq.Declination
 

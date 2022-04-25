@@ -170,12 +170,12 @@ func GetSolarEclipticPosition(datetime time.Time) EclipticCoordinate {
 }
 
 /*
-	GetSolarEquatorialCoordinate()
+	GetSolarEquatorialPosition()
 
 	@param datetime - the datetime of the observer (in UTC)
 	@returns the Solar equatorial position (right ascension & declination) in degrees:
 */
-func GetSolarEquatorialCoordinate(datetime time.Time) EquatorialCoordinate {
+func GetSolarEquatorialPosition(datetime time.Time) EquatorialCoordinate {
 	var T = GetCurrentJulianCenturyRelativeToJ2000(datetime)
 
 	var ε = GetObliquityOfTheEclipticLawrence(T)
