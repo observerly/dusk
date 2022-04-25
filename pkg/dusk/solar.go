@@ -149,3 +149,22 @@ func GetSunriseSunsetTimesInUTC(datetime time.Time, degreesBelowHorizon float64,
 
 	return sun
 }
+
+/*
+	GetSolarEclipticPosition()
+
+	@param datetime - the datetime of the observer (in UTC)
+	@returns the geocentric ecliptic coodinate (λ - geocentric longitude, β - geocentric latidude) of the Sun.
+*/
+func GetSolarEclipticPosition(datetime time.Time) EclipticCoordinate {
+	var M = GetSolarMeanAnomalyLawrence(datetime)
+
+	var C = GetSolarEquationOfCenterLawrence(M)
+
+	var λ = GetSolarEclipticLongitudeLawrence(M, C)
+
+	return EclipticCoordinate{
+		Longitude: λ,
+		Latitude:  0,
+	}
+}

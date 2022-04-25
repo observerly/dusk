@@ -220,3 +220,33 @@ func TestGetSunriseSunsetTimesInUTCSetWithOffsetHorizon(t *testing.T) {
 		t.Errorf("got %q, wanted %q", got, want)
 	}
 }
+
+func TestGetSolarEclipticPositionLongitude(t *testing.T) {
+	// Date of observation:
+	var datetime time.Time = time.Date(2015, 2, 5, 17, 0, 0, 0, time.UTC)
+
+	var ec = GetSolarEclipticPosition(datetime)
+
+	var got = ec.Longitude
+
+	var want = 316.562255
+
+	if math.Abs(got-want) > 0.00001 {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+}
+
+func TestGetSolarEclipticPositionLatitude(t *testing.T) {
+	// Date of observation:
+	var datetime time.Time = time.Date(2015, 2, 5, 17, 0, 0, 0, time.UTC)
+
+	var ec = GetSolarEclipticPosition(datetime)
+
+	var got = ec.Latitude
+
+	var want = 0.0
+
+	if math.Abs(got-want) > 0.00001 {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+}
