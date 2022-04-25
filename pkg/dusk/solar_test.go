@@ -250,3 +250,33 @@ func TestGetSolarEclipticPositionLatitude(t *testing.T) {
 		t.Errorf("got %f, wanted %f", got, want)
 	}
 }
+
+func TestGetSolarEquatorialPositionRightAscension(t *testing.T) {
+	// Date of observation:
+	var datetime time.Time = time.Date(2015, 2, 5, 17, 0, 0, 0, time.UTC)
+
+	var eq = GetSolarEquatorialCoordinate(datetime)
+
+	var got = eq.RightAscension
+
+	var want = 319.017015
+
+	if math.Abs(got-want) > 0.01 {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+}
+
+func TestGetSolarEquatorialPositionDeclination(t *testing.T) {
+	// Date of observation:
+	var datetime time.Time = time.Date(2015, 2, 5, 17, 0, 0, 0, time.UTC)
+
+	var eq = GetSolarEquatorialCoordinate(datetime)
+
+	var got = eq.Declination
+
+	var want = -15.872529
+
+	if math.Abs(got-want) > 0.01 {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+}
