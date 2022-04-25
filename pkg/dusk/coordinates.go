@@ -10,9 +10,9 @@ type EquatorialCoordinate struct {
 }
 
 type EclipticCoordinate struct {
-	λ float64
-	β float64
-	Δ float64
+	Longitude float64
+	Latitude  float64
+	Δ         float64
 }
 
 type HorizontalCoordinate struct {
@@ -60,9 +60,9 @@ func ConvertEclipticCoordinateToEquatorial(datetime time.Time, ec EclipticCoordi
 
 	var ε float64 = GetMeanObliquityOfTheEcliptic(J) + GetNutationInObliquityOfTheEcliptic(L, l, Ω)
 
-	var λ = ec.λ
+	var λ = ec.Longitude
 
-	var β = ec.β
+	var β = ec.Latitude
 
 	var α = atanx((sinx(λ)*cosx(ε) - tanx(β)*sinx(ε)) / cosx(λ))
 

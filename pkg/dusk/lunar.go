@@ -446,9 +446,9 @@ func GetLunarEclipticPosition(datetime time.Time) EclipticCoordinate {
 	}
 
 	return EclipticCoordinate{
-		λ: Lʹ + Σl/1000000,
-		β: Σb / 1000000,
-		Δ: 385000.56 + Σr/1000,
+		Longitude: Lʹ + Σl/1000000,
+		Latitude:  Σb / 1000000,
+		Δ:         385000.56 + Σr/1000,
 	}
 }
 
@@ -785,7 +785,7 @@ func GetLunarPhase(datetime time.Time, longitude float64, ec EclipticCoordinate)
 
 	var M float64 = GetLunarMeanAnomalyLawrence(datetime)
 
-	var d float64 = acosx(cosx(ec.λ-λ) * cosx(ec.β))
+	var d float64 = acosx(cosx(ec.Longitude-λ) * cosx(ec.Latitude))
 
 	var PA float64 = 180 - d - 0.1468*((1-0.0549*sinx(M))/(1-0.0167*sinx(M)))*sinx(d)
 
