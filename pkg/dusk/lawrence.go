@@ -87,8 +87,8 @@ func GetLunarEclipticPositionLawrence(datetime time.Time) EclipticCoordinate {
 	var βm float64 = asinx(sinx(λt-Ωprime) * sinx(ι))
 
 	return EclipticCoordinate{
-		λ: λm,
-		β: βm,
+		Longitude: λm,
+		Latitude:  βm,
 	}
 }
 
@@ -106,14 +106,14 @@ func GetLunarEquatorialPositionLawrence(datetime time.Time) EquatorialCoordinate
 	var ec EclipticCoordinate = GetLunarEclipticPositionLawrence(datetime)
 
 	// trigoneometric functions handle the correct degrees and radians conversions:
-	var α float64 = atan2yx(sinx(ec.λ)*cosx(ε)-tanx(ec.β)*sinx(ε), cosx(ec.λ))
+	var α float64 = atan2yx(sinx(ec.Longitude)*cosx(ε)-tanx(ec.Latitude)*sinx(ε), cosx(ec.Longitude))
 
 	if α < 0 {
 		α += 360
 	}
 
 	// trigoneometric functions handle the correct degrees and radians conversions:
-	var δ float64 = asinx(sinx(ec.β)*cosx(ε) + cosx(ec.β)*sinx(ε)*sinx(ec.λ))
+	var δ float64 = asinx(sinx(ec.Latitude)*cosx(ε) + cosx(ec.Latitude)*sinx(ε)*sinx(ec.Longitude))
 
 	return EquatorialCoordinate{
 		RightAscension: α,

@@ -305,7 +305,7 @@ func TestGetLunarEquatorialPositionDeclination(t *testing.T) {
 func TestGetLunarEclipticPositionLongitude(t *testing.T) {
 	var ec EclipticCoordinate = GetLunarEclipticPosition(d)
 
-	var got float64 = ec.λ
+	var got float64 = ec.Longitude
 
 	var want float64 = 133.162655
 
@@ -320,7 +320,7 @@ func TestGetLunarEclipticPositionLongitudeAlt(t *testing.T) {
 
 	var ec EclipticCoordinate = GetLunarEclipticPosition(datetime)
 
-	var got float64 = ec.λ
+	var got float64 = ec.Longitude
 
 	var want float64 = 50.604878
 
@@ -332,7 +332,7 @@ func TestGetLunarEclipticPositionLongitudeAlt(t *testing.T) {
 func TestGetLunarEclipticPositionLatitude(t *testing.T) {
 	var ec EclipticCoordinate = GetLunarEclipticPosition(d)
 
-	var got float64 = ec.β
+	var got float64 = ec.Latitude
 
 	var want float64 = -3.229126
 
@@ -347,7 +347,7 @@ func TestGetLunarEclipticPositionLatitudeAlt(t *testing.T) {
 
 	var ec EclipticCoordinate = GetLunarEclipticPosition(datetime)
 
-	var got float64 = ec.β
+	var got float64 = ec.Latitude
 
 	var want float64 = -2.981288
 
@@ -418,7 +418,7 @@ func TestGetEclipticLongitudeInXHours(t *testing.T) {
 
 	var ec EclipticCoordinate = GetLunarEclipticPosition(datetime)
 
-	var got float64 = GetLunarEclipticLongitudeInXHours(ec.λ, Ca, 12)
+	var got float64 = GetLunarEclipticLongitudeInXHours(ec.Longitude, Ca, 12)
 
 	var want float64 = 57.438144
 
@@ -437,7 +437,7 @@ func TestGetEclipticLatitudeInXHours(t *testing.T) {
 
 	var λt1 float64 = GetLunarTrueEclipticLongitude(datetime)
 
-	var got float64 = GetLunarEclipticLatitudeInXHours(ec.β, Ωprime1, λt1, 12)
+	var got float64 = GetLunarEclipticLatitudeInXHours(ec.Latitude, Ωprime1, λt1, 12)
 
 	var want float64 = -3.470089
 
@@ -476,7 +476,7 @@ func TestGetLunarPhase(t *testing.T) {
 	// Date of observation:
 	var datetime time.Time = time.Date(2015, 1, 1, 0, 0, 0, 0, time.UTC)
 
-	got := GetLunarPhase(datetime, 78, EclipticCoordinate{λ: 50.279952, β: -2.981288, Δ: 0})
+	got := GetLunarPhase(datetime, 78, EclipticCoordinate{Longitude: 50.279952, Latitude: -2.981288, Δ: 0})
 
 	var age float64 = 129.966690
 

@@ -8,7 +8,7 @@ import (
 
 func TestConvertEclipticCoordinateToEquatorialRA(t *testing.T) {
 	// utilising the ecliptic position of the moon on the datetime provided:
-	var eq EquatorialCoordinate = ConvertEclipticCoordinateToEquatorial(d, EclipticCoordinate{λ: 133.162655, β: -3.229126, Δ: 0})
+	var eq EquatorialCoordinate = ConvertEclipticCoordinateToEquatorial(d, EclipticCoordinate{Longitude: 133.162655, Latitude: -3.229126, Δ: 0})
 
 	var got float64 = eq.RightAscension
 
@@ -24,7 +24,7 @@ func TestConvertEclipticCoordinateToEquatorialRAAlt(t *testing.T) {
 	var datetime time.Time = time.Date(2015, time.Month(1), 1, 0, 0, 0, 0, time.UTC)
 
 	// utilising the ecliptic position of the moon on the datetime provided:
-	var eq EquatorialCoordinate = ConvertEclipticCoordinateToEquatorial(datetime, EclipticCoordinate{λ: 50.279952, β: -2.981288, Δ: 0})
+	var eq EquatorialCoordinate = ConvertEclipticCoordinateToEquatorial(datetime, EclipticCoordinate{Longitude: 50.279952, Latitude: -2.981288, Δ: 0})
 
 	var got float64 = eq.RightAscension
 
@@ -37,7 +37,7 @@ func TestConvertEclipticCoordinateToEquatorialRAAlt(t *testing.T) {
 
 func TestConvertEclipticCoordinateToEquatorialDec(t *testing.T) {
 	// utilising the ecliptic position of the moon on the datetime provided:
-	var ec EquatorialCoordinate = ConvertEclipticCoordinateToEquatorial(d, EclipticCoordinate{λ: 133.162655, β: -3.229126, Δ: 0})
+	var ec EquatorialCoordinate = ConvertEclipticCoordinateToEquatorial(d, EclipticCoordinate{Longitude: 133.162655, Latitude: -3.229126, Δ: 0})
 
 	var got float64 = ec.Declination
 
@@ -53,7 +53,7 @@ func TestConvertEclipticCoordinateToEquatorialDecAlt(t *testing.T) {
 	var datetime time.Time = time.Date(2015, time.Month(1), 1, 0, 0, 0, 0, time.UTC)
 
 	// utilising the ecliptic position of the moon on the datetime provided:
-	var ec EquatorialCoordinate = ConvertEclipticCoordinateToEquatorial(datetime, EclipticCoordinate{λ: 50.279952, β: -2.981288, Δ: 0})
+	var ec EquatorialCoordinate = ConvertEclipticCoordinateToEquatorial(datetime, EclipticCoordinate{Longitude: 50.279952, Latitude: -2.981288, Δ: 0})
 
 	var got float64 = ec.Declination
 

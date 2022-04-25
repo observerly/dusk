@@ -107,7 +107,7 @@ func TestGetLunarEclipticPositionLawrenceLongitude(t *testing.T) {
 
 	var ec EclipticCoordinate = GetLunarEclipticPositionLawrence(datetime)
 
-	var got float64 = ec.λ
+	var got float64 = ec.Longitude
 
 	var want float64 = 65.059853
 
@@ -122,7 +122,7 @@ func TestGetLunarEclipticPositionLawrenceLatitude(t *testing.T) {
 
 	var ec EclipticCoordinate = GetLunarEclipticPositionLawrence(datetime)
 
-	var got float64 = ec.β
+	var got float64 = ec.Latitude
 
 	var want float64 = -3.956258
 
