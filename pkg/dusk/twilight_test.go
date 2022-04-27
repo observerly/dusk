@@ -24,7 +24,7 @@ func TestGetLocalCivilTwilightFrom(t *testing.T) {
 		t.Errorf("got %q, wanted %q", location, timezone)
 	}
 
-	var got time.Time = twilight.from
+	var got time.Time = twilight.From
 
 	var want = time.Date(1992, 4, 12, 19, 03, 52, 618345344, timezone)
 
@@ -60,7 +60,7 @@ func TestGetLocalCivilTwilightUntil(t *testing.T) {
 		t.Errorf("got %q, wanted %q", location, timezone)
 	}
 
-	var got time.Time = twilight.until
+	var got time.Time = twilight.Until
 
 	var want = time.Date(1992, 4, 13, 5, 39, 45, 686235136, timezone)
 
@@ -96,7 +96,7 @@ func TestGetLocalCivilTwilightDuration(t *testing.T) {
 		t.Errorf("got %q, wanted %q", location, timezone)
 	}
 
-	var got time.Duration = twilight.duration
+	var got time.Duration = twilight.Duration
 
 	var want time.Duration = 48260273900544
 
@@ -124,7 +124,7 @@ func TestGetLocalNauticalTwilightFrom(t *testing.T) {
 		t.Errorf("got %q, wanted %q", location, timezone)
 	}
 
-	var got time.Time = twilight.from
+	var got time.Time = twilight.From
 
 	var want = time.Date(1992, 4, 12, 19, 29, 24, 855337216, timezone)
 
@@ -160,7 +160,7 @@ func TestGetLocalNauticalTwilightUntil(t *testing.T) {
 		t.Errorf("got %q, wanted %q", location, timezone)
 	}
 
-	var got time.Time = twilight.until
+	var got time.Time = twilight.Until
 
 	var want = time.Date(1992, 4, 13, 5, 14, 14, 269436032, timezone)
 
@@ -196,7 +196,7 @@ func TestGetLocalNauticalTwilightDuration(t *testing.T) {
 		t.Errorf("got %q, wanted %q", location, timezone)
 	}
 
-	var got time.Duration = twilight.duration
+	var got time.Duration = twilight.Duration
 
 	var want time.Duration = 51323107498880
 
@@ -224,7 +224,7 @@ func TestGetLocalAstronomicalTwilightFrom(t *testing.T) {
 		t.Errorf("got %q, wanted %q", location, timezone)
 	}
 
-	var got time.Time = twilight.from
+	var got time.Time = twilight.From
 
 	var want = time.Date(1992, 4, 12, 19, 55, 12, 555572352, timezone)
 
@@ -260,7 +260,7 @@ func TestGetLocalAstronomicalTwilightUntil(t *testing.T) {
 		t.Errorf("got %q, wanted %q", location, timezone)
 	}
 
-	var got time.Time = twilight.until
+	var got time.Time = twilight.Until
 
 	var want = time.Date(1992, 4, 13, 4, 48, 27, 39767424, timezone)
 
@@ -296,7 +296,7 @@ func TestGetLocalAstronomicalTwilightDuration(t *testing.T) {
 		t.Errorf("got %q, wanted %q", location, timezone)
 	}
 
-	var got time.Duration = twilight.duration
+	var got time.Duration = twilight.Duration
 
 	var want time.Duration = 54417566835968
 
