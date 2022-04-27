@@ -59,7 +59,7 @@ There are three wrapper functions which allow for an easy calculation of civil, 
 For civil twilight, the degreesBelowHorizon for the Sun needs to be -6°.
 
 ```go
-twilight, location, err := dusk.GetLocalCivilTwilight(datetime, longitude, latitude, elevationn)
+twilight, location, err := dusk.GetLocalCivilTwilight(datetime, longitude, latitude, elevation)
 ```
 
 ### Get Nautical Twilight
@@ -67,7 +67,7 @@ twilight, location, err := dusk.GetLocalCivilTwilight(datetime, longitude, latit
 For nautical twilight, the degreesBelowHorizon for the Sun needs to be -12°.
 
 ```go
-twilight, location, err := dusk.GetLocalNauticalTwilight(datetime, longitude, latitude, elevationn)
+twilight, location, err := dusk.GetLocalNauticalTwilight(datetime, longitude, latitude, elevation)
 ```
 
 ### Get Astronomical Twilight
@@ -75,7 +75,7 @@ twilight, location, err := dusk.GetLocalNauticalTwilight(datetime, longitude, la
 For astronomical twilight, the degreesBelowHorizon for the Sun needs to be -18°.
 
 ```go
-twilight, location, err := dusk.GetLocalAstronomicalTwilight(datetime, longitude, latitude, elevationn)
+twilight, location, err := dusk.GetLocalAstronomicalTwilight(datetime, longitude, latitude, elevation)
 ```
 
 ### Get Moon Position
