@@ -98,7 +98,7 @@ func TestGetLocalCivilTwilightDuration(t *testing.T) {
 
 	var got time.Duration = twilight.Duration
 
-	var want time.Duration = 48260273900544
+	var want time.Duration = 38153067889792
 
 	if got.Nanoseconds() != want.Nanoseconds() {
 		t.Errorf("got %d, wanted %d", got.Nanoseconds(), want.Nanoseconds())
@@ -198,7 +198,7 @@ func TestGetLocalNauticalTwilightDuration(t *testing.T) {
 
 	var got time.Duration = twilight.Duration
 
-	var want time.Duration = 51323107498880
+	var want time.Duration = 35089414098816
 
 	if got.Nanoseconds() != want.Nanoseconds() {
 		t.Errorf("got %d, wanted %d", got.Nanoseconds(), want.Nanoseconds())
@@ -298,7 +298,7 @@ func TestGetLocalAstronomicalTwilightDuration(t *testing.T) {
 
 	var got time.Duration = twilight.Duration
 
-	var want time.Duration = 54417566835968
+	var want time.Duration = 31994484195072
 
 	if got.Nanoseconds() != want.Nanoseconds() {
 		t.Errorf("got %d, wanted %d", got.Nanoseconds(), want.Nanoseconds())
