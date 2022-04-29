@@ -64,13 +64,9 @@ func ConvertEclipticCoordinateToEquatorial(datetime time.Time, ec EclipticCoordi
 
 	var β = ec.Latitude
 
-	var α = atanx((sinx(λ)*cosx(ε) - tanx(β)*sinx(ε)) / cosx(λ))
+	var α = atan2yx(sinx(λ)*cosx(ε)-tanx(β)*sinx(ε), cosx(λ))
 
 	var δ = asinx(sinx(β)*cosx(ε) + cosx(β)*sinx(ε)*sinx(λ))
-
-	if α < 0 {
-		α += 360
-	}
 
 	return EquatorialCoordinate{
 		RightAscension: α,
