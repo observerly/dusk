@@ -41,6 +41,29 @@ type TemporalHorizontalCoordinate struct {
 	Azimuth float64
 }
 
+type TransitHorizontalCoordinate struct {
+	/*
+		datetime of horizontal observation
+	*/
+	Datetime time.Time
+	/*
+		altitude (a) or elevation
+	*/
+	Altitude float64
+	/*
+		azimuth (A) or elevation
+	*/
+	Azimuth float64
+	/*
+		Is this particular a Moon rise?
+	*/
+	IsRise bool
+	/*
+		Is this particular a Moon set?
+	*/
+	IsSet bool
+}
+
 /*
 	ConvertEclipticCoordinateToEquatorial()
 
