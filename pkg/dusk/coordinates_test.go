@@ -69,7 +69,7 @@ func TestConvertEquatorialCoordinateTHorizontalAltitude(t *testing.T) {
 
 	var got float64 = hz.Altitude
 
-	var want float64 = 72.800882
+	var want float64 = 72.800588
 
 	if math.Abs(got-want) > 0.00001 {
 		t.Errorf("got %f, wanted %f", got, want)
@@ -81,7 +81,7 @@ func TestConvertEquatorialCoordinateTHorizontalAzimuth(t *testing.T) {
 
 	var got float64 = hz.Azimuth
 
-	var want float64 = 134.397750
+	var want float64 = 134.396672
 
 	if math.Abs(got-want) > 0.00001 {
 		t.Errorf("got %f, wanted %f", got, want)

@@ -51,31 +51,33 @@ func GetUniversalTime(JD float64) time.Time {
 	@returns the local sidereal time relative to Greenwhich, UK
 */
 func GetGreenwhichSiderealTime(datetime time.Time) float64 {
-	var JD = GetJulianDate(datetime)
+	JD := GetJulianDate(datetime)
 
-	var JD_0 = math.Floor(JD-0.5) + 0.5
+	JD0 := GetJulianDate(time.Date(datetime.Year(), 1, 0, 0, 0, 0, 0, time.UTC))
 
-	var S = JD_0 - J2000
+	days := math.Floor(JD - JD0)
 
-	var T = S / 36525.0
+	var T = (JD0 - 2415020.0) / 36525
 
-	var T_0 = math.Mod((6.697374558 + 2400.051336*T + 0.000025862*math.Pow(T, 2)), 360)
+	var R = 6.6460656 + 2400.051262*T + 0.00002581*math.Pow(T, 2)
 
-	// correct for negative hour angles (24 hours is equivalent to 360°)
-	if T_0 < 0 {
-		T_0 += 24
-	}
+	var B = 24.0 - R + float64(24*(datetime.Year()-1900))
 
-	var UTC = ((datetime.UTC().Nanosecond()+datetime.UTC().Second())/60 +
-		datetime.UTC().Minute()/
-			60 +
-		datetime.UTC().Hour())
+	var T0 = 0.0657098*days - B
 
-	var A = float64(UTC) * 1.002737909
+	var hr = float64(datetime.Hour())
 
-	T_0 += A
+	var min = float64(datetime.Minute()) / 60.0
 
-	var GST = math.Mod(T_0, 24)
+	var sec = float64(datetime.Second()) / 3600.0
+
+	var ns = float64(datetime.Nanosecond()) / 3600000000.0
+
+	var UT float64 = hr + min + sec + ns
+
+	var A = float64(UT) * 1.002737909
+
+	var GST = math.Mod(T0+A, 24)
 
 	// correct for negative hour angles (24 hours is equivalent to 360°)
 	if GST < 0 {
