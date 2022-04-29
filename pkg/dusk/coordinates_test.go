@@ -12,7 +12,7 @@ func TestConvertEclipticCoordinateToEquatorialRA(t *testing.T) {
 
 	var got float64 = eq.RightAscension
 
-	var want float64 = 134.688470
+	var want float64 = 314.683920
 
 	if math.Abs(got-want) > 0.15 {
 		t.Errorf("got %f, wanted %f", got, want)
