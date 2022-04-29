@@ -33,7 +33,19 @@ func TestGetUniversalTime(t *testing.T) {
 func TestGetGreenwhichSiderealTime(t *testing.T) {
 	var got float64 = GetGreenwhichSiderealTime(datetime)
 
-	var want float64 = 15.463990399019053
+	var want float64 = 15.46396124
+
+	if math.Abs(got-want) > 0.00001 {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+}
+
+func TestGetGreenwhichSiderealTimeLawrence(t *testing.T) {
+	var datetime time.Time = time.Date(2010, 2, 7, 23, 30, 0, 0, time.UTC)
+
+	var got float64 = GetGreenwhichSiderealTime(datetime)
+
+	var want float64 = 8.698091
 
 	if math.Abs(got-want) > 0.00001 {
 		t.Errorf("got %f, wanted %f", got, want)
@@ -43,7 +55,7 @@ func TestGetGreenwhichSiderealTime(t *testing.T) {
 func TestGetLocalSiderealTime(t *testing.T) {
 	var got float64 = GetLocalSiderealTime(datetime, longitude)
 
-	var want float64 = 5.099450799019053
+	var want float64 = 5.099422
 
 	if math.Abs(got-want) > 0.00001 {
 		t.Errorf("got %f, wanted %f", got, want)
