@@ -4,6 +4,8 @@ import (
 	"math"
 	"testing"
 	"time"
+
+	tzm "github.com/zsefvlol/timezonemapper"
 )
 
 func TestGetLunarMeanLongitude(t *testing.T) {
@@ -460,7 +462,7 @@ func TestGetLunarTransitJulianDate(t *testing.T) {
 	}
 }
 
-func TestGetLunarHorizontalCoordinatesForDay(t *testing.T) {
+func TestGetLunarHorizontalCoordinatesForDayCorrectLength(t *testing.T) {
 	horizontalCoordinates, err := GetLunarHorizontalCoordinatesForDay(datetime, longitude, latitude)
 
 	if err != nil {
@@ -469,6 +471,42 @@ func TestGetLunarHorizontalCoordinatesForDay(t *testing.T) {
 
 	if len(horizontalCoordinates) != 1440 {
 		t.Errorf("there is not enough horizontal coordinates for the day, expected 1440")
+	}
+}
+
+func TestGetLunarHorizontalCoordinatesForDayCorrectStartTime(t *testing.T) {
+	horizontalCoordinates, err := GetLunarHorizontalCoordinatesForDay(datetime, longitude, latitude)
+
+	if err != nil {
+		t.Errorf("got %q", err)
+	}
+
+	timezone := tzm.LatLngToTimezoneString(latitude, longitude)
+
+	location, _ := time.LoadLocation(timezone)
+
+	var d = time.Date(datetime.Year(), datetime.Month(), datetime.Day(), 0, 0, 0, 0, location)
+
+	if horizontalCoordinates[0].Datetime.String() != d.String() {
+		t.Errorf("the start date for the day after timezone adjustments is wrong")
+	}
+}
+
+func TestGetLunarHorizontalCoordinatesForDayCorrectEndTime(t *testing.T) {
+	horizontalCoordinates, err := GetLunarHorizontalCoordinatesForDay(datetime, longitude, latitude)
+
+	if err != nil {
+		t.Errorf("got %q", err)
+	}
+
+	timezone := tzm.LatLngToTimezoneString(latitude, longitude)
+
+	location, _ := time.LoadLocation(timezone)
+
+	var d = time.Date(datetime.Year(), datetime.Month(), datetime.Day(), 23, 59, 0, 0, location)
+
+	if horizontalCoordinates[len(horizontalCoordinates)-1].Datetime.String() != d.String() {
+		t.Errorf("the start date for the day after timezone adjustments is wrong")
 	}
 }
 
