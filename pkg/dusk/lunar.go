@@ -742,7 +742,7 @@ func GetLunarHorizontalCoordinatesForDay(datetime time.Time, longitude float64, 
 		return horizontalCoordinates, err
 	}
 
-	var d = time.Date(datetime.Year(), datetime.Month(), datetime.Day(), 0, 0, 0, 0, location)
+	var d = time.Date(datetime.Year(), datetime.Month(), datetime.Day(), 0, 0, 0, 0, location).In(time.UTC)
 
 	for i := range horizontalCoordinates {
 		// Get the current equatorial position of the moon:
@@ -753,7 +753,7 @@ func GetLunarHorizontalCoordinatesForDay(datetime time.Time, longitude float64, 
 		var hz HorizontalCoordinate = ConvertEquatorialCoordinateToHorizontal(d, longitude, latitude, eq)
 
 		horizontalCoordinates[i] = TemporalHorizontalCoordinate{
-			Datetime: d,
+			Datetime: d.In(location),
 			Altitude: hz.Altitude,
 			Azimuth:  hz.Azimuth,
 		}
