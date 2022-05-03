@@ -506,7 +506,45 @@ func TestGetLunarHorizontalCoordinatesForDayCorrectEndTime(t *testing.T) {
 	var d = time.Date(datetime.Year(), datetime.Month(), datetime.Day(), 23, 59, 0, 0, location)
 
 	if horizontalCoordinates[len(horizontalCoordinates)-1].Datetime.String() != d.String() {
-		t.Errorf("the start date for the day after timezone adjustments is wrong")
+		t.Errorf("the end date for the day after timezone adjustments is wrong")
+	}
+}
+
+func TestGetLunarHorizontalCoordinatesForDay20210506(t *testing.T) {
+	// Date of observation:
+	var datetime time.Time = time.Date(2021, 5, 6, 0, 0, 0, 0, time.UTC)
+
+	horizontalCoordinates, err := GetLunarHorizontalCoordinatesForDay(datetime, longitude, latitude)
+
+	if err != nil {
+		t.Errorf("got %q", err)
+	}
+
+	if horizontalCoordinates[181].Datetime.String() == "2021-05-06 03:01:00 -1000 HST" && !horizontalCoordinates[181].IsRise {
+		t.Errorf("We're expecting the Moon to rise at 3:01am on 6th May 2021")
+	}
+
+	if horizontalCoordinates[897].Datetime.String() == "2021-05-06 14:57:00 -1000 HST" && !horizontalCoordinates[897].IsSet {
+		t.Errorf("We're expecting the Moon to set at 14:57pm on 6th May 2021")
+	}
+}
+
+func TestGetLunarHorizontalCoordinatesForDay20210521(t *testing.T) {
+	// Date of observation:
+	var datetime time.Time = time.Date(2021, 5, 21, 0, 0, 0, 0, time.UTC)
+
+	horizontalCoordinates, err := GetLunarHorizontalCoordinatesForDay(datetime, longitude, latitude)
+
+	if err != nil {
+		t.Errorf("got %q", err)
+	}
+
+	if horizontalCoordinates[860].Datetime.String() == "2021-05-21 14:20:00 -1000 HST" && !horizontalCoordinates[860].IsRise {
+		t.Errorf("We're expecting the Moon to rise at 14:20pm on 21st May 2021")
+	}
+
+	if horizontalCoordinates[135].Datetime.String() == "2021-05-21 02:15:00 -1000 HST" && !horizontalCoordinates[135].IsSet {
+		t.Errorf("We're expecting the Moon to set at 2:15am on 21st May 2021")
 	}
 }
 
