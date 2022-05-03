@@ -729,9 +729,9 @@ func GetLunarTransitJulianDate(datetime time.Time, α float64, longitude float64
 	@param latitude - is the latitude (south is negative, north is positive) in degrees of some observer on Earth
 	@returns the horizontal coordinates of the Moon for every minute of a given day.
 */
-func GetLunarHorizontalCoordinatesForDay(datetime time.Time, longitude float64, latitude float64) ([]TemporalHorizontalCoordinate, error) {
+func GetLunarHorizontalCoordinatesForDay(datetime time.Time, longitude float64, latitude float64) ([]TransitHorizontalCoordinate, error) {
 	// create an empty list of horizontalCoordinate structs:
-	horizontalCoordinates := make([]TemporalHorizontalCoordinate, 1440)
+	horizontalCoordinates := make([]TransitHorizontalCoordinate, 1442)
 
 	// get the corresponding timezone for the longitude and latitude provided:
 	timezone := tzm.LatLngToTimezoneString(latitude, longitude)
@@ -744,24 +744,39 @@ func GetLunarHorizontalCoordinatesForDay(datetime time.Time, longitude float64, 
 
 	var d = time.Date(datetime.Year(), datetime.Month(), datetime.Day(), 0, 0, 0, 0, location).In(time.UTC)
 
+	// Subtract one minute to ensure we are not over looking the rise time to be
+	d = d.Add(time.Minute * -1)
+
 	for i := range horizontalCoordinates {
 		// Get the current equatorial position of the moon:
-		var ec EclipticCoordinate = GetLunarEclipticPosition(d)
+		var ec EclipticCoordinate = GetLunarEclipticPositionLawrence(d)
 
 		var eq EquatorialCoordinate = ConvertEclipticCoordinateToEquatorial(d, ec)
 
 		var hz HorizontalCoordinate = ConvertEquatorialCoordinateToHorizontal(d, longitude, latitude, eq)
 
-		horizontalCoordinates[i] = TemporalHorizontalCoordinate{
-			Datetime: d.In(location),
-			Altitude: hz.Altitude,
-			Azimuth:  hz.Azimuth,
+		if i > 0 {
+			horizontalCoordinates[i] = TransitHorizontalCoordinate{
+				Datetime: d.In(location),
+				Altitude: hz.Altitude,
+				Azimuth:  hz.Azimuth,
+				IsRise:   hz.Altitude > 0 && horizontalCoordinates[i-1].Altitude <= 0,
+				IsSet:    hz.Altitude < 0 && horizontalCoordinates[i-1].Altitude >= 0,
+			}
+		} else {
+			horizontalCoordinates[i] = TransitHorizontalCoordinate{
+				Datetime: d.In(location),
+				Altitude: hz.Altitude,
+				Azimuth:  hz.Azimuth,
+				IsRise:   false,
+				IsSet:    false,
+			}
 		}
 
-		d = d.Add(time.Minute * 1)
+		d = d.Add(time.Minute)
 	}
 
-	return horizontalCoordinates, nil
+	return horizontalCoordinates[1:1441], nil
 }
 
 /*
