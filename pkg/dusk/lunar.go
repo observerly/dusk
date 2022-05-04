@@ -824,6 +824,14 @@ func GetLunarPhase(datetime time.Time, longitude float64, ec EclipticCoordinate)
 	}
 }
 
+/*
+	GetMoonriseMoonsetTimes()
+
+	@param datetime - the datetime of the observer (in UTC)
+	@param longitude - is the longitude (west is negative, east is positive) in degrees of some observer on Earth
+	@param latitude - is the latitude (south is negative, north is positive) in degrees of some observer on Earth
+	@returns the times for when the Moon rises and sets, in the observer's local time, or an error.
+*/
 func GetMoonriseMoonsetTimes(datetime time.Time, longitude float64, latitude float64) (*Moon, error) {
 	var rise time.Time = time.Time{}
 	var set time.Time = time.Time{}
