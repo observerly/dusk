@@ -604,3 +604,41 @@ func TestGetLunarPhase(t *testing.T) {
 		t.Errorf("got %f, but wanted an illumination value to be between 0 and 100%%", got.Illumination)
 	}
 }
+
+func TestGetMoonriseMoonsetTimes20210506(t *testing.T) {
+	// Date of observation:
+	var datetime time.Time = time.Date(2021, 5, 6, 0, 0, 0, 0, time.UTC)
+
+	moon, err := GetMoonriseMoonsetTimes(datetime, longitude, latitude)
+
+	if err != nil {
+		t.Errorf("got %q", err)
+	}
+
+	if moon.Rise.String() != "2021-05-06 03:01:00 -1000 HST" {
+		t.Errorf("We're expecting the Moon to rise at 14:20pm on 21st May 2021")
+	}
+
+	if moon.Set.String() != "2021-05-06 14:57:00 -1000 HST" {
+		t.Errorf("We're expecting the Moon to set at 2:15am on 21st May 2021")
+	}
+}
+
+func TestGetMoonriseMoonsetTimes20210521(t *testing.T) {
+	// Date of observation:
+	var datetime time.Time = time.Date(2021, 5, 21, 0, 0, 0, 0, time.UTC)
+
+	moon, err := GetMoonriseMoonsetTimes(datetime, longitude, latitude)
+
+	if err != nil {
+		t.Errorf("got %q", err)
+	}
+
+	if moon.Rise.String() != "2021-05-21 14:20:00 -1000 HST" {
+		t.Errorf("We're expecting the Moon to rise at 14:20pm on 21st May 2021")
+	}
+
+	if moon.Set.String() != "2021-05-21 02:15:00 -1000 HST" {
+		t.Errorf("We're expecting the Moon to set at 2:15am on 21st May 2021")
+	}
+}
