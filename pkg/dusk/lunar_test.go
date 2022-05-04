@@ -616,11 +616,11 @@ func TestGetMoonriseMoonsetTimes20210506(t *testing.T) {
 	}
 
 	if moon.Rise.String() != "2021-05-06 03:01:00 -1000 HST" {
-		t.Errorf("We're expecting the Moon to rise at 14:20pm on 21st May 2021")
+		t.Errorf("We're expecting the Moon to rise at 3:01am on 6th May 2021")
 	}
 
 	if moon.Set.String() != "2021-05-06 14:57:00 -1000 HST" {
-		t.Errorf("We're expecting the Moon to set at 2:15am on 21st May 2021")
+		t.Errorf("We're expecting the Moon to set at 14:57pm on 6th May 2021")
 	}
 }
 
