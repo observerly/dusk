@@ -642,3 +642,41 @@ func TestGetMoonriseMoonsetTimes20210521(t *testing.T) {
 		t.Errorf("We're expecting the Moon to set at 2:15am on 21st May 2021")
 	}
 }
+
+func TestGetMoonriseMoonsetTimesInUTC20210506(t *testing.T) {
+	// Date of observation:
+	var datetime time.Time = time.Date(2021, 5, 6, 0, 0, 0, 0, time.UTC)
+
+	moon, err := GetMoonriseMoonsetTimesInUTC(datetime, longitude, latitude)
+
+	if err != nil {
+		t.Errorf("got %q", err)
+	}
+
+	if moon.Rise.String() != "2021-05-06 13:01:00 +0000 UTC" {
+		t.Errorf("We're expecting the Moon to rise at 13:01pm on 6th May 2021")
+	}
+
+	if moon.Set.String() != "2021-05-07 00:57:00 +0000 UTC" {
+		t.Errorf("We're expecting the Moon to set at 0:57am on 7th May 2021")
+	}
+}
+
+func TestGetMoonriseMoonsetTimesInUTC20210521(t *testing.T) {
+	// Date of observation:
+	var datetime time.Time = time.Date(2021, 5, 21, 0, 0, 0, 0, time.UTC)
+
+	moon, err := GetMoonriseMoonsetTimesInUTC(datetime, longitude, latitude)
+
+	if err != nil {
+		t.Errorf("got %q", err)
+	}
+
+	if moon.Rise.String() != "2021-05-22 00:20:00 +0000 UTC" {
+		t.Errorf("We're expecting the Moon to rise at 0:20am on 22st May 2021")
+	}
+
+	if moon.Set.String() != "2021-05-21 12:15:00 +0000 UTC" {
+		t.Errorf("We're expecting the Moon to set at 12:15pm on 21st May 2021")
+	}
+}
