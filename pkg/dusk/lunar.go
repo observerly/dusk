@@ -862,3 +862,24 @@ func GetMoonriseMoonsetTimes(datetime time.Time, longitude float64, latitude flo
 		Set:  set,
 	}, nil
 }
+
+/*
+	GetMoonriseMoonsetTimesInUTC()
+
+	@param datetime - the datetime of the observer (in UTC)
+	@param longitude - is the longitude (west is negative, east is positive) in degrees of some observer on Earth
+	@param latitude - is the latitude (south is negative, north is positive) in degrees of some observer on Earth
+	@returns the times for when the Moon rises and sets, in UTC time, or an error.
+*/
+func GetMoonriseMoonsetTimesInUTC(datetime time.Time, longitude float64, latitude float64) (*Moon, error) {
+	var moon, err = GetMoonriseMoonsetTimes(datetime, longitude, latitude)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &Moon{
+		Rise: moon.Rise.UTC(),
+		Set:  moon.Set.UTC(),
+	}, nil
+}
