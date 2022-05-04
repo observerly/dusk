@@ -51,9 +51,9 @@ func GetLocalTwilight(datetime time.Time, longitude float64, latitude float64, e
 	}
 
 	return &Twilight{
-		From:     s.set.In(location),
-		Until:    r.rise.In(location),
-		Duration: r.rise.Sub(s.set),
+		From:     s.Set.In(location),
+		Until:    r.Rise.In(location),
+		Duration: r.Rise.Sub(s.Set),
 	}, location, nil
 }
 

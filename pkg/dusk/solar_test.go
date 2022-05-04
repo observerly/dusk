@@ -136,7 +136,7 @@ func TestGetSunriseSunsetTimesInUTCRise(t *testing.T) {
 
 	var sun Sun = GetSunriseSunsetTimesInUTC(d, 0, longitude, latitude, elevation)
 
-	var got time.Time = sun.rise.In(timezone)
+	var got time.Time = sun.Rise.In(timezone)
 
 	var want = time.Date(1992, 4, 12, 6, 05, 49, 72323712, timezone)
 
@@ -155,7 +155,7 @@ func TestGetSunriseSunsetTimesInUTCRiseWithOffsetHorizon(t *testing.T) {
 
 	var sun Sun = GetSunriseSunsetTimesInUTC(d, -18, longitude, latitude, elevation)
 
-	var got time.Time = sun.rise.In(timezone)
+	var got time.Time = sun.Rise.In(timezone)
 
 	var want = time.Date(1992, 4, 12, 6, 05, 49, 72323712, timezone)
 
@@ -174,7 +174,7 @@ func TestGetSunriseSunsetTimesInUTCNoon(t *testing.T) {
 
 	var sun Sun = GetSunriseSunsetTimesInUTC(d, 0, longitude, latitude, elevation)
 
-	var got time.Time = sun.noon.In(timezone)
+	var got time.Time = sun.Noon.In(timezone)
 
 	var want = time.Date(1992, 4, 12, 12, 22, 10, 770278016, timezone)
 
@@ -193,7 +193,7 @@ func TestGetSunriseSunsetTimesInUTCSet(t *testing.T) {
 
 	var sun Sun = GetSunriseSunsetTimesInUTC(d, 0, longitude, latitude, elevation)
 
-	var got time.Time = sun.set.In(timezone)
+	var got time.Time = sun.Set.In(timezone)
 
 	var want = time.Date(1992, 4, 12, 18, 38, 32, 468232192, timezone)
 
@@ -212,7 +212,7 @@ func TestGetSunriseSunsetTimesInUTCSetWithOffsetHorizon(t *testing.T) {
 
 	var sun Sun = GetSunriseSunsetTimesInUTC(d, -18, longitude, latitude, elevation)
 
-	var got time.Time = sun.set.In(timezone)
+	var got time.Time = sun.Set.In(timezone)
 
 	var want = time.Date(1992, 4, 12, 18, 38, 32, 468232192, timezone)
 
