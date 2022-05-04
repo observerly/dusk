@@ -6,9 +6,9 @@ import (
 )
 
 type Sun struct {
-	rise time.Time
-	noon time.Time
-	set  time.Time
+	Rise time.Time
+	Noon time.Time
+	Set  time.Time
 }
 
 /*
@@ -142,9 +142,9 @@ func GetSunriseSunsetTimesInUTC(datetime time.Time, degreesBelowHorizon float64,
 	var J_set = J_transit + h
 
 	sun := Sun{
-		rise: GetUniversalTime(J_rise),
-		noon: GetUniversalTime(J_transit),
-		set:  GetUniversalTime(J_set),
+		Rise: GetUniversalTime(J_rise),
+		Noon: GetUniversalTime(J_transit),
+		Set:  GetUniversalTime(J_set),
 	}
 
 	return sun
