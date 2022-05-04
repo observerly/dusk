@@ -29,26 +29,26 @@ package main
 import (
 	"time"
 
-	"github.com/observerly/dusk"
+	"github.com/observerly/dusk/pkg/dusk"
 )
 
 func main() {
-        // datetime of observation:
-	var datetime time.Time = time.Date(2022, 2, 17, 0, 0, 0, 0, time.UTC)
+  // datetime of observation:
+  var datetime time.Time = time.Date(2022, 2, 17, 0, 0, 0, 0, time.UTC)
 
-	// observer's longitude, in degrees (*west of the Greenwhich meridian is negative, east is positive):
-	var longitude float64 = -155.8246
+  // observer's longitude, in degrees (*west of the Greenwhich meridian is negative, east is positive):
+  var longitude float64 = -155.8246
 
-	// observer's latitude, in degrees  (*south of the equator is negative, north is positive):
-	var latitude float64 = 20.0046
+  // observer's latitude, in degrees  (*south of the equator is negative, north is positive):
+  var latitude float64 = 20.0046
 
-	// observaer's elevation above mean sea level, in meteres:
-	var elevation float64 = 4207
+  // observaer's elevation above mean sea level, in meteres:
+  var elevation float64 = 4207
 
-	// specify the twilight to be defined as a set number of degrees *below* the horizon (e.g, civil twilight is designated as being 6 degrees below horizon):
-	var degreesBelowHorizon float64 = -6
+  // specify the twilight to be defined as a set number of degrees *below* the horizon (e.g, civil twilight is designated as being 6 degrees below horizon):
+  var degreesBelowHorizon float64 = -6
 
-	twilight, location, err := dusk.GetLocalTwilight(datetime, longitude, latitude, elevation, degreesBelowHorizon)
+  twilight, location, err := dusk.GetLocalTwilight(datetime, longitude, latitude, elevation, degreesBelowHorizon)
 }
 ```
 
@@ -86,21 +86,21 @@ To calculate the rise and set of the moon, it is neccessary to calculate the equ
 package main
 
 import (
-        "fmt"
-	"time"
+  "fmt"
+  "time"
 
-	"github.com/observerly/dusk"
+  "github.com/observerly/dusk/pkg/dusk"
 )
 
 func main() {
-        // datetime of observation:
-	var datetime time.Time = time.Date(2022, 2, 17, 14, 55, 0, 0, time.UTC)
+  // datetime of observation:
+  var datetime time.Time = time.Date(2022, 2, 17, 14, 55, 0, 0, time.UTC)
 
-	eq EquatorialCoordinate := dusk.GetLunarEquatorialPosition(datetime)
+  eq EquatorialCoordinate := dusk.GetLunarEquatorialPosition(datetime)
 	
-	fmt.Printf("The Moon is at the following equatorial coordinate:\n")
-	fmt.Printf("Right Ascension: %e°\n", eq.ra)
-	fmt.Printf("Declination: %e°\n", eq.dec)
+  fmt.Printf("The Moon is at the following equatorial coordinate:\n")
+  fmt.Printf("Right Ascension: %e°\n", eq.ra)
+  fmt.Printf("Declination: %e°\n", eq.dec)
 }
 ```
 
