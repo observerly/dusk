@@ -27,9 +27,9 @@ The basic usage of this package is to use the `GetLocalTwilight()` func, this pr
 package main
 
 import (
-	"time"
+  "time"
 
-	"github.com/observerly/dusk/pkg/dusk"
+  "github.com/observerly/dusk/pkg/dusk"
 )
 
 func main() {
