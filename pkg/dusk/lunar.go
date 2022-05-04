@@ -7,6 +7,11 @@ import (
 	tzm "github.com/zsefvlol/timezonemapper"
 )
 
+type Moon struct {
+	Rise time.Time
+	Set  time.Time
+}
+
 type LunarPhase struct {
 	Age          float64
 	Angle        float64
@@ -817,4 +822,35 @@ func GetLunarPhase(datetime time.Time, longitude float64, ec EclipticCoordinate)
 		Fraction:     F,
 		Illumination: K,
 	}
+}
+
+func GetMoonriseMoonsetTimes(datetime time.Time, longitude float64, latitude float64) (*Moon, error) {
+	var rise time.Time = time.Time{}
+	var set time.Time = time.Time{}
+
+	horizontalCoordinates, err := GetLunarHorizontalCoordinatesForDay(datetime, longitude, latitude)
+
+	if err != nil {
+		return nil, err
+	}
+
+	// efficiently loop and break when we have found a rise and set:
+	for _, v := range horizontalCoordinates {
+		if !rise.IsZero() && !set.IsZero() {
+			break
+		}
+
+		if v.IsRise && rise.IsZero() {
+			rise = v.Datetime
+		}
+
+		if v.IsSet && set.IsZero() {
+			set = v.Datetime
+		}
+	}
+
+	return &Moon{
+		Rise: rise,
+		Set:  set,
+	}, nil
 }
