@@ -832,14 +832,14 @@ func GetLunarPhase(datetime time.Time, longitude float64, ec EclipticCoordinate)
 	@param latitude - is the latitude (south is negative, north is positive) in degrees of some observer on Earth
 	@returns the times for when the Moon rises and sets, in the observer's local time, or an error.
 */
-func GetMoonriseMoonsetTimes(datetime time.Time, longitude float64, latitude float64) (*Moon, error) {
+func GetMoonriseMoonsetTimes(datetime time.Time, longitude float64, latitude float64) (Moon, error) {
 	var rise time.Time = time.Time{}
 	var set time.Time = time.Time{}
 
 	horizontalCoordinates, err := GetLunarHorizontalCoordinatesForDay(datetime, longitude, latitude)
 
 	if err != nil {
-		return nil, err
+		return Moon{}, err
 	}
 
 	// efficiently loop and break when we have found a rise and set:
@@ -857,7 +857,7 @@ func GetMoonriseMoonsetTimes(datetime time.Time, longitude float64, latitude flo
 		}
 	}
 
-	return &Moon{
+	return Moon{
 		Rise: rise,
 		Set:  set,
 	}, nil
@@ -871,14 +871,14 @@ func GetMoonriseMoonsetTimes(datetime time.Time, longitude float64, latitude flo
 	@param latitude - is the latitude (south is negative, north is positive) in degrees of some observer on Earth
 	@returns the times for when the Moon rises and sets, in UTC time, or an error.
 */
-func GetMoonriseMoonsetTimesInUTC(datetime time.Time, longitude float64, latitude float64) (*Moon, error) {
+func GetMoonriseMoonsetTimesInUTC(datetime time.Time, longitude float64, latitude float64) (Moon, error) {
 	var moon, err = GetMoonriseMoonsetTimes(datetime, longitude, latitude)
 
 	if err != nil {
-		return nil, err
+		return Moon{}, err
 	}
 
-	return &Moon{
+	return Moon{
 		Rise: moon.Rise.UTC(),
 		Set:  moon.Set.UTC(),
 	}, nil
