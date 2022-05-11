@@ -126,6 +126,63 @@ func TestGetSolarHourAngle(t *testing.T) {
 	}
 }
 
+func TestGetSunriseSunsetTimesRise(t *testing.T) {
+	timezone, _ := time.LoadLocation("Pacific/Honolulu")
+
+	var sun, err = GetSunriseSunsetTimes(d, 0, longitude, latitude, elevation)
+
+	if err != nil {
+		t.Errorf("got %q", err)
+		return
+	}
+
+	var got time.Time = sun.Rise
+
+	var want = time.Date(1992, 4, 12, 6, 05, 49, 72323712, timezone)
+
+	if got.String() != want.String() {
+		t.Errorf("got %q, wanted %q", got, want)
+	}
+}
+
+func TestGetSunriseSunsetTimesNoon(t *testing.T) {
+	timezone, _ := time.LoadLocation("Pacific/Honolulu")
+
+	var sun, err = GetSunriseSunsetTimes(d, 0, longitude, latitude, elevation)
+
+	if err != nil {
+		t.Errorf("got %q", err)
+		return
+	}
+
+	var got time.Time = sun.Noon
+
+	var want = time.Date(1992, 4, 12, 12, 22, 10, 770278016, timezone)
+
+	if got.String() != want.String() {
+		t.Errorf("got %q, wanted %q", got, want)
+	}
+}
+
+func TestGetSunriseSunsetTimesSet(t *testing.T) {
+	timezone, _ := time.LoadLocation("Pacific/Honolulu")
+
+	var sun, err = GetSunriseSunsetTimes(d, 0, longitude, latitude, elevation)
+
+	if err != nil {
+		t.Errorf("got %q", err)
+		return
+	}
+
+	var got time.Time = sun.Set
+
+	var want = time.Date(1992, 4, 12, 18, 38, 32, 468232192, timezone)
+
+	if got.String() != want.String() {
+		t.Errorf("got %q, wanted %q", got, want)
+	}
+}
+
 func TestGetSunriseSunsetTimesInUTCRise(t *testing.T) {
 	timezone, err := time.LoadLocation("Pacific/Honolulu")
 

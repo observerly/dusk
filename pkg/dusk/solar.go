@@ -3,6 +3,8 @@ package dusk
 import (
 	"math"
 	"time"
+
+	tzm "github.com/zsefvlol/timezonemapper"
 )
 
 type Sun struct {
@@ -109,6 +111,34 @@ func GetSolarHourAngle(δ float64, degreesBelowHorizon float64, latitude float64
 	var corr = -degreesBelowHorizon + -2.076*math.Sqrt(elevation)*1/60
 
 	return acosx((sinx(-0.83-corr) - (sinx(latitude) * sinx(δ))) / cosx(latitude) * cosx(δ))
+}
+
+/*
+	GetSunriseSunsetTimes()
+
+	@param datetime - the datetime of the observer (in localtime)
+	@param longitude - is the longitude (west is negative, east is positive) in degrees of some observer on Earth
+	@param latitude - is the latitude (south is negative, north is positive) in degrees of some observer on Earth
+	@param elevation - is the elevation (above sea level) in meters of some observer on Earth
+	@returns the rise, noon and set for the Sun, in localtime
+*/
+func GetSunriseSunsetTimes(datetime time.Time, degreesBelowHorizon float64, longitude float64, latitude float64, elevation float64) (Sun, error) {
+	sun := GetSunriseSunsetTimesInUTC(datetime, degreesBelowHorizon, longitude, latitude, elevation)
+
+	// get the corresponding timezone for the longitude and latitude provided:
+	timezone := tzm.LatLngToTimezoneString(latitude, longitude)
+
+	location, err := time.LoadLocation(timezone)
+
+	if err != nil {
+		return sun, err
+	}
+
+	return Sun{
+		Rise: sun.Rise.In(location),
+		Noon: sun.Noon.In(location),
+		Set:  sun.Set.In(location),
+	}, nil
 }
 
 /*
