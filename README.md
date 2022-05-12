@@ -5,7 +5,7 @@
 
 # Dusk 🌑
 
-Dusk is a minimal dependency Go library for calculating astronomical twilight, the lunar phase and the rise and set times of the moon and sun.
+Dusk is a minimal dependency Go library for calculating the most opinimum time to observe various astronomical objects by utilising paramaters such as astronomical twilight, the lunar phase and the rise and set times of the moon and sun.
 
 ## Installation
 
