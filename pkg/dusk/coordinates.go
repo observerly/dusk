@@ -4,6 +4,17 @@ import (
 	"time"
 )
 
+type Coordinate struct {
+	/*
+		ϕ - the latitude in degrees, e.g., altitude, latitude, declination
+	*/
+	ϕ float64
+	/*
+		θ - the longitude in degrees, e.g., azimuth, right ascension, longitude
+	*/
+	θ float64
+}
+
 type EquatorialCoordinate struct {
 	RightAscension float64
 	Declination    float64
