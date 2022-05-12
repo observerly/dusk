@@ -34,19 +34,19 @@ import (
 
 func main() {
   // datetime of observation:
-  var datetime time.Time = time.Date(2022, 2, 17, 0, 0, 0, 0, time.UTC)
+  datetime := time.Date(2022, 2, 17, 0, 0, 0, 0, time.UTC)
 
   // observer's longitude, in degrees (*west of the Greenwhich meridian is negative, east is positive):
-  var longitude float64 = -155.8246
+  longitude := -155.8246
 
   // observer's latitude, in degrees  (*south of the equator is negative, north is positive):
-  var latitude float64 = 20.0046
+  latitude := 20.0046
 
   // observaer's elevation above mean sea level, in meteres:
-  var elevation float64 = 4207
+  elevation := 4207.0
 
   // specify the twilight to be defined as a set number of degrees *below* the horizon (e.g, civil twilight is designated as being 6 degrees below horizon):
-  var degreesBelowHorizon float64 = -6
+  degreesBelowHorizon := -6.0
 
   twilight, location, err := dusk.GetLocalTwilight(datetime, longitude, latitude, elevation, degreesBelowHorizon)
 }
@@ -80,7 +80,9 @@ twilight, location, err := dusk.GetLocalAstronomicalTwilight(datetime, longitude
 
 ### Get Moon Position
 
-To calculate the rise and set of the moon, it is neccessary to calculate the equatorial position of the moon at zero HH:mm:ss, e.g., midnight, for the +/-1 day for the day you want to calculate for, e.g., d-1, d and d+1. This library supplie the function to calculate the equatorial position of the moon (in degrees):
+To calculate the rise and set of the moon, it is neccessary to calculate the equatorial position of the moon at zero HH:mm:ss, e.g., midnight, for the +/-1 day for the day you want to calculate for, e.g., d-1, d and d+1. 
+
+This library supplies the following function to calculate the equatorial position of the moon (in degrees):
 
 ```go
 package main
@@ -94,13 +96,44 @@ import (
 
 func main() {
   // datetime of observation:
-  var datetime time.Time = time.Date(2022, 2, 17, 14, 55, 0, 0, time.UTC)
+  datetime := time.Date(2022, 2, 17, 14, 55, 0, 0, time.UTC)
 
-  eq EquatorialCoordinate := dusk.GetLunarEquatorialPosition(datetime)
+  eq := dusk.GetLunarEquatorialPosition(datetime)
 	
   fmt.Printf("The Moon is at the following equatorial coordinate:\n")
   fmt.Printf("Right Ascension: %e°\n", eq.ra)
   fmt.Printf("Declination: %e°\n", eq.dec)
+}
+```
+
+### Get Moon Phase
+
+To calculate the moon phase, it is neccessary to calculate the ecliptic position of the moon at the datetime required, as well as the knowing some longitude of an observer.
+
+This library supplies the following function to calculate the phase of the moon:
+
+```go
+package main
+
+import (
+  "fmt"
+  "time"
+
+  "github.com/observerly/dusk/pkg/dusk"
+)
+
+func main() {
+  // datetime of observation:
+  datetime := time.Date(2022, 2, 17, 14, 55, 0, 0, time.UTC)
+
+  // some longitude, in degrees (*west of the Greenwhich meridian is negative, east is positive):
+  lonmgitude := -155.8246
+
+  // get the ecliptic coordinate of the Moon for the datetime:
+  ec := dusk.GetLunarEclipticPosition(datetime)
+
+  // calculate the phase for the datetime, longitude and ecliptic coordinate:
+  phase := dusk.GetMoonPhase(datetime, longitude, ec)
 }
 ```
 
@@ -112,6 +145,6 @@ Dusk is free software licensed under the GNU General Public License v3.0 (GPL-3.
 
 The binary version of this program uses several open source libraries and components, which come with their own licensing terms. See below for an overview, and [LICENSE](./LICENSE) for details.
 
-| Library attribution | License type |
-|---------------------|--------------|
-| [zsefvlol/timezonemapper](https://github.com/zsefvlol/timezonemapper) | MIT License |
+| Library attribution                                                   | License type |
+|-----------------------------------------------------------------------|--------------|
+| [zsefvlol/timezonemapper](https://github.com/zsefvlol/timezonemapper) | MIT License  |
