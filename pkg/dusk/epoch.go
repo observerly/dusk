@@ -283,3 +283,47 @@ func ConvertLocalSiderealTimeToGreenwhichSiderealTime(LST float64, longitude flo
 
 	return GST
 }
+
+/*
+	ConvertGreenwhichSiderealTimeToUniversalTime()
+
+	@param datetime - the datetime of the observer (in UTC)
+	@param GST - the GST in hours (in decimal format)
+	@returns the UT in hours (in decimal format)
+*/
+func ConvertGreenwhichSiderealTimeToUniversalTime(datetime time.Time, GST float64) float64 {
+	d := GetDatetimeZeroHour(datetime)
+
+	var JD = GetJulianDate(d)
+
+	var JD0 = GetJulianDate(time.Date(datetime.Year(), 1, 0, 0, 0, 0, 0, time.UTC))
+
+	var days = JD - JD0
+
+	var T = (JD0 - 2415020) / 36525
+
+	var R = 6.6460656 + 2400.051262*T + 0.00002581*math.Pow(T, 2)
+
+	var B = 24 - R + float64(24*(datetime.Year()-1900))
+
+	var T0 = (0.0657098 * days) - B
+
+	// correct for negative hour angles
+	if T0 < 0 {
+		T0 += 24
+	}
+
+	// correct for hour angles greater than 24h
+	if T0 > 24 {
+		T0 -= 24
+	}
+
+	var A = (GST - T0)
+
+	// correct for negative hour angles
+	if A < 0 {
+		A += 24
+	}
+
+	return 0.997270 * A
+}
