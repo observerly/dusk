@@ -187,3 +187,13 @@ func TestGetMeanSolarTime(t *testing.T) {
 		t.Errorf("got %f, wanted %f", got, want)
 	}
 }
+
+func TestConvertLocalSiderealTimeToGreenwhichSiderealTime(t *testing.T) {
+	var got float64 = ConvertLocalSiderealTimeToGreenwhichSiderealTime(23.394722, 50.0)
+
+	var want float64 = 20.061389
+
+	if math.Abs(got-want) > 0.00001 {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+}

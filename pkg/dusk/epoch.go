@@ -255,3 +255,21 @@ func GetMeanSolarTime(datetime time.Time, longitude float64) float64 {
 
 	return float64(n) - (longitude / 360)
 }
+
+/*
+	ConvertLocalSiderealTimeToGreenwhichSiderealTime()
+
+	@param LST - the local sidereal time in hours (in decimal format)
+	@param longitude - is the longitude (west is negative, east is positive) in degrees of some observer on Earth
+	@returns returns the GST in hours (in decimal format)
+*/
+func ConvertLocalSiderealTimeToGreenwhichSiderealTime(LST float64, longitude float64) float64 {
+	var GST = LST - longitude/15
+
+	// correct for negative hour angles
+	if GST < 0 {
+		GST += 24
+	}
+
+	return GST
+}
