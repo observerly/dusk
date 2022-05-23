@@ -23,6 +23,16 @@ type JulianPeriod struct {
 }
 
 /*
+	GetDatetimeZeroHour()
+
+	@param datetime - the datetime of the observer
+	@returns the datetime of the zero hour of the day
+*/
+func GetDatetimeZeroHour(datetime time.Time) time.Time {
+	return time.Date(datetime.Year(), datetime.Month(), datetime.Day(), 0, 0, 0, 0, time.UTC)
+}
+
+/*
 	GetJulianDate()
 
 	@returns the Julian date i.e., the continuous count of days and fractions of day since the beginning of the Julian period
