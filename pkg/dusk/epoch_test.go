@@ -207,3 +207,15 @@ func TestConvertLocalSiderealTimeToGreenwhichSiderealTime(t *testing.T) {
 		t.Errorf("got %f, wanted %f", got, want)
 	}
 }
+
+func TestConvertGreenwhichSiderealTimeToUniversalTime(t *testing.T) {
+	var datetime time.Time = time.Date(2010, 2, 7, 0, 0, 0, 0, time.UTC)
+
+	var got float64 = ConvertGreenwhichSiderealTimeToUniversalTime(datetime, 8.698056)
+
+	var want float64 = 23.499977
+
+	if math.Abs(got-want) > 0.00001 {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+}
