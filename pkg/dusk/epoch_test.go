@@ -10,6 +10,16 @@ var datetime time.Time = time.Date(2021, 5, 14, 0, 0, 0, 0, time.UTC)
 
 var longitude float64 = -155.468094
 
+func TestGetDatetimeZeroHour(t *testing.T) {
+	var got time.Time = GetDatetimeZeroHour(time.Date(2021, 5, 14, 12, 56, 18, 4, time.UTC))
+
+	var want time.Time = time.Date(2021, 5, 14, 0, 0, 0, 0, time.UTC)
+
+	if got.String() != want.String() {
+		t.Errorf("got %v want %v", got, want)
+	}
+}
+
 func TestGetJulianDate(t *testing.T) {
 	var got float64 = GetJulianDate(datetime)
 
