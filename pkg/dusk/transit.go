@@ -6,8 +6,6 @@ import (
 )
 
 type Transit struct {
-	rise *time.Time
-	set  *time.Time
 	Rise     *time.Time
 	Set      *time.Time
 	Duration time.Duration
