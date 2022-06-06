@@ -8,6 +8,9 @@ import (
 type Transit struct {
 	rise *time.Time
 	set  *time.Time
+	Rise     *time.Time
+	Set      *time.Time
+	Duration time.Duration
 }
 
 /*
@@ -38,8 +41,9 @@ func GetDoesObjectRiseOrSet(eq EquatorialCoordinate, latitude float64) bool {
 func GetObjectRiseObjectSetTimesInUTC(datetime time.Time, eq EquatorialCoordinate, latitude float64, longitude float64) Transit {
 	if !GetDoesObjectRiseOrSet(eq, latitude) {
 		return Transit{
-			rise: nil,
-			set:  nil,
+			Rise:     nil,
+			Set:      nil,
+			Duration: 0,
 		}
 	}
 
@@ -64,7 +68,8 @@ func GetObjectRiseObjectSetTimesInUTC(datetime time.Time, eq EquatorialCoordinat
 	set := datetime.Add(time.Duration(UTs*3600000) * time.Millisecond)
 
 	return Transit{
-		rise: &rise,
-		set:  &set,
+		Rise:     &rise,
+		Set:      &set,
+		Duration: rise.Sub(set),
 	}
 }
