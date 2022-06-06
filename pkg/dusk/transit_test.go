@@ -96,7 +96,7 @@ func TestGetObjectRiseObjectSetTimesChapter5Exercise1(t *testing.T) {
 }
 
 func TestGetObjectRiseObjectSetTimesChapter5Exercise2(t *testing.T) {
-	timezone, err := time.LoadLocation("America/New_York")
+	timezone, _ := time.LoadLocation("America/New_York")
 
 	var datetime time.Time = time.Date(2015, 6, 6, 0, 0, 0, 0, time.UTC)
 
