@@ -76,3 +76,45 @@ func TestGetObjectRiseObjectSetTimesInUTCLawrenceChapter5Exercise2(t *testing.T)
 		t.Errorf("got %v, wanted %v", *got.Set, set)
 	}
 }
+
+func TestGetObjectRiseObjectSetTimesChapter5Exercise1(t *testing.T) {
+	var datetime time.Time = time.Date(2015, 6, 6, 0, 0, 0, 0, time.UTC)
+
+	got, err := GetObjectRiseObjectSetTimes(datetime, EquatorialCoordinate{RightAscension: 90, Declination: -60}, 45.250132, -100.300288)
+
+	if err != nil {
+		t.Errorf("got %v, wanted nil", err)
+	}
+
+	if got.Rise != nil {
+		t.Errorf("got %v, but expected the object to never rise for the given paramaters", got)
+	}
+
+	if got.Set != nil {
+		t.Errorf("got %v, but expected the object to never set for the given parameters", got)
+	}
+}
+
+func TestGetObjectRiseObjectSetTimesChapter5Exercise2(t *testing.T) {
+	timezone, err := time.LoadLocation("America/New_York")
+
+	var datetime time.Time = time.Date(2015, 6, 6, 0, 0, 0, 0, time.UTC)
+
+	got, err := GetObjectRiseObjectSetTimes(datetime, EquatorialCoordinate{RightAscension: 243.675000, Declination: 25.9613889}, 38.250132, -78.300288)
+
+	if err != nil {
+		t.Errorf("got %v, wanted nil", err)
+	}
+
+	var rise = time.Date(2015, 6, 6, 16, 57, 48, 562000000, timezone)
+
+	var set = time.Date(2015, 6, 6, 7, 59, 51, 410000000, timezone)
+
+	if got.Rise.String() != rise.String() {
+		t.Errorf("got %v, wanted %v", *got.Rise, rise)
+	}
+
+	if got.Set.String() != set.String() {
+		t.Errorf("got %v, wanted %v", *got.Set, set)
+	}
+}
