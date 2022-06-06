@@ -3,6 +3,8 @@ package dusk
 import (
 	"math"
 	"time"
+
+	tzm "github.com/zsefvlol/timezonemapper"
 )
 
 type Transit struct {
@@ -70,4 +72,44 @@ func GetObjectRiseObjectSetTimesInUTC(datetime time.Time, eq EquatorialCoordinat
 		Set:      &set,
 		Duration: rise.Sub(set),
 	}
+}
+
+/*
+	GetObjectRiseObjectSetTimes()
+
+	@param datetime - the time to calculate the rise and set times for
+	@param eq - the EquatorialCoordinate{} of the object to calculate the rise and set times for
+	@param latitude - the latitude of the observer
+	@param longitude - the longitude of the observer
+	@returns a Transit struct which contains the rise and set times of the object in UTC
+*/
+func GetObjectRiseObjectSetTimes(datetime time.Time, eq EquatorialCoordinate, latitude float64, longitude float64) (*Transit, error) {
+	if !GetDoesObjectRiseOrSet(eq, latitude) {
+		return &Transit{
+			Rise: nil,
+			Set:  nil,
+		}, nil
+	}
+
+	// get the corresponding timezone for the longitude and latitude provided:
+	timezone := tzm.LatLngToTimezoneString(latitude, longitude)
+
+	// the corresponding local timezone for the observer, e..g, the location name corresponding to a file in the IANA Time Zone database, such as "Pacific/Honolulu":
+	location, err := time.LoadLocation(timezone)
+
+	if err != nil {
+		return nil, err
+	}
+
+	transit := GetObjectRiseObjectSetTimesInUTC(datetime, eq, latitude, longitude)
+
+	rise := transit.Rise.In(location)
+
+	set := transit.Set.In(location)
+
+	return &Transit{
+		Rise:     &rise,
+		Set:      &set,
+		Duration: transit.Duration,
+	}, nil
 }
