@@ -50,11 +50,11 @@ func TestGetObjectRiseObjectSetTimesInUTCLawrenceChapter5Exercise1(t *testing.T)
 
 	var got Transit = GetObjectRiseObjectSetTimesInUTC(datetime, EquatorialCoordinate{RightAscension: 90, Declination: -60}, 45.250132, -100.300288)
 
-	if got.rise != nil {
+	if got.Rise != nil {
 		t.Errorf("got %v, but expected the object to never rise for the given paramaters", got)
 	}
 
-	if got.set != nil {
+	if got.Set != nil {
 		t.Errorf("got %v, but expected the object to never set for the given parameters", got)
 	}
 }
@@ -68,11 +68,11 @@ func TestGetObjectRiseObjectSetTimesInUTCLawrenceChapter5Exercise2(t *testing.T)
 
 	var set = time.Date(2015, 6, 6, 11, 59, 51, 410000000, time.UTC)
 
-	if got.rise.String() != rise.String() {
-		t.Errorf("got %v, wanted %v", *got.rise, rise)
+	if got.Rise.String() != rise.String() {
+		t.Errorf("got %v, wanted %v", *got.Rise, rise)
 	}
 
-	if got.set.String() != set.String() {
-		t.Errorf("got %v, wanted %v", *got.set, set)
+	if got.Set.String() != set.String() {
+		t.Errorf("got %v, wanted %v", *got.Set, set)
 	}
 }
