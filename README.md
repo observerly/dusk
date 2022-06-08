@@ -1,11 +1,11 @@
+![@observerly/dusk](https://user-images.githubusercontent.com/84131395/172596337-7499f919-3e41-48ea-a561-b88afa75b8c9.png)
+
 ![GitHub go.mod Go version (branch & subdirectory of monorepo)](https://img.shields.io/github/go-mod/go-version/observerly/dusk/main?filename=go.mod&label=Go)
 [![PkgGoDev](https://pkg.go.dev/badge/github.com/observerly/dusk)](https://pkg.go.dev/github.com/observerly/dusk)
 [![Go Report Card](https://goreportcard.com/badge/github.com/observerly/dusk)](https://goreportcard.com/report/github.com/observerly/dusk)
 [![Dusk Actions Status](https://github.com/observerly/dusk/actions/workflows/ci.yml/badge.svg)](https://github.com/observerly/celestia/actions/workflows/ci.yml)
 
-# Dusk 🌑
-
-Dusk is a minimal dependency Go library for calculating the most opinimum time to observe various astronomical objects by utilising paramaters such as astronomical twilight, the lunar phase and the rise and set times of the moon and sun.
+Dusk 🌑 is a minimal dependency Go library for calculating the most opinimum time to observe various astronomical objects by utilising paramaters such as astronomical twilight, the lunar phase and the rise and set times of the moon and sun.
 
 ## Installation
 
