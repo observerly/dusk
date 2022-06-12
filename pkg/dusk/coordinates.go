@@ -16,14 +16,29 @@ type Coordinate struct {
 }
 
 type EquatorialCoordinate struct {
+	/*
+		Right Ascension - the right ascension in degrees
+	*/
 	RightAscension float64
-	Declination    float64
+	/*
+		Declination - the declination in degrees
+	*/
+	Declination float64
 }
 
 type EclipticCoordinate struct {
+	/*
+		Longitude - the longitude in degrees
+	*/
 	Longitude float64
-	Latitude  float64
-	Δ         float64
+	/*
+		Latitude - the latitude in degrees
+	*/
+	Latitude float64
+	/*
+		Distance - the distance in km
+	*/
+	Δ float64
 }
 
 type HorizontalCoordinate struct {
