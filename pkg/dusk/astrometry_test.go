@@ -29,11 +29,11 @@ func TestGetHourAngleBonus(t *testing.T) {
 	}
 }
 
-var arcturus Coordinate = Coordinate{ϕ: 19.1825, θ: 213.9154}
+var arcturus Coordinate = Coordinate{Latitude: 19.1825, Longitude: 213.9154}
 
-var spica Coordinate = Coordinate{ϕ: -11.1614, θ: 201.2983}
+var spica Coordinate = Coordinate{Latitude: -11.1614, Longitude: 201.2983}
 
-var denebola Coordinate = Coordinate{ϕ: 14.5720581, θ: 177.2649}
+var denebola Coordinate = Coordinate{Latitude: 14.5720581, Longitude: 177.2649}
 
 func TestGetAngularSeparationArcturusSpica(t *testing.T) {
 	var got float64 = GetAngularSeparation(arcturus, spica)
@@ -66,9 +66,9 @@ func TestGetAngularSeparationDenebolaArcturus(t *testing.T) {
 }
 
 func TestGetAngularSeparationZero(t *testing.T) {
-	var coord1 Coordinate = Coordinate{ϕ: 0, θ: 0}
+	var coord1 Coordinate = Coordinate{Latitude: 0, Longitude: 0}
 
-	var coord2 Coordinate = Coordinate{ϕ: 0, θ: 0}
+	var coord2 Coordinate = Coordinate{Latitude: 0, Longitude: 0}
 
 	var got float64 = GetAngularSeparation(coord1, coord2)
 

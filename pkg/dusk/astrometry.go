@@ -27,16 +27,16 @@ func GetHourAngle(ra float64, LST float64) float64 {
 
 	Gets the angular separation between two objects of known coordinates
 
-	@param c1 - the first object's coordinate of type Coordinate { ϕ, θ }
-	@param c2 - the second object's coordinate of type Coordinate { ϕ, θ }
+	@param c1 - the first object's coordinate of type Coordinate { Latitude, Longitude }
+	@param c2 - the second object's coordinate of type Coordinate { Latitude, Longitude }
 	@returns the angular separation (in degrees)
 */
 func GetAngularSeparation(coord1 Coordinate, coord2 Coordinate) float64 {
-	var x = cosx(coord1.ϕ)*sinx(coord2.ϕ) - sinx(coord1.ϕ)*cosx(coord2.ϕ)*cosx(coord2.θ-coord1.θ)
+	var x = cosx(coord1.Latitude)*sinx(coord2.Latitude) - sinx(coord1.Latitude)*cosx(coord2.Latitude)*cosx(coord2.Longitude-coord1.Longitude)
 
-	var y = cosx(coord2.ϕ) * sinx(coord2.θ-coord1.θ)
+	var y = cosx(coord2.Latitude) * sinx(coord2.Longitude-coord1.Longitude)
 
-	var z float64 = sinx(coord1.ϕ)*sinx(coord2.ϕ) + cosx(coord1.ϕ)*cosx(coord2.ϕ)*cosx(coord2.θ-coord1.θ)
+	var z float64 = sinx(coord1.Latitude)*sinx(coord2.Latitude) + cosx(coord1.Latitude)*cosx(coord2.Latitude)*cosx(coord2.Longitude-coord1.Longitude)
 
 	return atan2yx(math.Sqrt(x*x+y*y), z)
 }
