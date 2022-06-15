@@ -95,3 +95,19 @@ func TestGetArgumentOfLocalSiderealTime(t *testing.T) {
 		t.Errorf("The argument of LST must be an angle between 0° and 360°")
 	}
 }
+
+func TestGetAtmosphericRefraction(t *testing.T) {
+	var hz HorizontalCoordinate = ConvertEquatorialCoordinateToHorizontal(datetime, longitude, latitude, EquatorialCoordinate{RightAscension: 88.7929583, Declination: 7.4070639})
+
+	var got float64 = GetAtmosphericRefraction(hz.Altitude)
+
+	var want float64 = 0.005219
+
+	if math.Abs(got-want) > 0.00001 {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+
+	if got < 0 || got > 1.0 {
+		t.Errorf("The atmospheric refraction must be between 0.0 and 0.5")
+	}
+}
