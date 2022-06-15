@@ -111,3 +111,47 @@ func TestGetAtmosphericRefraction(t *testing.T) {
 		t.Errorf("The atmospheric refraction must be between 0.0 and 0.5")
 	}
 }
+
+func TestGetRelativeAirMass(t *testing.T) {
+	var hz HorizontalCoordinate = ConvertEquatorialCoordinateToHorizontal(datetime, longitude, latitude, EquatorialCoordinate{RightAscension: 88.7929583, Declination: 7.4070639})
+
+	var got float64 = GetRelativeAirMass(hz.Altitude)
+
+	var want float64 = 1.046558
+
+	if math.Abs(got-want) > 0.00001 {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+
+	if got < 1 || got > 40.0 {
+		t.Errorf("The relative air mass must be a value bewteen 1 and approx. 40 at the observer's horizon")
+	}
+}
+
+func TestGetRelativeAirMassAtZenith(t *testing.T) {
+	var got float64 = GetRelativeAirMass(90)
+
+	var want float64 = 1.0
+
+	if math.Abs(got-want) > 0.00001 {
+		t.Errorf("got %f, wanted %f", got, want)
+	}
+
+	if got < 1 || got > 40.0 {
+		t.Errorf("The relative air mass must be a value bewteen 1 and approx. 40 at the observer's horizon")
+	}
+}
+
+func TestGetRelativeAirMassAtHorizon(t *testing.T) {
+	var got float64 = GetRelativeAirMass(0)
+
+	var want float64 = 38
+
+	if math.Abs(got-want) > 2 {
+		t.Errorf("The relative air mass must be approximately ~37 - 39 at the observer's horizon")
+	}
+
+	if got < 1 || got > 40.0 {
+		t.Errorf("The relative air mass must be a value bewteen 1 and approx. 40 at the observer's horizon")
+	}
+}
