@@ -93,3 +93,14 @@ func GetAtmosphericRefraction(altitude float64) float64 {
 func GetRelativeAirMass(altitude float64) float64 {
 	return 1 / sinx(altitude+(244/(165+47*math.Pow(altitude, 1.1))))
 }
+
+/*
+	GetApparentAltitude()
+
+	@param altitude - is the altitude of the object in degrees
+	@returns the apparent altitude in degrees
+*/
+func GetApparentAltitude(altitude float64) float64 {
+	R := GetAtmosphericRefraction(altitude)
+	return altitude + R
+}

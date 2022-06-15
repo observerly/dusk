@@ -155,3 +155,13 @@ func TestGetRelativeAirMassAtHorizon(t *testing.T) {
 		t.Errorf("The relative air mass must be a value bewteen 1 and approx. 40 at the observer's horizon")
 	}
 }
+
+func TestGetApparentAltitude(t *testing.T) {
+	var hz HorizontalCoordinate = ConvertEquatorialCoordinateToHorizontal(datetime, longitude, latitude, EquatorialCoordinate{RightAscension: 88.7929583, Declination: 7.4070639})
+
+	var got float64 = GetApparentAltitude(hz.Altitude)
+
+	if math.Abs(got-hz.Altitude) > 0.0053 {
+		t.Errorf("got %f, wanted %f", got, hz.Altitude)
+	}
+}
