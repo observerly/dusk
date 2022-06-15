@@ -72,3 +72,14 @@ func GetNutationInObliquityOfTheEcliptic(L float64, l float64, Ω float64) float
 func GetArgumentOfLocalSiderealTimeForTransit(latitude float64, δ float64) float64 {
 	return acosx(-tanx(latitude) * tanx(δ))
 }
+
+/*
+	GetAtmosphericRefraction()
+
+	@param altitude - is the altitude of the object in degrees
+	@returns the atmospheric refraction in degrees for all angles from 0° - 90°
+	@see p.106 of Meeus, Jean. 1991. Astronomical algorithms. Richmond, Va: Willmann-Bell.
+*/
+func GetAtmosphericRefraction(altitude float64) float64 {
+	return (1.02 / tanx(altitude+(10.3/(altitude+5.11)))) / 60
+}
