@@ -76,6 +76,60 @@ func GetObjectRiseObjectSetTimesInUTCForDay(datetime time.Time, eq EquatorialCoo
 }
 
 /*
+	GetObjectHorizontalCoordinatesForDay()
+
+	@param datetime - the datetime of the observer (in UTC)
+	@params eq - the EquatorialCoordinate{} of the object to calculate the rise and set times for
+	@param longitude - is the longitude (west is negative, east is positive) in degrees of some observer on Earth
+	@param latitude - is the latitude (south is negative, north is positive) in degrees of some observer on Earth
+	@returns the horizontal coordinates of the target object for every minute of a given day.
+*/
+func GetObjectHorizontalCoordinatesForDay(datetime time.Time, eq EquatorialCoordinate, longitude float64, latitude float64) ([]TransitHorizontalCoordinate, error) {
+	// create an empty list of horizontalCoordinate structs:
+	horizontalCoordinates := make([]TransitHorizontalCoordinate, 1442)
+
+	// get the corresponding timezone for the longitude and latitude provided:
+	timezone := tzm.LatLngToTimezoneString(latitude, longitude)
+
+	location, err := time.LoadLocation(timezone)
+
+	if err != nil {
+		return horizontalCoordinates, err
+	}
+
+	var d = time.Date(datetime.Year(), datetime.Month(), datetime.Day(), 0, 0, 0, 0, location).In(time.UTC)
+
+	// Subtract one minute to ensure we are not over looking the rise time to be
+	d = d.Add(time.Minute * -1)
+
+	for i := range horizontalCoordinates {
+		var hz HorizontalCoordinate = ConvertEquatorialCoordinateToHorizontal(d, longitude, latitude, eq)
+
+		if i > 0 {
+			horizontalCoordinates[i] = TransitHorizontalCoordinate{
+				Datetime: d.In(location),
+				Altitude: hz.Altitude,
+				Azimuth:  hz.Azimuth,
+				IsRise:   hz.Altitude > 0 && horizontalCoordinates[i-1].Altitude <= 0,
+				IsSet:    hz.Altitude < 0 && horizontalCoordinates[i-1].Altitude >= 0,
+			}
+		} else {
+			horizontalCoordinates[i] = TransitHorizontalCoordinate{
+				Datetime: d.In(location),
+				Altitude: hz.Altitude,
+				Azimuth:  hz.Azimuth,
+				IsRise:   false,
+				IsSet:    false,
+			}
+		}
+
+		d = d.Add(time.Minute)
+	}
+
+	return horizontalCoordinates[1:1441], nil
+}
+
+/*
 	GetObjectRiseObjectSetTimesInUTC()
 
 	@param datetime - the time to calculate the rise and set times for
