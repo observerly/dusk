@@ -114,7 +114,7 @@ func GetObjectRiseObjectSetTimesInUTC(datetime time.Time, eq EquatorialCoordinat
 	@param eq - the EquatorialCoordinate{} of the object to calculate the rise and set times for
 	@param latitude - the latitude of the observer
 	@param longitude - the longitude of the observer
-	@returns a Transit struct which contains the rise and set times of the object in UTC
+	@returns a Transit struct which contains the rise and set times of the object in local time
 */
 func GetObjectRiseObjectSetTimes(datetime time.Time, eq EquatorialCoordinate, latitude float64, longitude float64) (*Transit, error) {
 	if !GetDoesObjectRiseOrSet(eq, latitude) {
