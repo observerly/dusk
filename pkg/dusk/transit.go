@@ -146,3 +146,55 @@ func GetObjectRiseObjectSetTimes(datetime time.Time, eq EquatorialCoordinate, la
 		Duration: transit.Duration,
 	}, nil
 }
+
+/*
+	GetObjectTransitMaximaTime()
+
+	@param datetime - the time to calculate the rise and set times for
+	@param eq - the EquatorialCoordinate{} of the object to calculate the rise and set times for
+	@param latitude - the latitude of the observer
+	@param longitude - the longitude of the observer
+	@returns a the Transit maxima time of the object in local time
+*/
+func GetObjectTransitMaximaTime(datetime time.Time, eq EquatorialCoordinate, latitude float64, longitude float64) (*time.Time, error) {
+	transit, err := GetObjectRiseObjectSetTimes(datetime, eq, latitude, longitude)
+
+	if err != nil {
+		return nil, err
+	}
+
+	if transit.Rise == nil && transit.Set == nil {
+		return nil, nil
+	}
+
+	// find the number of minutes between the rise and set times:
+	minutes := int(math.Ceil(math.Abs(transit.Duration.Minutes())))
+
+	// create an empty list of horizontalCoordinate structs:
+	horizontalCoordinates := make([]TransitHorizontalCoordinate, minutes)
+
+	var maxima *time.Time = nil
+
+	d := *transit.Rise
+
+	for i := range horizontalCoordinates {
+		// Get the current horizontal position of the object:
+		var hz HorizontalCoordinate = ConvertEquatorialCoordinateToHorizontal(d, longitude, latitude, eq)
+
+		horizontalCoordinates[i] = TransitHorizontalCoordinate{
+			Datetime: d,
+			Altitude: hz.Altitude,
+			Azimuth:  hz.Azimuth,
+		}
+
+		d = d.Add(time.Minute)
+
+		// Since our object's initial direction is rising, we can assume the following comparison:
+		if (i > 0) && (horizontalCoordinates[i].Altitude < horizontalCoordinates[i-1].Altitude) {
+			maxima = &horizontalCoordinates[i-1].Datetime
+			break
+		}
+	}
+
+	return maxima, nil
+}

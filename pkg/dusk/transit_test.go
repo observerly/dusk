@@ -122,3 +122,38 @@ func TestGetObjectRiseObjectSetTimesChapter5Exercise2(t *testing.T) {
 		t.Errorf("got %v, wanted %v", *got.Set, set)
 	}
 }
+
+func TestGetObjectTransitMaximaTime(t *testing.T) {
+	var datetime time.Time = time.Date(2015, 6, 6, 0, 0, 0, 0, time.UTC)
+
+	transit, err := GetObjectRiseObjectSetTimes(datetime, EquatorialCoordinate{RightAscension: 243.675000, Declination: 25.9613889}, 38.250132, -78.300288)
+
+	if err != nil {
+		t.Errorf("got %v, wanted nil", err)
+	}
+
+	got, err := GetObjectTransitMaximaTime(datetime, EquatorialCoordinate{RightAscension: 243.675000, Declination: 25.9613889}, 38.250132, -78.300288)
+
+	if err != nil {
+		t.Errorf("got %v, wanted nil", err)
+	}
+
+	if got.Before(*transit.Rise) || got.After(*transit.Set) {
+		t.Errorf("maxima time must be between rise and set")
+	}
+}
+
+func TestGetObjectTransitMaximaTimeNoRiseNoSet(t *testing.T) {
+	var datetime time.Time = time.Date(2015, 6, 6, 0, 0, 0, 0, time.UTC)
+
+	got, err := GetObjectTransitMaximaTime(datetime, EquatorialCoordinate{RightAscension: 90, Declination: -60}, 45.250132, -100.300288)
+
+	if err != nil {
+		t.Errorf("got %v, wanted nil", err)
+	}
+
+	if got != nil {
+		t.Errorf("got %v, but expected the object to never reach a maxima above the horizon for the given paramaters", got)
+	}
+
+}
