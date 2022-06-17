@@ -212,6 +212,30 @@ func TestGetObjectTransit(t *testing.T) {
 	}
 }
 
+func TestGetObjectTransitForBetelgeuseAtHonolulu(t *testing.T) {
+	// timezone, _ := time.LoadLocation("Pacific/Honolulu")
+
+	var datetime time.Time = time.Date(2022, 5, 14, 0, 0, 0, 0, time.UTC)
+
+	got, err := GetObjectTransit(datetime, EquatorialCoordinate{RightAscension: 88.7929583, Declination: 7.4070639}, 19.798484, -155.300288)
+
+	if err != nil {
+		t.Errorf("got %v, wanted nil", err)
+	}
+
+	if got.Rise.After(*got.Set) {
+		t.Errorf("the object must rise before it sets")
+	}
+
+	if got.Maximum == nil {
+		t.Errorf("got %v, wanted a maxima time", got)
+	}
+
+	if got.Maximum.Before(*got.Rise) || got.Maximum.After(*got.Set) {
+		t.Errorf("maxima time must be between rise and set")
+	}
+}
+
 func TestGetObjectTransitNoRiseNoSetNoMaximum(t *testing.T) {
 	var datetime time.Time = time.Date(2015, 6, 6, 0, 0, 0, 0, time.UTC)
 

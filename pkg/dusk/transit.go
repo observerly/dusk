@@ -303,7 +303,6 @@ func GetObjectTransit(datetime time.Time, eq EquatorialCoordinate, latitude floa
 		// Since our object's initial direction is rising, we can assume the following comparison:
 		if (i > 0) && (horizontalCoordinates[i].Altitude < horizontalCoordinates[i-1].Altitude) {
 			transit.Maximum = &horizontalCoordinates[i-1].Datetime
-			break
 		}
 	}
 
