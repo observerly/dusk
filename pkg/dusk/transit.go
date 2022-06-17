@@ -119,8 +119,9 @@ func GetObjectRiseObjectSetTimesInUTC(datetime time.Time, eq EquatorialCoordinat
 func GetObjectRiseObjectSetTimes(datetime time.Time, eq EquatorialCoordinate, latitude float64, longitude float64) (*Transit, error) {
 	if !GetDoesObjectRiseOrSet(eq, latitude) {
 		return &Transit{
-			Rise: nil,
-			Set:  nil,
+			Rise:     nil,
+			Set:      nil,
+			Duration: 0,
 		}, nil
 	}
 
