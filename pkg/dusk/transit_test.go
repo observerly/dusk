@@ -66,7 +66,7 @@ func TestGetObjectRiseObjectSetTimesInUTCLawrenceChapter5Exercise2(t *testing.T)
 
 	var rise = time.Date(2015, 6, 6, 20, 57, 48, 562000000, time.UTC)
 
-	var set = time.Date(2015, 6, 6, 11, 59, 51, 410000000, time.UTC)
+	var set = time.Date(2015, 6, 7, 11, 55, 55, 501000000, time.UTC)
 
 	if got.Rise.String() != rise.String() {
 		t.Errorf("got %v, wanted %v", *got.Rise, rise)
@@ -108,7 +108,11 @@ func TestGetObjectRiseObjectSetTimesChapter5Exercise2(t *testing.T) {
 
 	var rise = time.Date(2015, 6, 6, 16, 57, 48, 562000000, timezone)
 
-	var set = time.Date(2015, 6, 6, 7, 59, 51, 410000000, timezone)
+	var set = time.Date(2015, 6, 7, 7, 55, 55, 501000000, timezone)
+
+	if rise.After(set) {
+		t.Errorf("the object must rise before it sets")
+	}
 
 	if got.Rise.String() != rise.String() {
 		t.Errorf("got %v, wanted %v", *got.Rise, rise)
