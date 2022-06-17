@@ -45,6 +45,24 @@ func TestGetDoesObjectRiseOrSetArcturusSouthernHemisphere(t *testing.T) {
 	}
 }
 
+func TestGetObjectHorizontalCoordinatesForDay(t *testing.T) {
+	var datetime time.Time = time.Date(2022, 5, 14, 0, 0, 0, 0, time.UTC)
+
+	var got, err = GetObjectHorizontalCoordinatesForDay(datetime, EquatorialCoordinate{RightAscension: 88.7929583, Declination: 7.4070639}, -155.468094, 19.798484)
+
+	if err != nil {
+		t.Errorf("got %q", err)
+	}
+
+	if got[518].Datetime.String() == "2022-05-14 08:37:00 -1000 HST" && !got[860].IsRise {
+		t.Errorf("We're expecting Betelgeuse to rise at 8:37am on 14th May 2022")
+	}
+
+	if got[1257].Datetime.String() == "2022-05-14 20:56:00 -1000 HST" && !got[135].IsSet {
+		t.Errorf("We're expecting Betelgeuse to set at 8:56pm on 14th May 2022")
+	}
+}
+
 func TestGetObjectRiseObjectSetTimesInUTCLawrenceChapter5Exercise1(t *testing.T) {
 	var datetime time.Time = time.Date(2015, 6, 6, 0, 0, 0, 0, time.UTC)
 
