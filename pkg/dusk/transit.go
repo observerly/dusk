@@ -30,7 +30,7 @@ func GetDoesObjectRiseOrSet(eq EquatorialCoordinate, latitude float64) bool {
 }
 
 /*
-	GetObjectRiseObjectSetTimesInUTC()
+	GetObjectRiseObjectSetTimesInUTCForDay()
 
 	@param datetime - the time to calculate the rise and set times for
 	@param eq - the EquatorialCoordinate{} of the object to calculate the rise and set times for
@@ -38,7 +38,7 @@ func GetDoesObjectRiseOrSet(eq EquatorialCoordinate, latitude float64) bool {
 	@param longitude - the longitude of the observer
 	@returns a Transit struct which contains the rise and set times of the object in UTC
 */
-func GetObjectRiseObjectSetTimesInUTC(datetime time.Time, eq EquatorialCoordinate, latitude float64, longitude float64) Transit {
+func GetObjectRiseObjectSetTimesInUTCForDay(datetime time.Time, eq EquatorialCoordinate, latitude float64, longitude float64) Transit {
 	if !GetDoesObjectRiseOrSet(eq, latitude) {
 		return Transit{
 			Rise:     nil,
@@ -71,6 +71,39 @@ func GetObjectRiseObjectSetTimesInUTC(datetime time.Time, eq EquatorialCoordinat
 		Rise:     &rise,
 		Set:      &set,
 		Duration: rise.Sub(set),
+	}
+}
+
+/*
+	GetObjectRiseObjectSetTimesInUTC()
+
+	@param datetime - the time to calculate the rise and set times for
+	@param eq - the EquatorialCoordinate{} of the object to calculate the rise and set times for
+	@param latitude - the latitude of the observer
+	@param longitude - the longitude of the observer
+	@returns a Transit struct which contains the rise and set times of the object in UTC
+*/
+func GetObjectRiseObjectSetTimesInUTC(datetime time.Time, eq EquatorialCoordinate, latitude float64, longitude float64) Transit {
+	if !GetDoesObjectRiseOrSet(eq, latitude) {
+		return Transit{
+			Rise:     nil,
+			Set:      nil,
+			Duration: 0,
+		}
+	}
+
+	transit := GetObjectRiseObjectSetTimesInUTCForDay(datetime, eq, latitude, longitude)
+
+	// We need to ensure that if the transit rise is before the transit set,
+	if transit.Rise != nil && transit.Set.Before(*transit.Rise) {
+		tomorrow := GetObjectRiseObjectSetTimesInUTCForDay(datetime.Add(time.Hour*24), eq, latitude, longitude)
+		transit.Set = tomorrow.Set
+	}
+
+	return Transit{
+		Rise:     transit.Rise,
+		Set:      transit.Set,
+		Duration: transit.Rise.Sub(*transit.Set),
 	}
 }
 
