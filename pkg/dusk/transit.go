@@ -48,6 +48,8 @@ func GetObjectRiseObjectSetTimesInUTCForDay(datetime time.Time, eq EquatorialCoo
 		}
 	}
 
+	var d = time.Date(datetime.Year(), datetime.Month(), datetime.Day(), 0, 0, 0, 0, time.UTC)
+
 	// see p.117 of Lawrence, J.L. 2015. Celestial Calculations - A Gentle Introduction To Computational Astronomy. Cambridge, Ma: The MIT Press
 	LSTr := 24 + eq.RightAscension/15 - GetArgumentOfLocalSiderealTimeForTransit(latitude, eq.Declination)/15
 
@@ -56,17 +58,17 @@ func GetObjectRiseObjectSetTimesInUTCForDay(datetime time.Time, eq EquatorialCoo
 	UTr := ConvertGreenwhichSiderealTimeToUniversalTime(datetime, GSTr)
 
 	// for highest accuracy, convert hours to milliseconds to add:
-	rise := datetime.Add(time.Duration(UTr*3600000) * time.Millisecond)
+	rise := d.Add(time.Duration(UTr*3600000) * time.Millisecond)
 
 	// see p.117 of Lawrence, J.L. 2015. Celestial Calculations - A Gentle Introduction To Computational Astronomy. Cambridge, Ma: The MIT Press
 	LSTs := eq.RightAscension/15 + GetArgumentOfLocalSiderealTimeForTransit(latitude, eq.Declination)/15
 
 	GSTs := ConvertLocalSiderealTimeToGreenwhichSiderealTime(LSTs, longitude)
 
-	UTs := ConvertGreenwhichSiderealTimeToUniversalTime(datetime, GSTs)
+	UTs := ConvertGreenwhichSiderealTimeToUniversalTime(d, GSTs)
 
 	// for highest accuracy, convert hours to milliseconds to add:
-	set := datetime.Add(time.Duration(UTs*3600000) * time.Millisecond)
+	set := d.Add(time.Duration(UTs*3600000) * time.Millisecond)
 
 	return Transit{
 		Rise:     &rise,
