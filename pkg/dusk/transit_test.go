@@ -54,6 +54,14 @@ func TestGetObjectHorizontalCoordinatesForDay(t *testing.T) {
 		t.Errorf("got %q", err)
 	}
 
+	if got[0].Datetime.String() != "2022-05-14 00:00:00 -1000 HST" {
+		t.Errorf("got %v, wanted %v", got[0].Datetime, "2022-05-14 00:00:00 -1000 HST")
+	}
+
+	if got[1439].Datetime.String() != "2022-05-14 23:59:00 -1000 HST" {
+		t.Errorf("got %v, wanted %v", got[1439].Datetime, "2022-05-14 23:59:00 -1000 HST")
+	}
+
 	if got[517].Datetime.String() != "2022-05-14 08:37:00 -1000 HST" && !got[517].IsRise {
 		t.Errorf("We're expecting Betelgeuse to rise at 8:37am on 14th May 2022")
 	}
