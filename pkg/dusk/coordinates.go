@@ -8,86 +8,86 @@ type Coordinate struct {
 	/*
 		ϕ - the latitude in degrees, e.g., altitude, latitude, declination
 	*/
-	Latitude float64
+	Latitude float64 `json:"latitude"`
 	/*
 		θ - the longitude in degrees, e.g., azimuth, right ascension, longitude
 	*/
-	Longitude float64
+	Longitude float64 `json:"longitude"`
 }
 
 type EquatorialCoordinate struct {
 	/*
 		Right Ascension - the right ascension in degrees
 	*/
-	RightAscension float64
+	RightAscension float64 `json:"ra"`
 	/*
 		Declination - the declination in degrees
 	*/
-	Declination float64
+	Declination float64 `json:"dec"`
 }
 
 type EclipticCoordinate struct {
 	/*
 		Longitude - the longitude in degrees
 	*/
-	Longitude float64
+	Longitude float64 `json:"longitude"`
 	/*
 		Latitude - the latitude in degrees
 	*/
-	Latitude float64
+	Latitude float64 `json:"latitude"`
 	/*
 		Distance - the distance in km
 	*/
-	Δ float64
+	Δ float64 `json:"distance"`
 }
 
 type HorizontalCoordinate struct {
 	/*
 		altitude (a) or elevation
 	*/
-	Altitude float64
+	Altitude float64 `json:"altitude"`
 	/*
 		azimuth (A) or elevation
 	*/
-	Azimuth float64
+	Azimuth float64 `json:"azimuth"`
 }
 
 type TemporalHorizontalCoordinate struct {
 	/*
 		datetime of horizontal observation
 	*/
-	Datetime time.Time
+	Datetime time.Time `json:"datetime"`
 	/*
 		altitude (a) or elevation
 	*/
-	Altitude float64
+	Altitude float64 `json:"altitude"`
 	/*
 		azimuth (A) or elevation
 	*/
-	Azimuth float64
+	Azimuth float64 `json:"azimuth"`
 }
 
 type TransitHorizontalCoordinate struct {
 	/*
 		datetime of horizontal observation
 	*/
-	Datetime time.Time
+	Datetime time.Time `json:"datetime"`
 	/*
 		altitude (a) or elevation
 	*/
-	Altitude float64
+	Altitude float64 `json:"altitude"`
 	/*
 		azimuth (A) or elevation
 	*/
-	Azimuth float64
+	Azimuth float64 `json:"azimuth"`
 	/*
 		Is this particular a Moon rise?
 	*/
-	IsRise bool
+	IsRise bool `json:"isRise"`
 	/*
 		Is this particular a Moon set?
 	*/
-	IsSet bool
+	IsSet bool `json:"isSet"`
 }
 
 /*
