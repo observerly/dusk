@@ -99,69 +99,93 @@ func TestGetArgumentOfLocalSiderealTime(t *testing.T) {
 func TestGetAtmosphericRefraction(t *testing.T) {
 	var hz HorizontalCoordinate = ConvertEquatorialCoordinateToHorizontal(datetime, longitude, latitude, EquatorialCoordinate{RightAscension: 88.7929583, Declination: 7.4070639})
 
-	var got float64 = GetAtmosphericRefraction(hz.Altitude)
+	got := GetAtmosphericRefraction(hz.Altitude)
 
 	var want float64 = 0.005219
 
-	if math.Abs(got-want) > 0.00001 {
-		t.Errorf("got %f, wanted %f", got, want)
+	if math.Abs(*got-want) > 0.00001 {
+		t.Errorf("got %f, wanted %f", *got, want)
 	}
 
-	if got < 0 || got > 1.0 {
+	if *got < 0 || *got > 1.0 {
 		t.Errorf("The atmospheric refraction must be between 0.0 and 0.5")
+	}
+}
+
+func TestGetAtmosphericRefractionBelowHorizon(t *testing.T) {
+	got := GetAtmosphericRefraction(-45)
+
+	if got != nil {
+		t.Errorf("The atmospheric refraction must be nil below the observer's horizon")
 	}
 }
 
 func TestGetRelativeAirMass(t *testing.T) {
 	var hz HorizontalCoordinate = ConvertEquatorialCoordinateToHorizontal(datetime, longitude, latitude, EquatorialCoordinate{RightAscension: 88.7929583, Declination: 7.4070639})
 
-	var got float64 = GetRelativeAirMass(hz.Altitude)
+	got := GetRelativeAirMass(hz.Altitude)
 
 	var want float64 = 1.046558
 
-	if math.Abs(got-want) > 0.00001 {
-		t.Errorf("got %f, wanted %f", got, want)
+	if math.Abs(*got-want) > 0.00001 {
+		t.Errorf("got %f, wanted %f", *got, want)
 	}
 
-	if got < 1 || got > 40.0 {
+	if *got < 1 || *got > 40.0 {
 		t.Errorf("The relative air mass must be a value bewteen 1 and approx. 40 at the observer's horizon")
 	}
 }
 
 func TestGetRelativeAirMassAtZenith(t *testing.T) {
-	var got float64 = GetRelativeAirMass(90)
+	got := GetRelativeAirMass(90)
 
 	var want float64 = 1.0
 
-	if math.Abs(got-want) > 0.00001 {
-		t.Errorf("got %f, wanted %f", got, want)
+	if math.Abs(*got-want) > 0.00001 {
+		t.Errorf("got %f, wanted %f", *got, want)
 	}
 
-	if got < 1 || got > 40.0 {
+	if *got < 1 || *got > 40.0 {
 		t.Errorf("The relative air mass must be a value bewteen 1 and approx. 40 at the observer's horizon")
 	}
 }
 
 func TestGetRelativeAirMassAtHorizon(t *testing.T) {
-	var got float64 = GetRelativeAirMass(0)
+	got := GetRelativeAirMass(0)
 
 	var want float64 = 38
 
-	if math.Abs(got-want) > 2 {
+	if math.Abs(*got-want) > 2 {
 		t.Errorf("The relative air mass must be approximately ~37 - 39 at the observer's horizon")
 	}
 
-	if got < 1 || got > 40.0 {
+	if *got < 1 || *got > 40.0 {
 		t.Errorf("The relative air mass must be a value bewteen 1 and approx. 40 at the observer's horizon")
+	}
+}
+
+func TestGetRelativeAirMassBelowHorizon(t *testing.T) {
+	got := GetRelativeAirMass(-1)
+
+	if got != nil {
+		t.Errorf("The relative air mass must be nil below the observer's horizon")
 	}
 }
 
 func TestGetApparentAltitude(t *testing.T) {
 	var hz HorizontalCoordinate = ConvertEquatorialCoordinateToHorizontal(datetime, longitude, latitude, EquatorialCoordinate{RightAscension: 88.7929583, Declination: 7.4070639})
 
-	var got float64 = GetApparentAltitude(hz.Altitude)
+	got := GetApparentAltitude(hz.Altitude)
 
-	if math.Abs(got-hz.Altitude) > 0.0053 {
-		t.Errorf("got %f, wanted %f", got, hz.Altitude)
+	if math.Abs(*got-hz.Altitude) > 0.0053 {
+		t.Errorf("got %f, wanted %f", *got, hz.Altitude)
+	}
+}
+
+func TestGetApparentAltitudeBelowHorizon(t *testing.T) {
+	got := GetApparentAltitude(-45)
+
+	if got != nil {
+		t.Errorf("The apparent altitude must have no adjustment below the observer's horizon")
 	}
 }

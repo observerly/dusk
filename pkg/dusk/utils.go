@@ -80,8 +80,14 @@ func GetArgumentOfLocalSiderealTimeForTransit(latitude float64, δ float64) floa
 	@returns the atmospheric refraction in degrees for all angles from 0° - 90°
 	@see p.106 of Meeus, Jean. 1991. Astronomical algorithms. Richmond, Va: Willmann-Bell.
 */
-func GetAtmosphericRefraction(altitude float64) float64 {
-	return (1.02 / tanx(altitude+(10.3/(altitude+5.11)))) / 60
+func GetAtmosphericRefraction(altitude float64) *float64 {
+	if altitude < 0 {
+		return nil
+	}
+
+	R := (1.02 / tanx(altitude+(10.3/(altitude+5.11)))) / 60
+
+	return &R
 }
 
 /*
@@ -90,8 +96,14 @@ func GetAtmosphericRefraction(altitude float64) float64 {
 	@param altitude - is the altitude of the object in degrees
 	@returns the relative air mass, the ratio of absolute air masses (as defined above) at oblique incidence relative to that at zenith.
 */
-func GetRelativeAirMass(altitude float64) float64 {
-	return 1 / sinx(altitude+(244/(165+47*math.Pow(altitude, 1.1))))
+func GetRelativeAirMass(altitude float64) *float64 {
+	if altitude < 0 {
+		return nil
+	}
+
+	X := 1 / sinx(altitude+(244/(165+47*math.Pow(altitude, 1.1))))
+
+	return &X
 }
 
 /*
@@ -100,7 +112,14 @@ func GetRelativeAirMass(altitude float64) float64 {
 	@param altitude - is the altitude of the object in degrees
 	@returns the apparent altitude in degrees
 */
-func GetApparentAltitude(altitude float64) float64 {
+func GetApparentAltitude(altitude float64) *float64 {
+	if altitude < 0 {
+		return nil
+	}
+
 	R := GetAtmosphericRefraction(altitude)
-	return altitude + R
+
+	app := altitude + *R
+
+	return &app
 }
