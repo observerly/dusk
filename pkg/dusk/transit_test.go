@@ -178,10 +178,9 @@ func TestGetObjectTransitMaximaTimeNoRiseNoSet(t *testing.T) {
 		t.Errorf("got %v, wanted nil", err)
 	}
 
-	if got != nil {
-		t.Errorf("got %v, but expected the object to never reach a maxima above the horizon for the given paramaters", got)
+	if got == nil {
+		t.Errorf("expected the object to reach a maxima for the given paramaters")
 	}
-
 }
 
 func TestGetObjectTransit(t *testing.T) {
