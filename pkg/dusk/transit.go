@@ -15,10 +15,10 @@ type Transit struct {
 }
 
 /*
-  GetDoesObjectRiseOrSet()
+GetDoesObjectRiseOrSet()
 
-  @returns a boolean which determines if the object's EquatorialCoordinate{} in question rises or sets for the given Observer's latitude
-  @see p.117 of Lawrence, J.L. 2015. Celestial Calculations - A Gentle Introduction To Computational Astronomy. Cambridge, Ma: The MIT Press
+@returns a boolean which determines if the object's EquatorialCoordinate{} in question rises or sets for the given Observer's latitude
+@see p.117 of Lawrence, J.L. 2015. Celestial Calculations - A Gentle Introduction To Computational Astronomy. Cambridge, Ma: The MIT Press
 */
 func GetDoesObjectRiseOrSet(eq EquatorialCoordinate, latitude float64) bool {
 	// If |Ar| > 1, the object never rises above the horizon
@@ -31,13 +31,13 @@ func GetDoesObjectRiseOrSet(eq EquatorialCoordinate, latitude float64) bool {
 }
 
 /*
-	GetObjectRiseObjectSetTimesInUTCForDay()
+GetObjectRiseObjectSetTimesInUTCForDay()
 
-	@param datetime - the time to calculate the rise and set times for
-	@param eq - the EquatorialCoordinate{} of the object to calculate the rise and set times for
-	@param latitude - the latitude of the observer
-	@param longitude - the longitude of the observer
-	@returns a Transit struct which contains the rise and set times of the object in UTC
+@param datetime - the time to calculate the rise and set times for
+@param eq - the EquatorialCoordinate{} of the object to calculate the rise and set times for
+@param latitude - the latitude of the observer
+@param longitude - the longitude of the observer
+@returns a Transit struct which contains the rise and set times of the object in UTC
 */
 func GetObjectRiseObjectSetTimesInUTCForDay(datetime time.Time, eq EquatorialCoordinate, latitude float64, longitude float64) Transit {
 	if !GetDoesObjectRiseOrSet(eq, latitude) {
@@ -78,13 +78,13 @@ func GetObjectRiseObjectSetTimesInUTCForDay(datetime time.Time, eq EquatorialCoo
 }
 
 /*
-	GetObjectHorizontalCoordinatesForDay()
+GetObjectHorizontalCoordinatesForDay()
 
-	@param datetime - the datetime of the observer (in UTC)
-	@params eq - the EquatorialCoordinate{} of the object to calculate the rise and set times for
-	@param longitude - is the longitude (west is negative, east is positive) in degrees of some observer on Earth
-	@param latitude - is the latitude (south is negative, north is positive) in degrees of some observer on Earth
-	@returns the horizontal coordinates of the target object for every minute of a given day.
+@param datetime - the datetime of the observer (in UTC)
+@params eq - the EquatorialCoordinate{} of the object to calculate the rise and set times for
+@param longitude - is the longitude (west is negative, east is positive) in degrees of some observer on Earth
+@param latitude - is the latitude (south is negative, north is positive) in degrees of some observer on Earth
+@returns the horizontal coordinates of the target object for every minute of a given day.
 */
 func GetObjectHorizontalCoordinatesForDay(datetime time.Time, eq EquatorialCoordinate, longitude float64, latitude float64) ([]TransitHorizontalCoordinate, error) {
 	// create an empty list of horizontalCoordinate structs:
@@ -132,13 +132,13 @@ func GetObjectHorizontalCoordinatesForDay(datetime time.Time, eq EquatorialCoord
 }
 
 /*
-	GetObjectRiseObjectSetTimesInUTC()
+GetObjectRiseObjectSetTimesInUTC()
 
-	@param datetime - the time to calculate the rise and set times for
-	@param eq - the EquatorialCoordinate{} of the object to calculate the rise and set times for
-	@param latitude - the latitude of the observer
-	@param longitude - the longitude of the observer
-	@returns a Transit struct which contains the rise and set times of the object in UTC
+@param datetime - the time to calculate the rise and set times for
+@param eq - the EquatorialCoordinate{} of the object to calculate the rise and set times for
+@param latitude - the latitude of the observer
+@param longitude - the longitude of the observer
+@returns a Transit struct which contains the rise and set times of the object in UTC
 */
 func GetObjectRiseObjectSetTimesInUTC(datetime time.Time, eq EquatorialCoordinate, latitude float64, longitude float64) Transit {
 	if !GetDoesObjectRiseOrSet(eq, latitude) {
@@ -165,20 +165,20 @@ func GetObjectRiseObjectSetTimesInUTC(datetime time.Time, eq EquatorialCoordinat
 }
 
 /*
-	GetObjectRiseObjectSetTimes()
+GetObjectRiseObjectSetTimes()
 
-	@param datetime - the time to calculate the rise and set times for
-	@param eq - the EquatorialCoordinate{} of the object to calculate the rise and set times for
-	@param latitude - the latitude of the observer
-	@param longitude - the longitude of the observer
-	@returns a Transit struct which contains the rise and set times of the object in local time
+@param datetime - the time to calculate the rise and set times for
+@param eq - the EquatorialCoordinate{} of the object to calculate the rise and set times for
+@param latitude - the latitude of the observer
+@param longitude - the longitude of the observer
+@returns a Transit struct which contains the rise and set times of the object in local time
 */
 func GetObjectRiseObjectSetTimes(datetime time.Time, eq EquatorialCoordinate, latitude float64, longitude float64) (*Transit, error) {
 	if !GetDoesObjectRiseOrSet(eq, latitude) {
 		return &Transit{
 			Rise:     nil,
 			Set:      nil,
-			Duration: 0,
+			Duration: time.Duration(0),
 		}, nil
 	}
 
@@ -206,13 +206,13 @@ func GetObjectRiseObjectSetTimes(datetime time.Time, eq EquatorialCoordinate, la
 }
 
 /*
-	GetObjectTransitMaximaTime()
+GetObjectTransitMaximaTime()
 
-	@param datetime - the time to calculate the rise and set times for
-	@param eq - the EquatorialCoordinate{} of the object to calculate the rise and set times for
-	@param latitude - the latitude of the observer
-	@param longitude - the longitude of the observer
-	@returns a the Transit maxima time of the object in local time
+@param datetime - the time to calculate the rise and set times for
+@param eq - the EquatorialCoordinate{} of the object to calculate the rise and set times for
+@param latitude - the latitude of the observer
+@param longitude - the longitude of the observer
+@returns a the Transit maxima time of the object in local time
 */
 func GetObjectTransitMaximaTime(datetime time.Time, eq EquatorialCoordinate, latitude float64, longitude float64) (*time.Time, error) {
 	transit, err := GetObjectRiseObjectSetTimes(datetime, eq, latitude, longitude)
@@ -221,19 +221,22 @@ func GetObjectTransitMaximaTime(datetime time.Time, eq EquatorialCoordinate, lat
 		return nil, err
 	}
 
-	if transit.Rise == nil && transit.Set == nil {
-		return nil, nil
-	}
-
 	// find the number of minutes between the rise and set times:
-	minutes := int(math.Ceil(math.Abs(transit.Duration.Minutes())))
+	minutes := 1440
+
+	if transit.Duration.Minutes() > 0 {
+		minutes = int(math.Ceil(math.Abs(transit.Duration.Minutes())))
+	}
 
 	// create an empty list of horizontalCoordinate structs:
 	horizontalCoordinates := make([]TransitHorizontalCoordinate, minutes)
 
-	var maxima *time.Time = nil
+	// Start at midnight on for the datetime provided:
+	d := time.Date(datetime.Year(), datetime.Month(), datetime.Day(), 0, 0, 0, 0, datetime.Location())
 
-	d := *transit.Rise
+	if transit.Rise != nil {
+		d = *transit.Rise
+	}
 
 	for i := range horizontalCoordinates {
 		// Get the current horizontal position of the object:
@@ -248,23 +251,32 @@ func GetObjectTransitMaximaTime(datetime time.Time, eq EquatorialCoordinate, lat
 		d = d.Add(time.Minute)
 
 		// Since our object's initial direction is rising, we can assume the following comparison:
-		if (i > 0) && (horizontalCoordinates[i].Altitude < horizontalCoordinates[i-1].Altitude) {
-			maxima = &horizontalCoordinates[i-1].Datetime
-			break
+		// if (i > 0) && (horizontalCoordinates[i].Altitude < horizontalCoordinates[i-1].Altitude) {
+		// 	maxima = &horizontalCoordinates[i-1].Datetime
+		// }
+	}
+
+	// Get the maximum altitude from the list of horizontal coordinates:
+
+	maximum := &horizontalCoordinates[0]
+
+	for i := range horizontalCoordinates {
+		if horizontalCoordinates[i].Altitude > maximum.Altitude {
+			maximum = &horizontalCoordinates[i]
 		}
 	}
 
-	return maxima, nil
+	return &maximum.Datetime, nil
 }
 
 /*
-	GetObjectTransit()
+GetObjectTransit()
 
-	@param datetime - the time to calculate the rise and set times for
-	@param eq - the EquatorialCoordinate{} of the object to calculate the rise and set times for
-	@param latitude - the latitude of the observer
-	@param longitude - the longitude of the observer
-	@returns a Transit struct which contains the rise, maximum and set times of the object in local time
+@param datetime - the time to calculate the rise and set times for
+@param eq - the EquatorialCoordinate{} of the object to calculate the rise and set times for
+@param latitude - the latitude of the observer
+@param longitude - the longitude of the observer
+@returns a Transit struct which contains the rise, maximum and set times of the object in local time
 */
 func GetObjectTransit(datetime time.Time, eq EquatorialCoordinate, latitude float64, longitude float64) (*Transit, error) {
 	transit, err := GetObjectRiseObjectSetTimes(datetime, eq, latitude, longitude)
